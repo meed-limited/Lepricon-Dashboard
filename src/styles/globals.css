@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.modal_title {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/*************************************************************
+                       OVERRIDE ANTD 
+*************************************************************/
+.modalStyle .ant-modal-content {
+    background-image: url("../../public/images/background.png") !important;
+    background-position: top !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}

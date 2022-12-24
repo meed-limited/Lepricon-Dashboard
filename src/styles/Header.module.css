@@ -1,0 +1,14 @@
+.main {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  border-bottom: 1px;
+  border-bottom-color: black;
+  padding: 10px 20px;
+  align-items: center;
+}
+
+.menuItems {
+  background-color: transparent;
+  border-bottom: none;
+}

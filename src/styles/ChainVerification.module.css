@@ -1,0 +1,15 @@
+.content {
+  width: 100%;
+  padding: 8px 0px;
+  background-color: rgb(255, 127, 105);
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.text {
+  padding-inline: 15px;
+  font-weight: 600;
+  font-size: 16px;
+  align-items: center;
+}

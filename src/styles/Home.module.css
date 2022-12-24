@@ -1,0 +1,18 @@
+.main {
+  width: 100%;
+}
+
+.content {
+  background-color: yellow;
+  width: 55%;
+  min-width: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.title {
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+}
