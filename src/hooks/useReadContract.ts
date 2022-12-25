@@ -5,8 +5,8 @@ import { useAccount } from "wagmi";
 
 import { Catcontract } from "../../types/Catcontract";
 import { CatMarketplace } from "../../types/CatMarketplace";
-import { CAT_ABI } from "../data/abis/catContract_abi";
-import { MARKET_ABI } from "../data/abis/marketplace_abi";
+import { CAT_ABI } from "../data/abis/staking_abi";
+import { MARKET_ABI } from "../data/abis/token_abi";
 import { getContractAddresses } from "../data/constant";
 import { useContract } from "./useContract";
 

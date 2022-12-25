@@ -6,7 +6,6 @@ import { useAccount, useDisconnect, useNetwork } from "wagmi";
 
 import { getExplorer } from "../../../utils/getExplorerByChain";
 import Address from "./Address";
-import background from "public/images/background.png";
 import styles from "../../../styles/ConnectButton.module.css";
 
 type DisconnectModalProps = {
@@ -21,12 +20,9 @@ const DisconnectModal: FC<DisconnectModalProps> = ({ isOpen, onClose }) => {
 
     const disconnectWallet = async () => {
         disconnect();
-        onClose(false);
         localStorage.removeItem("connectorId");
-        window.location.reload();
+        onClose(false);
     };
-
-    console.log(background);
 
     return (
         <Modal
@@ -38,7 +34,6 @@ const DisconnectModal: FC<DisconnectModalProps> = ({ isOpen, onClose }) => {
                 width: "350px",
                 fontSize: "17px",
                 fontWeight: "500",
-                padding: "0",
             }}
             style={{ display: "flex", justifyContent: "center" }}
         >

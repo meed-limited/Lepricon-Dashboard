@@ -12,3 +12,10 @@ type ConnectModalProps = {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
+
+interface Web3Data {
+    userBalances: React.SetStateAction<UserBalances> | undefined;
+    userNFTs: React.SetStateAction<Nfts | undefined>;
+    stakes: StakingSummaryStructWithStatus | undefined;
+    syncWeb3: () => void;
+}

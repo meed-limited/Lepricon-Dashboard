@@ -16,13 +16,11 @@ const ConnectModal: FC<ConnectModalProps> = ({ isOpen, setIsOpen }) => {
         return data[0]?.image.src;
     };
 
-    const handleModal = () => setIsOpen((prev: boolean) => !prev);
-
     return (
         <Modal
             open={isOpen}
             footer={null}
-            onCancel={handleModal}
+            onCancel={() => setIsOpen(false)}
             wrapClassName="modalStyle"
             bodyStyle={{
                 minWidth: "280px",
@@ -43,7 +41,7 @@ const ConnectModal: FC<ConnectModalProps> = ({ isOpen, setIsOpen }) => {
                         disabled={!connector.ready}
                         key={connector.id}
                         onClick={() => {
-                            handleModal;
+                            setIsOpen(false);
                             connect({ connector });
                         }}
                     >

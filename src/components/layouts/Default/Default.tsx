@@ -1,9 +1,8 @@
 import { FC, ReactNode } from "react";
 
 import Head from "next/head";
-import { Layout } from "antd";
 
-import { FooterPage, HeaderPage } from "..";
+import { HeaderPage } from "..";
 import styles from "../../../styles/Default.module.css";
 
 const Default: FC<{ children: ReactNode; pageName: string }> = ({ children, pageName }) => (
@@ -15,7 +14,6 @@ const Default: FC<{ children: ReactNode; pageName: string }> = ({ children, page
         <HeaderPage />
 
         <div className={styles.content}>{children}</div>
-        <FooterPage />
     </div>
 );
 

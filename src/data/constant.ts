@@ -1,29 +1,32 @@
-// export const isProdEnv = process.env.NODE_ENV === "production" ? true : false;
-export const isProdEnv = false; // Bypass Netlify prod deployment
+export const isProdEnv = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? true : false;
 
 export const SUPPORTED_CHAIN = {
     mainnet: 137,
     testnet: 80001,
 };
 
-// Goerli Testnet
-export const CAT_CONTRACT_ADD_TEST = "0x1755308f558C1ec14d54Fd12D0588E626148a679";
-export const MARKETPLACE_CONTRACT_ADD_TEST = "0x3ed18F523e16888eC4D44F6fa25ccD12137605Fa";
+// Production => Polygon
+export const TOKEN = "0x91191A15E778d46255FC9AcD37D028228D97e786";
+export const LEPRICON_NFT = "0x777777b9d283ed394e89d11fa853b1e4f885b3e6"; //ETH
+export const STAKING = "";
 
-// Ethereum Mainnet
-export const CAT_CONTRACT_ADD = "";
-export const MARKETPLACE_CONTRACT_ADD = "";
+// Development => MUmbai
+export const TOKEN_TEST = "0xE413Bfbc963fdB56Fe12A2501aa58cD4913553ef";
+export const LEPRICON_NFT_TEST = "0x777777b9d283ed394e89d11fa853b1e4f885b3e6"; // GOERLI
+export const STAKING_TEST = "0xA7b9A505554eFADa9fFaFb34f4D28c5c3F2A7619";
 
 export const getContractAddresses = () => {
     if (isProdEnv) {
         return {
-            catAddress: CAT_CONTRACT_ADD,
-            marketplaceAddress: MARKETPLACE_CONTRACT_ADD,
+            token: TOKEN,
+            nft: LEPRICON_NFT,
+            staking: STAKING,
         };
     } else
         return {
-            catAddress: CAT_CONTRACT_ADD_TEST,
-            marketplaceAddress: MARKETPLACE_CONTRACT_ADD_TEST,
+            token: TOKEN_TEST,
+            nft: LEPRICON_NFT_TEST,
+            staking: STAKING_TEST,
         };
 };
 

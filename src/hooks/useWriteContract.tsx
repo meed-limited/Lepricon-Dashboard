@@ -7,8 +7,8 @@ import { parseUnits } from "ethers/lib/utils.js";
 
 import { Catcontract } from "../../types/Catcontract";
 import { CatMarketplace } from "../../types/CatMarketplace";
-import { CAT_ABI } from "../data/abis/catContract_abi";
-import { MARKET_ABI } from "../data/abis/marketplace_abi";
+import { CAT_ABI } from "../data/abis/staking_abi";
+import { MARKET_ABI } from "../data/abis/token_abi";
 import { getContractAddresses } from "../data/constant";
 import { getExplorer } from "../utils/getExplorerByChain";
 import { useContract } from "./useContract";

@@ -33,7 +33,7 @@ const HeaderPage = () => {
         getItem(<Link href="/staking">Staking</Link>, "staking"),
         getItem(<Link href="/pool">Pool</Link>, "pool"),
         getItem(
-            <Link href="https://superultra.io/" target="_blank" rel="noreferrer">
+            <Link href="https://lepricon.io/" target="_blank" rel="noreferrer">
                 Support
             </Link>,
             "support"
