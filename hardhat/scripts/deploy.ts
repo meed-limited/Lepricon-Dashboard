@@ -1,21 +1,21 @@
 import hre, { ethers } from "hardhat";
 import fs from "fs";
 
-const IS_PRODUCTION = process.env.NODE_ENV;
-const token = IS_PRODUCTION ? process.env.L3P_TOKEN : process.env.TEST_TOKEN;
+const isProdEnv = process.env.NODE_ENV === "development" ? false : true;
+const token = isProdEnv ? process.env.TOKEN : process.env.TOKEN_TEST;
 
 async function main() {
     const LepriconStaking = await ethers.getContractFactory("LepriconStaking");
-    const lepricon_Staking = await LepriconStaking.deploy(token);
+    const lepricon_Staking = await LepriconStaking.deploy(token!);
     await lepricon_Staking.deployed();
 
     console.log("\n");
     console.log("LepriconStaking deployed to: ", lepricon_Staking.address);
     console.log("\n");
 
-    // Get GameContract ABI
+    // Get Staking Contract ABI
     const abiFile = JSON.parse(
-        fs.readFileSync("./Hardhat/artifacts/contracts/LepriconStaking.sol/LepriconStaking.json", "utf8")
+        fs.readFileSync("./artifacts/contracts/LepriconStaking.sol/LepriconStaking.json", "utf8")
     );
     const abi = JSON.stringify(abiFile.abi);
 
