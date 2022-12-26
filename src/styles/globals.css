@@ -24,6 +24,15 @@ a {
     font-size: 20px;
 }
 
+.container {
+    width: 95%;
+    margin-bottom: 30px;
+    padding: 20px;
+    border: solid #75e287 1px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+}
+
 /*************************************************************
                        OVERRIDE ANTD 
 *************************************************************/

@@ -4,24 +4,35 @@ import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Moralis from "moralis";
 import { useAccount } from "wagmi";
 
-// import { Nfts, StakingSummaryStructWithStatus, UserBalances, Web3Data } from "../../custom-types";
-import { getContractAddresses, isProdEnv, LPR_TOKEN, TOKEN_TEST } from "../data/constants";
 import useReadContract from "../hooks/useReadContract";
-import { getStakeStatus } from "../utils/getStakeStatus";
+import { getContractAddresses, isProdEnv } from "../data/constant";
+import { LepriconStaking } from "../../hardhat/typechain-types";
 
 export const useWeb3Data = (): Web3Data => {
-    const { getCurrentStakes } = useReadContract();
-    const [userBalances, setUserBalances] = useState<React.SetStateAction<UserBalances>>();
-    const [userNFTs, setUserNFTs] = useState<React.SetStateAction<Nfts | undefined>>();
-    const [stakes, setStakes] = useState<StakingSummaryStructWithStatus>();
     const { address } = useAccount();
-    const account = address;
-    const addresses = getContractAddresses();
+    const { nft } = getContractAddresses();
+    const { getTokenName, getTokenBalance, getStakes, getBoost } = useReadContract();
 
-    const MORALIS_API_KEY = process.env.REACT_APP_MORALIS_API_KEY;
+    const [tokenName, setTokenName] = useState<string>("");
 
-    const fetchWeb3Data = async () => {
-        const moralisChain = isProdEnv ? EvmChain.POLYGON : EvmChain.MUMBAI;
+    const [balances, setBalances] = useState<React.SetStateAction<UserBalances>>();
+    const [stakeSummary, setStakeSummary] = useState<LepriconStaking.StakingSummaryStructOutput>();
+    const [boostStatus, setBoostStatus] = useState<BoostStatus>();
+    const [userNFTs, setUserNFTs] = useState<React.SetStateAction<Nfts | undefined>>();
+
+    const fetchGlobalData = async () => {
+        const name = await getTokenName();
+        setTokenName(name);
+    };
+
+    useEffect(() => {
+        fetchGlobalData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const fetchMoralisData = async () => {
+        const MORALIS_API_KEY = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
+        const moralisChain = isProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
 
         // Start Moralis
         if (!Moralis.Core.isStarted) {
@@ -30,58 +41,60 @@ export const useWeb3Data = (): Web3Data => {
             });
         }
 
-        // Fetch user NFTs
-        if (account) {
-            const skins_NFT = await Moralis.EvmApi.nft.getWalletNFTs({
-                address: account,
+        if (address) {
+            // Fetch user NFTs
+            const tx = await Moralis.EvmApi.nft.getWalletNFTs({
+                address: address,
                 chain: moralisChain,
-                tokenAddresses: [addresses.nft],
+                tokenAddresses: [nft],
             });
-            const skins = { result: skins_NFT.raw.result, total: skins_NFT.raw.total };
-            setUserNFTs(skins);
+            const userNfts = { result: tx.raw.result, total: tx.raw.total };
+            setUserNFTs(userNfts);
 
             // Fetch user native's balance
             const response_Native = await Moralis.EvmApi.balance.getNativeBalance({
-                address: account,
+                address: address,
                 chain: moralisChain,
             });
 
-            // Fetch user LPR's balance
-            const response_LPR = await Moralis.EvmApi.token.getWalletTokenBalances({
-                address: account,
-                chain: moralisChain,
-                tokenAddresses: isProdEnv ? [LPR_TOKEN] : [TOKEN_TEST],
-            });
+            // Fetch user token's balance
+            const tokenBalance = await getTokenBalance();
 
-            setUserBalances({
-                native: { balance: response_Native.raw.balance },
-                token: response_LPR.raw[0],
+            setBalances({
+                native: response_Native.raw.balance,
+                token: tokenBalance,
             });
         }
     };
 
-    const fetchStakes = async () => {
-        const current = await getCurrentStakes(account as string);
-
-        const userStakes = getStakeStatus(current!);
-        setStakes(userStakes);
+    const fetchStakingData = async () => {
+        const stakeData = await getStakes();
+        const boostData = await getBoost();
+        setStakeSummary(stakeData);
+        setBoostStatus(boostData);
     };
 
-    const syncWeb3 = useCallback(async () => {
-        if (account) {
-            await fetchWeb3Data();
-            await fetchStakes();
+    const syncWeb3 = useCallback(() => {
+        if (address) {
+            fetchMoralisData();
+            fetchStakingData();
         }
-    }, [account]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [address]);
 
     useEffect(() => {
-        syncWeb3();
-    }, [account]);
+        if (address) {
+            syncWeb3();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [address]);
 
     return {
-        userBalances,
+        tokenName,
+        balances,
         userNFTs,
-        stakes,
+        stakeSummary,
+        boostStatus,
         syncWeb3,
     };
 };

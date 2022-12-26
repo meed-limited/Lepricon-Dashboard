@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
-
-import { getTokenData } from "../services/backendCall";
+import { URL } from "../data/constant";
 
 export const useCoinmarketcapAPI = () => {
-  const [price, setPrice] = useState<number>();
+    const [price, setPrice] = useState<number>(0);
 
-  useEffect(() => {
     const getPrice = async () => {
-      const res = await getTokenData("symbol=LPR");
-      if (res) {
-        const priceInUsd = res.quote.USD.price;
-        setPrice(priceInUsd);
-      }
+        const res: Response = await fetch(`http://localhost:3000/api/getTokenPrice`);
+        const data = await res.json();
+        if (data.success) {
+            const priceInUsd = data.data.toFixed(4);
+            setPrice(priceInUsd);
+        } else {
+            console.error(data.message);
+            setPrice(0);
+        }
     };
-    getPrice();
-    return;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  return { price };
+    useEffect(() => {
+        getPrice();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [URL]);
+
+    return { price };
 };

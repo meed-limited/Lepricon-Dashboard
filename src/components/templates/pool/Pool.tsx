@@ -1,7 +1,14 @@
 import { FC } from "react";
+import { useCoinmarketcapAPI } from "../../../hooks/useCoinmarketcapAPI";
 
 const Pool: FC = () => {
-    return <>LP staking Coming soon</>;
+    const { price } = useCoinmarketcapAPI();
+    return (
+        <>
+            LP staking Coming soon
+            {price}
+        </>
+    );
 };
 
 export default Pool;

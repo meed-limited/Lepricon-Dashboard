@@ -1,0 +1,211 @@
+/******************************************************
+                    Staking.tsx
+*******************************************************/
+
+.content {
+    width: 80%;
+}
+
+.recap {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainText {
+    display: inline-flex;
+    width: 100%;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.secondaryText {
+    display: inline-flex;
+    width: 100%;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.stakePane {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/******************************************************
+                    StakingAccordeon.tsx
+*******************************************************/
+
+.container {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+    color: black;
+    font-size: 18px;
+    text-align: center;
+    transition: opacity 0.3s ease-out;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.headline {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+
+.leftContent {
+    display: flex;
+    align-items: center;
+    width: 25%;
+    text-align: left;
+    float: left;
+    padding: 15px 20px;
+}
+
+.l3pTimelock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    font-weight: 400;
+    color: rgb(71, 71, 71);
+}
+
+.accordeonItems {
+    display: inline-flex;
+    width: 60%;
+    justify-content: space-around;
+    font-size: 17px;
+}
+
+.accordeonItemsTop {
+    font-weight: 800;
+}
+
+.accordeonItemsSub {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.arrowDown {
+    width: 15%;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.caretDownOutlined {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/******************************************************
+                    ActionPane.tsx
+*******************************************************/
+
+.items {
+    display: flex;
+    flex-direction: column;
+    width: 28%;
+    border: solid #75e287 1px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+    justify-content: space-between;
+    min-width: 270px;
+    height: 150px;
+}
+
+.actionHeader {
+    display: inline-flex;
+    width: 100%;
+    font-size: 17px;
+}
+
+.subItems {
+    display: flex;
+    flex-direction: inline-flex;
+}
+
+.amount {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.amountButton {
+    display: flex;
+    align-content: center;
+    width: 15%;
+    margin-left: 10px;
+}
+
+/******************************************************
+                    StakingAction.tsx
+*******************************************************/
+
+.actionContent {
+    border-top: solid 4px grey;
+    width: 100%;
+}
+
+.dropDown {
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 20px 10px;
+    gap: 20px;
+}
+
+.actionItems {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28%;
+    border: solid #75e287 1px;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+    min-width: 270px;
+    height: 150px;
+}
+
+/******************************************************
+                    NftBoostSelection.tsx
+*******************************************************/
+.box {
+    display: inline-flex;
+    flex-grow: 0;
+    width: 90%;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: white;
+    border-radius: 7px;
+    border: solid #75e287 1px;
+    gap: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+    font-size: 17px;
+}
+.text {
+    color: grey;
+    font-size: 18px;
+}
+
+.removeIcon {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+/******************************************************
+                    Staking.tsx
+*******************************************************/
