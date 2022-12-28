@@ -7,6 +7,7 @@ import { useAccount } from "wagmi";
 import useReadContract from "../hooks/useReadContract";
 import { getContractAddresses, isProdEnv } from "../data/constant";
 import { LepriconStaking } from "../../hardhat/typechain-types";
+import { ethers } from "ethers";
 
 export const useWeb3Data = (): Web3Data => {
     const { address } = useAccount();
@@ -15,10 +16,10 @@ export const useWeb3Data = (): Web3Data => {
 
     const [tokenName, setTokenName] = useState<string>("");
 
-    const [balances, setBalances] = useState<React.SetStateAction<UserBalances>>();
+    const [balances, setBalances] = useState<UserBalances>({ native: "0", token: "0" });
     const [stakeSummary, setStakeSummary] = useState<LepriconStaking.StakingSummaryStructOutput>();
     const [boostStatus, setBoostStatus] = useState<BoostStatus>();
-    const [userNFTs, setUserNFTs] = useState<React.SetStateAction<Nfts | undefined>>();
+    const [userNFTs, setUserNFTs] = useState<Nfts>();
 
     const fetchGlobalData = async () => {
         const name = await getTokenName();
@@ -62,7 +63,7 @@ export const useWeb3Data = (): Web3Data => {
 
             setBalances({
                 native: response_Native.raw.balance,
-                token: tokenBalance,
+                token: ethers.utils.formatEther(tokenBalance),
             });
         }
     };

@@ -5,7 +5,7 @@ import Pool from "../components/templates/pool/Pool";
 
 const PoolPage: NextPage = () => {
     return (
-        <Default pageName="Factory">
+        <Default pageName="Pool">
             <Pool />
         </Default>
     );

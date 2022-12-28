@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { useAccount } from "wagmi";
-import useReadContract from "./useReadContract";
+import useReadContract from "../../../../hooks/useReadContract";
 
-export function usePoolData(pool: string) {
+export const usePoolData = (pool: string) => {
     const { isConnected } = useAccount();
     const { getVaultForTimelock } = useReadContract();
 
@@ -49,4 +49,4 @@ export function usePoolData(pool: string) {
     };
 
     return { text, lock, APR };
-}
+};

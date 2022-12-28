@@ -5,7 +5,7 @@ import Staking from "../components/templates/staking/Staking";
 
 const StakingPage: NextPage = () => {
     return (
-        <Default pageName="Factory">
+        <Default pageName="Staking">
             <Staking />
         </Default>
     );

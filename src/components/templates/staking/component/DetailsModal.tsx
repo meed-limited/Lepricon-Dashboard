@@ -4,13 +4,14 @@ import { useUserData } from "../../../../context/UserContextProvider";
 
 type DetailsModalProps = {
     lock: number;
-    deposited: any;
+    deposited: StakesPerPool;
     open: boolean;
     setVisibility: Dispatch<SetStateAction<boolean>>;
 };
 
 const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibility }) => {
     const { tokenName } = useUserData();
+    const timestamp = Math.floor(Date.now() / 1000);
 
     const formatDate = (timestamp: number) => {
         const intialDate = new Date(timestamp * 1000);
@@ -23,22 +24,11 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
         return formattedDate;
     };
 
-    const getAllDateFromBlock = (deposited: { stakes: { stakes: any[] } }) => {
-        deposited.stakes.stakes.map((stake: { since: any; numberOfDays: number }) => {
-            getDateFromBlock(stake.since).then((res) => {
-                stake.numberOfDays = res;
-            });
-        });
+    const daysFrom = (stake: ParsedStakeStruct) => {
+        return Math.floor((timestamp - Number(stake.since)) / (24 * 3600));
     };
 
-    useEffect(() => {
-        getAllDateFromBlock(deposited);
-        return;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [deposited]);
-
-    const getDateFromBlock = async (since: string) => {
-        const timestamp = Math.floor(Date.now() / 1000);
+    const getDateSince = (since: string) => {
         var date = Number(timestamp) - parseInt(since);
         date = Math.floor(date / (24 * 3600));
         return date;
@@ -50,8 +40,8 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
         } else return `${lock} months lock`;
     };
 
-    const daysLeft = (stake: Stake) => {
-        let left = stake.dayLock - stake?.numberOfDays;
+    const daysLeft = (stake: ParsedStakeStruct) => {
+        let left = stake.dayLock - getDateSince(stake.since);
         if (left > 0) {
             let text = `In ${left} days`;
             return <Tag color="red">{text}</Tag>;
@@ -66,24 +56,24 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
 
     const data =
         deposited.stakes.stakes.length === 0
-            ? []
-            : deposited.stakes.stakes.map(
-                  (stake: { since: any; amount: any; numberOfDays: any; cumulatedReward: number }, id: any) => [
-                      "",
-                      id,
-                      formatDate(stake.since),
-                      `${stake.amount} ${tokenName}`,
-                      stake.numberOfDays,
-                      daysLeft(stake),
-                      `${stake.cumulatedReward.toFixed(3)} ${tokenName}`,
-                  ]
-              );
+            ? undefined
+            : deposited.stakes.stakes.map((stake, id) => {
+                  return {
+                      id: `${stake.index}`,
+                      date: formatDate(Number(stake.since)),
+                      amount: `${stake.amount} ${tokenName}`,
+                      days: daysFrom(stake),
+                      unlock: daysLeft(stake),
+                      rewards: `${stake.cumulatedReward.toFixed(3)} ${tokenName}`,
+                      key: id,
+                  };
+              });
 
     const columns = [
         {
             title: "Staked Id",
-            dataIndex: "date",
-            key: "date",
+            dataIndex: "id",
+            key: "id",
         },
         {
             title: "Staked On",
@@ -120,12 +110,8 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
                 alignItems: "center",
             }}
         >
-            <Modal
-                title={`Stakes details for the ${title(lock)} pool:`}
-                open={open}
-                footer={null}
-                onCancel={handleCancel}
-            >
+            <Modal open={open} footer={null} onCancel={handleCancel} width="600px">
+                <div className="modal_title">{`Stakes details for the ${title(lock)} pool:`}</div>
                 <Table pagination={false} dataSource={data} columns={columns} />
             </Modal>
         </div>

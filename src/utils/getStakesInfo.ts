@@ -1,13 +1,88 @@
 import { LepriconStaking } from "../../hardhat/typechain-types";
 
-export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]) => {
+export const Init_stakesPerPool = {
+    no_lock: {
+        stakes: {
+            stakes: [],
+            total: 0,
+        },
+        reward: {
+            claimable: 0,
+            locked: 0,
+        },
+    },
+    three: {
+        stakes: {
+            stakes: [],
+            total: 0,
+        },
+        reward: {
+            claimable: 0,
+            locked: 0,
+        },
+    },
+    six: {
+        stakes: {
+            stakes: [],
+            total: 0,
+        },
+        reward: {
+            claimable: 0,
+            locked: 0,
+        },
+    },
+    twelve: {
+        stakes: {
+            stakes: [],
+            total: 0,
+        },
+        reward: {
+            claimable: 0,
+            locked: 0,
+        },
+    },
+};
+
+export const init_detailPerUser: DetailPerUser = {
+    stakes_noLock: [],
+    stakes_3months: [],
+    stakes_6months: [],
+    stakes_12months: [],
+    reward: {
+        noLock: {
+            claimable: 0,
+            locked: 0,
+        },
+        threeMonths: {
+            claimable: 0,
+            locked: 0,
+        },
+        sixMonths: {
+            claimable: 0,
+            locked: 0,
+        },
+        twelveMonths: {
+            claimable: 0,
+            locked: 0,
+        },
+        total: {
+            claimable: 0,
+            locked: 0,
+        },
+    },
+};
+
+export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]): DetailPerUser => {
     let detailPerUser: DetailPerUser = {
         stakes_noLock: [],
         stakes_3months: [],
         stakes_6months: [],
         stakes_12months: [],
         reward: {
-            noLock: 0,
+            noLock: {
+                claimable: 0,
+                locked: 0,
+            },
             threeMonths: {
                 claimable: 0,
                 locked: 0,
@@ -29,12 +104,12 @@ export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]) =>
 
     const formattedStakes: FormattedStakeStruct[] = stakes.map((stake: StakeStructOutput) => {
         return {
-            user: stake[0],
-            amount: stake[1],
-            since: stake[2],
-            timeLock: stake[3],
-            unlockTime: stake[4],
-            claimable: stake[5],
+            user: stake.user,
+            amount: stake.amount,
+            since: stake.since,
+            timeLock: stake.timeLock,
+            unlockTime: stake.unlockTime,
+            claimable: stake.claimable,
         };
     });
 
@@ -42,51 +117,43 @@ export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]) =>
         var timelock = Number(formattedStakes[i].timeLock);
         // No-lock pool
         if (timelock === 0) {
-            if (Number(formattedStakes[i].amount) !== 0) {
-                detailPerUser.stakes_noLock.push(sortStake(formattedStakes[i], i));
-                detailPerUser.reward.noLock += Number(formattedStakes[i].claimable) / 10 ** 18;
-            }
+            detailPerUser.stakes_noLock.push(sortStake(formattedStakes[i], i));
+            detailPerUser.reward.noLock.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
 
             // 3 months lock pool
-        } else if (timelock === 7862400) {
-            if (Number(formattedStakes[i].amount) !== 0) {
-                detailPerUser.stakes_3months.push(sortStake(stakes[i], i));
+        } else if (timelock === 3) {
+            detailPerUser.stakes_3months.push(sortStake(stakes[i], i));
 
-                if (formattedStakes[i].unlockTime <= formattedStakes[i].since + formattedStakes[i].timeLock) {
-                    detailPerUser.reward.threeMonths.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
-                } else {
-                    detailPerUser.reward.threeMonths.locked += Number(formattedStakes[i].claimable) / 10 ** 18;
-                }
+            if (formattedStakes[i].unlockTime <= formattedStakes[i].since + formattedStakes[i].timeLock) {
+                detailPerUser.reward.threeMonths.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
+            } else {
+                detailPerUser.reward.threeMonths.locked += Number(formattedStakes[i].claimable) / 10 ** 18;
             }
 
             //6 months lock pool
-        } else if (timelock === 15724800) {
-            if (Number(formattedStakes[i].amount) !== 0) {
-                detailPerUser.stakes_6months.push(sortStake(stakes[i], i));
+        } else if (timelock === 6) {
+            detailPerUser.stakes_6months.push(sortStake(stakes[i], i));
 
-                if (formattedStakes[i].unlockTime <= formattedStakes[i].since + formattedStakes[i].timeLock) {
-                    detailPerUser.reward.sixMonths.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
-                } else {
-                    detailPerUser.reward.sixMonths.locked += Number(formattedStakes[i].claimable) / 10 ** 18;
-                }
+            if (formattedStakes[i].unlockTime <= formattedStakes[i].since + formattedStakes[i].timeLock) {
+                detailPerUser.reward.sixMonths.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
+            } else {
+                detailPerUser.reward.sixMonths.locked += Number(formattedStakes[i].claimable) / 10 ** 18;
             }
 
             // 12 months lock pool
-        } else if (timelock === 31449600) {
-            if (Number(formattedStakes[i].amount) !== 0) {
-                detailPerUser.stakes_12months.push(sortStake(formattedStakes[i], i));
+        } else if (timelock === 12) {
+            detailPerUser.stakes_12months.push(sortStake(formattedStakes[i], i));
 
-                if (formattedStakes[i].unlockTime <= formattedStakes[i].since + formattedStakes[i].timeLock) {
-                    detailPerUser.reward.twelveMonths.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
-                } else {
-                    detailPerUser.reward.twelveMonths.locked += Number(formattedStakes[i].claimable) / 10 ** 18;
-                }
+            if (formattedStakes[i].unlockTime <= formattedStakes[i].since + formattedStakes[i].timeLock) {
+                detailPerUser.reward.twelveMonths.claimable += Number(formattedStakes[i].claimable) / 10 ** 18;
+            } else {
+                detailPerUser.reward.twelveMonths.locked += Number(formattedStakes[i].claimable) / 10 ** 18;
             }
         }
     }
 
     detailPerUser.reward.total.claimable =
-        detailPerUser.reward.noLock +
+        detailPerUser.reward.noLock.claimable +
         detailPerUser.reward.threeMonths.claimable +
         detailPerUser.reward.sixMonths.claimable +
         detailPerUser.reward.twelveMonths.claimable;
@@ -106,11 +173,26 @@ const sortStake = (stake: FormattedStakeStruct, i: number): ParsedStakeStruct =>
         amount: Number(stake.amount / 10 ** 18),
         since: stake.since.toString(),
         timeLock: Number(stake.timeLock),
-        dayLock: Math.floor(Number(stake.timeLock) / (3600 * 24)),
+        dayLock: getDayLock(stake.timeLock),
         unlockTime: Number(stake.unlockTime),
         cumulatedReward: Number(stake.claimable / 10 ** 18),
     };
     return temp;
+};
+
+const getDayLock = (timelock: number) => {
+    switch (timelock) {
+        case 0:
+            return 0;
+        case 3:
+            return 91;
+        case 6:
+            return 182;
+        case 12:
+            return 364;
+        default:
+            return 0;
+    }
 };
 
 export const validStakePerPool = (stake: DetailPerUser, lock: number) => {
@@ -123,7 +205,7 @@ export const validStakePerPool = (stake: DetailPerUser, lock: number) => {
     for (let i = 0; i < temp.length; i++) {
         if (Number(temp[i].amount) !== 0) {
             validStake.stakes.push(temp[i]);
-            validStake.total = validStake.total + temp[i].amount;
+            validStake.total += temp[i].amount;
         }
     }
     return validStake;
@@ -144,7 +226,7 @@ export const stakePerPool = (stake: DetailPerUser, lock: number): ParsedStakeStr
     }
 };
 
-export const rewardPerUser = (stake: DetailPerUser, lock: number): PoolReward => {
+export const rewardPerUser = (stake: DetailPerUser, lock: number): LockedReward => {
     switch (lock) {
         case 0:
             return stake.reward.noLock;

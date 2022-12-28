@@ -21,7 +21,9 @@ function App({ Component, pageProps }: AppProps) {
                 <NextHead>
                     <title>Lepricon App</title>
                 </NextHead>
-                <div className={inter.className}>{mounted && <Component {...pageProps} />}</div>
+                <div className={inter.className} style={{ fontFamily: "Sora, sans-serif" }}>
+                    {mounted && <Component {...pageProps} />}
+                </div>
             </UserDataProvider>
         </WagmiConfig>
     );

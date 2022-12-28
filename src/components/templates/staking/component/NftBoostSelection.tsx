@@ -138,7 +138,7 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited, selectedNFT,
                         DESACTIVATE NFT BOOST
                     </Button>
                 )}
-                {!boostStatus.isBoost && (
+                {!boostStatus?.isBoost && (
                     <div>
                         {!selectedNFT ||
                             (selectedNFT.length === 0 && (
@@ -182,7 +182,6 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited, selectedNFT,
                 )}
             </div>
             <Modal
-                title="Select an NFT to boost your staking yield:"
                 open={visible}
                 footer={null}
                 onCancel={handleCancel}
@@ -191,6 +190,7 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited, selectedNFT,
                     minWidth: "600px",
                 }}
             >
+                <div className="modal_title">Select an NFT to boost your staking yield:</div>
                 <DisplayNFT
                     userNFTs={userNFTs}
                     action={setSelectedNFT}

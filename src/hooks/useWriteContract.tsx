@@ -17,7 +17,6 @@ const useWriteContract = () => {
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
     const nftInstance: any = useContract(nft, NFT_ABI);
-    const [loading, setLoading] = useState<boolean>(false);
 
     /* Set Token Allowance:
      ***************************/
@@ -66,8 +65,7 @@ const useWriteContract = () => {
             const msg = (
                 <>
                     {value} {tokenName} have been successfully staked{" "}
-                    {vault === 0 ? "in the NO-LOCK vault" : `for ${vault}`} month(s).
-                    <br></br>
+                    {vault === 0 ? "in the NO-LOCK vault" : `for ${vault} month(s)`}.<br></br>
                     <a href={link} target="_blank" rel="noreferrer noopener">
                         View in explorer: &nbsp;
                         <FileSearchOutlined style={{ transform: "scale(1.3)", color: "purple" }} />
@@ -113,7 +111,7 @@ const useWriteContract = () => {
         }
     };
 
-    return { approveToken, approveNft, stake, unstake, loading };
+    return { approveToken, approveNft, stake, unstake };
 };
 
 export default useWriteContract;

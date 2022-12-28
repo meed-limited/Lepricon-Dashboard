@@ -1,169 +1,127 @@
 import { FC, useState } from "react";
 import AmountButton from "./AmountButton";
-import { BigNumber } from "ethers";
 // import l3p from "../../../assets/l3p.png";
 import WithdrawSingleModal from "./withdrawSingleModal";
-import { Button, Input } from "antd";
+import { Button, InputNumber } from "antd";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
+import { useStakeAction } from "../hooks/useStakeAction";
+import DetailsModal from "./DetailsModal";
 
 type ActionPaneProps = {
+    id: string;
     title: string;
-    max: number | BigNumber | string;
-    buttonText: string;
-    onAction: () => Promise<void>;
-    value?: number;
-    onMax?: () => void;
-    amount?: (value: string) => void;
-    waitingInModal?: boolean;
-    deposited?: any;
-    onAction2?: (
-        stakeId: any,
-        amount: {
-            toString: () => string;
-        }
-    ) => Promise<void>;
-    lock?: number;
+    max: number | string;
+    lock: number;
+    deposited: StakesPerPool;
 };
 
-const ActionPane: FC<ActionPaneProps> = ({
-    lock,
-    title,
-    waitingInModal,
-    deposited,
-    amount,
-    max,
-    value,
-    onMax,
-    buttonText,
-    onAction,
-    onAction2,
-}) => {
+const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) => {
     const { balances, tokenName } = useUserData();
-    const [visible, setVisibility] = useState(false);
-    const [stakeToWithdrawFrom, setStakeToWithdrawFrom] = useState({});
-    const [amountToWithdraw, setAmountToWithdraw] = useState();
-    const [maxToWithdraw, setMaxToWithdraw] = useState();
+    const { handleStake, withdrawAll } = useStakeAction();
+    const [stakeAmount, setStakeAmount] = useState(0);
+    const [withdrawModal, setWithdrawModal] = useState<boolean>(false);
+    const [detailModal, setDetailModal] = useState<boolean>(false);
 
-    var options = {
-        // id: undefined,
-        label: undefined,
-        value: undefined,
-        // prefix: undefined,
-    };
-
-    const data =
-        deposited?.stakes.stakes.length === 0
-            ? options
-            : deposited?.stakes.stakes.map(
-                  (stake, id) =>
-                      (options = {
-                          // id: id,
-                          label: `Id: ${id} - ${stake.amount} ${tokenName}`,
-                          value: stake.amount,
-                          // prefix: <img src={l3p} alt="l3p logo" width={"40px"} height={"40px"} />,
-                      })
-              );
-
-    const exclude = title === "Wallet Balance" || (title === "Staked" && lock !== 0) ? true : false;
-
-    const selectStakeToWithdraw = (value) => {
-        let temp = {
-            stakeId: value.id,
-            amount: value.amount,
-        };
-        setStakeToWithdrawFrom(temp);
-        setMaxToWithdraw(value.amount);
-    };
-
-    const onChangeWithdrawAmount = (value) => {
-        if (lock !== 0) {
-            if (stakeToWithdrawFrom && stakeToWithdrawFrom.amount > 0) {
-                let maxAmount = stakeToWithdrawFrom.amount;
-                if (parseFloat(value) > parseFloat(maxAmount)) {
-                    setAmountToWithdraw(parseFloat(maxAmount));
-                } else if (parseFloat(value) > 0 && parseFloat(value) <= parseFloat(maxAmount)) {
-                    setAmountToWithdraw(parseFloat(value));
-                } else {
-                    setAmountToWithdraw(0);
-                }
+    const onChangeStakeAmount = (value: number) => {
+        if (Number(balances.token) !== 0) {
+            if (value > parseFloat(balances.token)) {
+                setStakeAmount(parseFloat(balances.token));
+            } else if (value > 0 && value <= parseFloat(balances.token)) {
+                setStakeAmount(value);
+            } else {
+                setStakeAmount(0);
             }
         }
     };
 
-    const onMaxSingle = () => {
-        if (stakeToWithdrawFrom && stakeToWithdrawFrom.amount > 0) {
-            setAmountToWithdraw(stakeToWithdrawFrom.amount);
-        } else setAmountToWithdraw(0);
+    const onStakeMax = () => {
+        setStakeAmount(Math.floor(Number(balances.token)));
     };
 
     return (
-        <>
-            <div className={styles.items}>
-                <div className={styles.actionHeader}>
-                    <div style={{ justifyContent: "space-evenly" }}>{title}</div>
+        <div className={styles.items}>
+            <div className={styles.actionHeader}>
+                <div style={{ justifyContent: id === "details" ? "center" : "space-evenly" }}>{title}</div>
+                {id !== "details" && (
                     <div className={styles.amount}>
-                        <div>
-                            {(1 * max).toFixed(2)} {tokenName}
-                        </div>
+                        {Number(max).toFixed(2)} {tokenName}
                     </div>
-                </div>
-
-                <div className={styles.subItems}>
-                    {title === "Wallet Balance" && (
-                        <>
-                            <div style={{ width: "73%" }}>
-                                <Input
-                                    label={value !== 0 ? "" : "Enter amount"}
-                                    id="input-action"
-                                    onChange={(e) => amount(e.target.value)}
-                                    type="number"
-                                    validation={{
-                                        numberMax: maxToWithdraw ?? 0,
-                                        numberMin: 0,
-                                    }}
-                                    value={value}
-                                />
-                            </div>
-                            <div className={styles.amountButton}>
-                                <AmountButton buttonText={"max"} tokenBalance={balances.token} buttonFunction={onMax} />
-                            </div>
-                        </>
-                    )}
-                    {title === "Staked" && lock === 0 && (
-                        <Button type="primary" id="button-colored-green-action" onClick={() => onAction()}>
-                            {buttonText}
-                        </Button>
-                    )}
-
-                    {title === "Staked" && lock !== 0 && (
-                        <>
-                            <Button type="primary" id="button-colored-green-action" onClick={() => setVisibility(true)}>
-                                WITHDRAW FROM STAKE
-                            </Button>
-
-                            <WithdrawSingleModal
-                                open={visible}
-                                waitingInModal={waitingInModal}
-                                setVisibility={setVisibility}
-                                amountToWithdraw={amountToWithdraw}
-                                onChangeWithdrawAmount={onChangeWithdrawAmount}
-                                onMaxSingle={onMaxSingle}
-                                selectStakeToWithdraw={selectStakeToWithdraw}
-                                data={data}
-                                stakeToWithdrawFrom={stakeToWithdrawFrom}
-                                onAction2={onAction2}
-                            />
-                        </>
-                    )}
-                </div>
-                {exclude && (
-                    <Button type="primary" id="button-colored-green-action" onClick={() => onAction()}>
-                        {buttonText}
-                    </Button>
                 )}
             </div>
-        </>
+
+            <div className={styles.subItems}>
+                {id === "stake" && (
+                    <>
+                        <div style={{ display: "inline-flex" }}>
+                            <InputNumber
+                                defaultValue={0}
+                                onChange={(value) => onChangeStakeAmount(value ?? 0)}
+                                max={Number(balances.token)}
+                                min={0}
+                                value={stakeAmount}
+                                style={{ width: "73%" }}
+                            />
+
+                            <div className={styles.amountButton}>
+                                <AmountButton
+                                    buttonText={"max"}
+                                    tokenBalance={balances.token}
+                                    buttonFunction={onStakeMax}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Button
+                                type="primary"
+                                className="button-colored-green-action"
+                                onClick={() => handleStake(stakeAmount, lock)}
+                            >
+                                STAKE
+                            </Button>
+                        </div>
+                    </>
+                )}
+                {id === "withdraw" && (
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <Button
+                            type="primary"
+                            className="button-colored-green-action"
+                            onClick={() => withdrawAll(deposited, lock)}
+                        >
+                            WITHDRAW ALL
+                        </Button>
+                    </div>
+                )}
+
+                {id === "withdraw" && lock !== 0 && (
+                    <>
+                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Button
+                                type="primary"
+                                className="button-colored-green-action"
+                                onClick={() => setWithdrawModal(true)}
+                            >
+                                WITHDRAW FROM STAKE
+                            </Button>
+                        </div>
+
+                        <WithdrawSingleModal
+                            open={withdrawModal}
+                            setVisibility={setWithdrawModal}
+                            deposited={deposited}
+                            lock={lock}
+                        />
+                    </>
+                )}
+            </div>
+            {id === "details" && (
+                <Button type="primary" className="button-colored-green-action" onClick={() => setDetailModal(true)}>
+                    DETAILS
+                </Button>
+            )}
+            <DetailsModal lock={lock} deposited={deposited} open={detailModal} setVisibility={setDetailModal} />
+        </div>
     );
 };
 

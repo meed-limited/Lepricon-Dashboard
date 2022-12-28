@@ -1,20 +1,19 @@
 .main {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-image: url("../../public/images/background.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url("../../public/images/background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .content {
-  display: flex;
-  align-items: flex-start;
-  align-content: center;
-  justify-content: center;
-  height: 83%;
-  padding-top: 30px;
-  margin-bottom: 75px;
-  overflow: auto;
+    display: flex;
+    height: inherit;
+    align-items: flex-start;
+    align-content: center;
+    justify-content: center;
+    padding-block: 50px 150px;
+    overflow: auto;
 }

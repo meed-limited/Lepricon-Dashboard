@@ -4,17 +4,17 @@ interface UserContext {
     isConnected: boolean;
     tokenName: string;
     price: number;
-    balances?: React.SetStateAction<UserBalances> | undefined;
-    userNFTs?: React.SetStateAction<Nfts | undefined>;
+    balances: UserBalances;
+    userNFTs?: Nfts | undefined;
     stakeSummary: LepriconStaking.StakingSummaryStructOutput;
     boostStatus?: BoostStatus | undefined;
-    syncWeb3?: () => void;
+    syncWeb3: () => void;
 }
 
 interface Web3Data {
     tokenName: string;
-    balances: React.SetStateAction<UserBalances> | undefined;
-    userNFTs: React.SetStateAction<Nfts | undefined>;
+    balances: UserBalances;
+    userNFTs: Nfts | undefined;
     stakeSummary: LepriconStaking.StakingSummaryStructOutput;
     boostStatus: BoostStatus | undefined;
     syncWeb3: () => void;
@@ -140,31 +140,17 @@ type DetailPerUser = {
 };
 
 type Reward = {
-    noLock: number;
-    threeMonths: {
-        claimable: number;
-        locked: number;
-    };
-    sixMonths: {
-        claimable: number;
-        locked: number;
-    };
-    twelveMonths: {
-        claimable: number;
-        locked: number;
-    };
-    total: {
-        claimable: number;
-        locked: number;
-    };
+    noLock: LockedReward;
+    threeMonths: LockedReward;
+    sixMonths: LockedReward;
+    twelveMonths: LockedReward;
+    total: LockedReward;
 };
 
 type LockedReward = {
     claimable: number;
     locked: number;
 };
-
-type PoolReward = number | LockedReward;
 
 type StakingSummaryStructOutput = [BigNumber, LepriconStaking.StakeStructOutput[]] & {
     total_amount: BigNumber;
@@ -190,14 +176,14 @@ type FormattedStakeStruct = {
 };
 
 type ParsedStakeStruct = {
-    user: string;
-    index: number;
     amount: number;
-    since: any;
-    timeLock: number;
-    dayLock: number;
-    unlockTime: number;
     cumulatedReward: number;
+    dayLock: number;
+    index: number;
+    since: string;
+    timeLock: number;
+    unlockTime: number;
+    user: string;
 };
 
 type StakesPerPool = {
@@ -205,7 +191,7 @@ type StakesPerPool = {
         stakes: ParsedStakeStruct[];
         total: number;
     };
-    reward: PoolReward;
+    reward: LockedReward;
 };
 
 type SortedStakes = {
@@ -213,6 +199,11 @@ type SortedStakes = {
     three: StakesPerPool;
     six: StakesPerPool;
     twelve: StakesPerPool;
+};
+
+type StakeToWithdrawFrom = {
+    stakeId: number;
+    amount: number | BigNumber | string;
 };
 
 type Stake = {

@@ -31,7 +31,7 @@ const AmountButton: FC<AmountButtonProps> = ({ buttonText, tokenBalance, buttonF
         buttonText === "max" ? () => buttonFunction(Math.floor(Number(tokenBalance))) : calculateAmount;
 
     return (
-        <div style={{ display: "flex", alignContent: "center", width: "100%" }}>
+        <div style={{ display: "flex", alignContent: "center", width: "100%", flexWrap: "wrap" }}>
             <Button
                 type="primary"
                 shape="round"

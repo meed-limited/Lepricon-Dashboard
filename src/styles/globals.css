@@ -8,6 +8,7 @@ html,
 body {
     max-width: 100vw;
     overflow-x: hidden;
+    font-family: "Sora, sans-serif";
 }
 
 a {
@@ -22,6 +23,7 @@ a {
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 20px;
+    text-align: center;
 }
 
 .container {
@@ -31,6 +33,27 @@ a {
     border: solid #75e287 1px;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+}
+
+/*************************************************************
+                       BUTTONS STYLES
+*************************************************************/
+
+.button-colored-green-action {
+    width: 100% !important;
+    background-color: #d6fddc !important;
+    border: 2px solid;
+    border-color: #75e287 !important;
+    color: #21bf96;
+}
+
+.button-colored-green-action:hover {
+    color: white !important;
+    background-color: #21bf96 !important;
+}
+
+.button-colored-green-action:after {
+    content: none !important;
 }
 
 /*************************************************************

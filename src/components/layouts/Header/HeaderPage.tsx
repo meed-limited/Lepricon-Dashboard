@@ -29,7 +29,7 @@ const HeaderPage = () => {
     }
 
     const menuItems = [
-        getItem(<Link href="/">Home</Link>, "home"),
+        getItem(<Link href="/wallet">Wallet</Link>, "wallet"),
         getItem(<Link href="/staking">Staking</Link>, "staking"),
         getItem(<Link href="/pool">Pool</Link>, "pool"),
         getItem(
@@ -44,7 +44,9 @@ const HeaderPage = () => {
         <>
             <ChainVerification />
             <Header className={styles.main}>
-                <Logo />
+                <Link href="/">
+                    <Logo />
+                </Link>
                 <Menu items={menuItems} mode="horizontal" className={styles.menuItems} />
                 <ConnectButton />
             </Header>
