@@ -38,6 +38,7 @@
 .container {
     background-color: white;
     width: 100%;
+    min-width: 350px;
     display: flex;
     flex-direction: column;
     height: auto;
@@ -86,6 +87,15 @@
     font-size: 17px;
 }
 
+.accordeonItemsMobile {
+    display: inline-flex;
+    width: 90%;
+    min-width: 350px;
+    justify-content: space-evenly;
+    font-size: 17px;
+    padding-bottom: 15px;
+}
+
 .accordeonItemsTop {
     font-weight: 800;
 }
@@ -125,6 +135,7 @@
 
 .actionHeader {
     display: inline-flex;
+    justify-content: flex-start;
     width: 100%;
     font-size: 17px;
     justify-content: space-evenly;
@@ -132,6 +143,8 @@
 
 .subItems {
     display: flex;
+    height: 100%;
+    justify-content: flex-end;
     flex-direction: column;
     gap: 10px;
 }

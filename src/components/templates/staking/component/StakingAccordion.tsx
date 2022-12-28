@@ -8,6 +8,8 @@ import { useUserData } from "../../../../context/UserContextProvider";
 import { usePoolData } from "../hooks/usePoolData";
 import Image from "next/image";
 import AccordionData from "./AccordionData";
+import { useWindowWidthAndHeight } from "../../../../hooks/useWindowWidthAndHeight";
+import { Divider } from "antd";
 
 type StakingAccordionProps = {
     subTitle: string;
@@ -16,6 +18,7 @@ type StakingAccordionProps = {
 
 const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) => {
     const { tokenName } = useUserData();
+    const { isMobile } = useWindowWidthAndHeight();
     const { text, lock, APR } = usePoolData(subTitle);
     const [action, setAction] = useState<boolean>(false);
     const [oldestStakeDate, setOldestStakeDate] = useState<number>();
@@ -51,20 +54,22 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
     return (
         <div className={styles.container}>
             <div className={styles.headline}>
-                <div className={styles.leftContent}>
+                <div className={styles.leftContent} style={{ width: isMobile ? "100%" : "25%" }}>
                     <Image src={l3p.src} alt="l3p logo" width={"40"} height={"40"} />
-                    <div className={styles.l3pTimelock}>
+                    <div className={styles.l3pTimelock} style={{ margin: isMobile ? "auto" : "none" }}>
                         <div>{tokenName}</div>
                         <Text style={{ fontSize: "15px" }}>{text}</Text>
                     </div>
                 </div>
+                {!isMobile && (
+                    <div className={styles.accordeonItems}>
+                        <AccordionData title="APR" data={displayAPR} />
+                        <AccordionData title="Deposited" data={totalDepot} />
+                        <AccordionData title="Unclaimed" data={totalReward} />
+                        <AccordionData title="Daily" data={daily} />
+                    </div>
+                )}
 
-                <div className={styles.accordeonItems}>
-                    <AccordionData title="APR" data={displayAPR} />
-                    <AccordionData title="Deposited" data={totalDepot} />
-                    <AccordionData title="Unclaimed" data={totalReward} />
-                    <AccordionData title="Daily" data={daily} />
-                </div>
                 <div className={styles.arrowDown}>
                     <CaretDownOutlined
                         className={styles.caretDownOutlined}
@@ -74,6 +79,17 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
                     />
                 </div>
             </div>
+            {isMobile && (
+                <>
+                    <Divider style={{ marginBlock: "0 10px" }} />
+                    <div className={styles.accordeonItemsMobile}>
+                        <AccordionData title="APR" data={displayAPR} />
+                        <AccordionData title="Deposited" data={totalDepot} />
+                        <AccordionData title="Unclaimed" data={totalReward} />
+                        <AccordionData title="Daily" data={daily} />
+                    </div>
+                </>
+            )}
             {action && <StakingAction lock={lock} deposited={deposited} />}
         </div>
     );
