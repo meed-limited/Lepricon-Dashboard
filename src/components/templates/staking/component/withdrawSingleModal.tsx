@@ -81,6 +81,7 @@ const WithdrawSingleModal: FC<WithdrawSingleModalProps> = ({ open, setVisibility
                     <div className={styles.content1}>
                         <Select
                             labelInValue
+                            optionLabelProp="label"
                             placeholder="Select stake Id"
                             onChange={handleChange}
                             style={{ width: "80%" }}

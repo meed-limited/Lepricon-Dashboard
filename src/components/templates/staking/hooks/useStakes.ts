@@ -23,7 +23,6 @@ export const useStakes = () => {
             setInitialLoading(false);
         }
         return;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stakeSummary]);
 
     const perPool = (details: DetailPerUser, lock: number): StakesPerPool => {
@@ -41,8 +40,6 @@ export const useStakes = () => {
 
         setTotalReward(allRewards ? allRewards : 0);
         setStakesPerPool(stakesPerPool);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userStakes]);
 
     return { stakesPerPool, totalReward, initialLoading };

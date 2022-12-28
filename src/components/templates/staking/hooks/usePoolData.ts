@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useAccount } from "wagmi";
 import useReadContract from "../../../../hooks/useReadContract";
@@ -10,6 +10,16 @@ export const usePoolData = (pool: string) => {
     const [text, setText] = useState<string>("");
     const [lock, setLock] = useState<number>(0);
     const [APR, setAPR] = useState<number>(0);
+
+    const getPoolAPR = useCallback(
+        async (vaultIndex: number) => {
+            let vault = await getVaultForTimelock(vaultIndex);
+            if (vault) {
+                setAPR(vault.apr);
+            }
+        },
+        [getVaultForTimelock]
+    );
 
     useEffect(() => {
         if (pool === "noLock") {
@@ -38,15 +48,7 @@ export const usePoolData = (pool: string) => {
             }
         }
         return;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isConnected, pool]);
-
-    const getPoolAPR = async (vaultIndex: number) => {
-        let vault = await getVaultForTimelock(vaultIndex);
-        if (vault) {
-            setAPR(vault.apr);
-        }
-    };
+    }, [isConnected, pool, getPoolAPR]);
 
     return { text, lock, APR };
 };

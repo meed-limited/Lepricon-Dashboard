@@ -7,6 +7,7 @@ import styles from "../../../../styles/Staking.module.css";
 import { useUserData } from "../../../../context/UserContextProvider";
 import { usePoolData } from "../hooks/usePoolData";
 import Image from "next/image";
+import AccordionData from "./AccordionData";
 
 type StakingAccordionProps = {
     subTitle: string;
@@ -39,11 +40,13 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
     };
 
     useEffect(() => {
-        if (deposited) {
-            getDateFromBlock(deposited);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        getDateFromBlock(deposited);
     }, [deposited]);
+
+    const displayAPR = `${APR}%`;
+    const totalDepot = `${deposited.stakes.total} ${tokenName}`;
+    const totalReward = `${reward} ${tokenName}`;
+    const daily = `${deposited.stakes.total !== 0 && oldestStakeDate !== undefined ? oldestStakeDate : "0"}`;
 
     return (
         <div className={styles.container}>
@@ -57,28 +60,10 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
                 </div>
 
                 <div className={styles.accordeonItems}>
-                    <div>
-                        <div className={styles.accordeonItemsTop}>{APR}%</div>
-                        <div className={styles.accordeonItemsSub}>APR</div>
-                    </div>
-                    <div>
-                        <div className={styles.accordeonItemsTop}>
-                            {deposited.stakes.total} {tokenName}
-                        </div>
-                        <div className={styles.accordeonItemsSub}>Deposited</div>
-                    </div>
-                    <div>
-                        <div className={styles.accordeonItemsTop}>
-                            {reward} {tokenName}
-                        </div>
-                        <div className={styles.accordeonItemsSub}>Unclaimed</div>
-                    </div>
-                    <div>
-                        <div className={styles.accordeonItemsTop}>
-                            {deposited.stakes.total !== 0 && oldestStakeDate !== undefined ? oldestStakeDate : "0"}
-                        </div>
-                        <div className={styles.accordeonItemsSub}>Daily</div>
-                    </div>
+                    <AccordionData title="APR" data={displayAPR} />
+                    <AccordionData title="Deposited" data={totalDepot} />
+                    <AccordionData title="Unclaimed" data={totalReward} />
+                    <AccordionData title="Daily" data={daily} />
                 </div>
                 <div className={styles.arrowDown}>
                     <CaretDownOutlined

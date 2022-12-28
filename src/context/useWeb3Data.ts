@@ -21,15 +21,14 @@ export const useWeb3Data = (): Web3Data => {
     const [boostStatus, setBoostStatus] = useState<BoostStatus>();
     const [userNFTs, setUserNFTs] = useState<Nfts>();
 
-    const fetchGlobalData = async () => {
+    const fetchGlobalData = useCallback(async () => {
         const name = await getTokenName();
         setTokenName(name);
-    };
+    }, [getTokenName]);
 
     useEffect(() => {
         fetchGlobalData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [fetchGlobalData]);
 
     const fetchMoralisData = async () => {
         const MORALIS_API_KEY = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
