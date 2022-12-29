@@ -19,13 +19,13 @@ const DisplayNft: FC = () => {
     const { isConnected, userNFTs } = useUserData();
     const { isMobile } = useWindowWidthAndHeight();
     const { verifyMetadata } = useVerifyMetadata();
+    const { resolveLink } = useIPFS();
 
     const [nftToShow, setNftToShow] = useState<Nft>();
     const [isNftDetailsModalOpen, setIsNftDetailsModalOpen] = useState<boolean>(false);
 
     const [nftToTransfer, setNftToTransfer] = useState<Nft>();
     const [isTransferModalOpen, setIsTransferModalOpen] = useState<boolean>(false);
-    const { resolveLink } = useIPFS();
 
     const handleTransfer = (nft: Nft) => {
         setNftToTransfer(nft);

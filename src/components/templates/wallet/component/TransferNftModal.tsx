@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
-import { Modal, Spin, Input, InputRef } from "antd";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { Modal, Spin } from "antd";
 import { useWriteContract } from "../../../../hooks";
 import { AddressInput } from "../../../elements/AddressInput";
 
@@ -11,8 +11,6 @@ type TransferNftModalProps = {
 
 const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsModalOpen, nft }) => {
     const { transferNft } = useWriteContract();
-
-    const input = useRef<InputRef>(null);
 
     const [receiverToSend, setReceiver] = useState<any>(null);
     const [isPending, setIsPending] = useState(false);
@@ -42,13 +40,6 @@ const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsM
         >
             <Spin spinning={isPending} size="large">
                 <AddressInput
-                    autoFocus
-                    placeholder="Receiver"
-                    onChange={setReceiver}
-                    style={{ marginBottom: "15px" }}
-                />
-                <Input
-                    ref={input}
                     autoFocus
                     placeholder="Receiver"
                     onChange={setReceiver}
