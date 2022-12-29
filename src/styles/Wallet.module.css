@@ -1,0 +1,176 @@
+/******************************************************
+                    Wallet.tsx
+*******************************************************/
+
+.content {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding-inline: 10px;
+    min-width: 390px;
+    font-size: 20px;
+    gap: 10px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    width: 712px;
+    min-width: 400px;
+    max-width: 712px;
+    align-items: center;
+    flex-grow: 0;
+    border: solid #75e287 1px;
+    border-radius: 7px;
+    gap: 5px;
+    padding: 15px 30px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+    font-size: 17px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/******************************************************
+                    Token.tsx
+*******************************************************/
+.subDiv {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 70%;
+    min-width: 370px;
+    max-width: 550px;
+}
+
+.container {
+    padding: 20px;
+    margin-bottom: 30px;
+    border: solid #75e287 1px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+}
+
+.chainLogo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/******************************************************
+                    WalletData.tsx
+*******************************************************/
+
+.item {
+    display: inline-flex;
+    width: 100%;
+}
+
+.itemValue {
+    display: flex;
+    flex-direction: column;
+}
+
+.priceText {
+    display: flex;
+    justify-content: flex-end;
+    color: grey;
+    font-size: 15px;
+}
+
+/******************************************************
+                    LinkButton.tsx
+*******************************************************/
+
+.LinkButtonMain {
+    margin-left: 15px;
+}
+
+.goButtonOutline {
+    width: 42px;
+    padding: 0px;
+    text-align: center !important;
+    border-radius: 14px;
+    background-color: #d6fddc !important;
+    border: 2px solid #75e287;
+    color: #21bf96;
+}
+
+.goButtonOutline:hover {
+    color: white !important;
+    background-color: #21bf96 !important;
+    border-color: #a1c0ee !important;
+}
+
+/******************************************************
+                    DisplayNft.tsx
+*******************************************************/
+
+.nftContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: center;
+    margin: auto;
+    min-width: 350px;
+    max-width: 1000px;
+    width: 100%;
+    gap: 10px;
+}
+
+.nftAttibutes {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 1px 1px 4px rgba(255, 255, 255, 0.5),
+        inset 1px 1px 7px 5px #ffffff;
+    padding-block: 5px;
+    border-radius: 5px;
+}
+
+.nftActionIcon {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* NFTs details modal: 
+  ************************/
+
+.nftModalDetails {
+    width: 100%;
+    justify-content: space-evenly;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: "center";
+    gap: 20px;
+}
+
+.nftModalDetailsText {
+    text-align: center;
+    font-size: 17px;
+}
+
+.nftModalDetailsSubtext {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding-inline: 10px;
+    text-align: left;
+}
+
+.traitTextDetails {
+    display: flex;
+    justify-content: space-between;
+}

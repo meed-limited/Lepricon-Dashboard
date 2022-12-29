@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useAccount } from "wagmi";
 import { Button } from "antd";
 
-import { useWindowWidthAndHeight } from "../../../hooks/useWindowWidthAndHeight";
+import { useWindowWidthAndHeight } from "../../../hooks";
 import { ConnectButton } from "../../elements";
 import styles from "../../../styles/Home.module.css";
 

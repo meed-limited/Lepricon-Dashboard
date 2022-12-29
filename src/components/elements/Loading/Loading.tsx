@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { Spin } from "antd";
 
-import { useSuportedChains } from "../../../hooks/useSupportedChains";
+import { useSuportedChains } from "../../../hooks";
 import { useUserData } from "../../../context/UserContextProvider";
 
 const Loading: FC = () => {

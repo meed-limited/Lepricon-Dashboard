@@ -5,6 +5,8 @@ export const SUPPORTED_CHAIN = {
     testnet: 80001,
 };
 
+export const DEX_URL = "https://quickswap.exchange/#/";
+
 export const URL = isProdEnv ? "https://app.lepricon.io" : "http://localhost:3000";
 
 // Production => Polygon
@@ -14,7 +16,7 @@ export const STAKING = "";
 
 // Development => Mumbai
 export const TOKEN_TEST = "0xE413Bfbc963fdB56Fe12A2501aa58cD4913553ef";
-export const LEPRICON_NFT_TEST = "0x777777b9d283ed394e89d11fa853b1e4f885b3e6"; // GOERLI
+export const LEPRICON_NFT_TEST = "0x0ef2Abd26730F419d73074552344bEb3BBBA1B08"; // GOERLI
 export const STAKING_TEST = "0xA7b9A505554eFADa9fFaFb34f4D28c5c3F2A7619";
 
 export const getContractAddresses = () => {

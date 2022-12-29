@@ -1,10 +1,10 @@
 import { FC } from "react";
-import StakingAccordion from "./component/StakingAccordion";
 
 import styles from "../../../styles/Staking.module.css";
-import StakingRecap from "./component/StakingRecap";
 import { Loading } from "../../elements";
-import { useStakes } from "./hooks/useStakes";
+import { StakingAccordion, StakingRecap } from "./component";
+
+import { useStakes } from "./hooks";
 
 const Staking: FC = () => {
     const { stakesPerPool, totalReward, initialLoading } = useStakes();

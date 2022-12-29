@@ -8,7 +8,7 @@ import { setBoost } from "helpers/backend_call";
 import { getDate } from "helpers/formatters";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
-import useReadContract from "../../../../hooks/useReadContract";
+import { useReadContract } from "../../../../hooks";
 
 type NftBoostSelectionProps = {
     deposited: any;

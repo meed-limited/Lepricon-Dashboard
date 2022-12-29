@@ -4,7 +4,7 @@ import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Moralis from "moralis";
 import { useAccount } from "wagmi";
 
-import useReadContract from "../hooks/useReadContract";
+import { useReadContract } from "../hooks";
 import { getContractAddresses, isProdEnv } from "../data/constant";
 import { LepriconStaking } from "../../hardhat/typechain-types";
 import { ethers } from "ethers";
@@ -19,7 +19,7 @@ export const useWeb3Data = (): Web3Data => {
     const [balances, setBalances] = useState<UserBalances>({ native: "0", token: "0" });
     const [stakeSummary, setStakeSummary] = useState<LepriconStaking.StakingSummaryStructOutput>();
     const [boostStatus, setBoostStatus] = useState<BoostStatus>();
-    const [userNFTs, setUserNFTs] = useState<Nfts>();
+    const [userNFTs, setUserNFTs] = useState<Nfts>({ result: [], total: 0 });
 
     const fetchGlobalData = useCallback(async () => {
         const name = await getTokenName();

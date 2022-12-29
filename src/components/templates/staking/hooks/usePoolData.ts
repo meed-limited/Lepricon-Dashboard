@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useAccount } from "wagmi";
-import useReadContract from "../../../../hooks/useReadContract";
+import { useReadContract } from "../../../../hooks";
 
 export const usePoolData = (pool: string) => {
     const { isConnected } = useAccount();

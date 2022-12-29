@@ -1,7 +1,7 @@
 import { Layout, Menu } from "antd";
 import Link from "next/link";
 
-import { useWindowWidthAndHeight } from "../../../hooks/useWindowWidthAndHeight";
+import { useWindowWidthAndHeight } from "../../../hooks";
 import { ChainVerification, ConnectButton } from "../../elements";
 import styles from "../../../styles/Header.module.css";
 import Image from "next/image";

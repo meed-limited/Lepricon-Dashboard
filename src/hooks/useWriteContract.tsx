@@ -10,13 +10,14 @@ import { useContract } from "./useContract";
 import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
 import { openNotification } from "../utils/notifications";
 import { useUserData } from "../context/UserContextProvider";
+import { LepriTest } from "../../types/LepriTest";
 
 const useWriteContract = () => {
-    const { tokenName } = useUserData();
+    const { address, tokenName } = useUserData();
     const { token, nft, staking } = getContractAddresses();
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
-    const nftInstance: any = useContract(nft, NFT_ABI);
+    const nftInstance: LepriTest = useContract(nft, NFT_ABI);
 
     /* Set Token Allowance:
      ***************************/
@@ -50,6 +51,25 @@ const useWriteContract = () => {
             const msg = "Something went wrong while setting the allowance. Please try again.";
             openNotification("error", title, msg);
             console.log(error.reason ? error.reason : error.message);
+        }
+    };
+
+    /* Set Token Allowance:
+     ***************************/
+    const transferNft = async (nft: Nft, receiver: string) => {
+        try {
+            const tx = await nftInstance.transferFrom(address as string, receiver, nft.token_id);
+            await tx.wait(2);
+            const title = "NFT Transfered";
+            const msg = `Your nft has been succesfully transfered.`;
+            openNotification("success", title, msg);
+            return true;
+        } catch (error: any) {
+            const title = "NFT Transfer Failed";
+            const msg = "Something went wrong while transfering your NFT. Please try again.";
+            openNotification("error", title, msg);
+            console.log(error.reason ? error.reason : error.message);
+            return false;
         }
     };
 
@@ -111,7 +131,7 @@ const useWriteContract = () => {
         }
     };
 
-    return { approveToken, approveNft, stake, unstake };
+    return { approveToken, approveNft, transferNft, stake, unstake };
 };
 
 export default useWriteContract;

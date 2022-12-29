@@ -2,7 +2,7 @@ import AmountButton from "./AmountButton";
 import { Button, Divider, InputNumber, Modal, Select, Spin } from "antd";
 import styles from "../../../../styles/Staking.module.css";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { useStakeAction } from "../hooks/useStakeAction";
+import { useStakeAction } from "../hooks";
 import { useUserData } from "../../../../context/UserContextProvider";
 import Image from "next/image";
 import l3p from "/public/images/l3p.png";

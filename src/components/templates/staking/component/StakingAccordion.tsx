@@ -5,11 +5,11 @@ import Text from "antd/lib/typography/Text";
 import l3p from "public/images/l3p.png";
 import styles from "../../../../styles/Staking.module.css";
 import { useUserData } from "../../../../context/UserContextProvider";
-import { usePoolData } from "../hooks/usePoolData";
+import { usePoolData } from "../hooks";
 import Image from "next/image";
-import AccordionData from "./AccordionData";
-import { useWindowWidthAndHeight } from "../../../../hooks/useWindowWidthAndHeight";
+import { useWindowWidthAndHeight } from "../../../../hooks";
 import { Divider } from "antd";
+import AccordionData from "./AccordionData";
 
 type StakingAccordionProps = {
     subTitle: string;

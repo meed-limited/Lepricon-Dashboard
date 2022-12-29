@@ -3,7 +3,7 @@ import NftBoostSelection from "./NftBoostSelection";
 import ActionPane from "./ActionPane";
 import styles from "../../../../styles/Staking.module.css";
 import { useUserData } from "../../../../context/UserContextProvider";
-import { useStakeAction } from "../hooks/useStakeAction";
+import { useStakeAction } from "../hooks";
 import { Spin } from "antd";
 
 type StakingActionProps = {

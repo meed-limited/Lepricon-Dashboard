@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 
 import { isProdEnv } from "../../../data/constant";
 import { mumbai, polygon } from "../../../data/networks";
-import { useSuportedChains } from "../../../hooks/useSupportedChains";
+import { useSuportedChains } from "../../../hooks";
 import styles from "../../../styles/ChainVerification.module.css";
 
 const ChainVerification: FC = () => {

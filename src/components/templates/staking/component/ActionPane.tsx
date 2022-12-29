@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
 import AmountButton from "./AmountButton";
 // import l3p from "../../../assets/l3p.png";
-import WithdrawSingleModal from "./withdrawSingleModal";
+import WithdrawSingleModal from "./WithdrawSingleModal";
 import { Button, InputNumber } from "antd";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
-import { useStakeAction } from "../hooks/useStakeAction";
+import { useStakeAction } from "../hooks";
 import DetailsModal from "./DetailsModal";
 
 type ActionPaneProps = {

@@ -1,9 +1,10 @@
+import { useState } from "react";
+
 import { message } from "antd";
 import { utils, BigNumber } from "ethers";
-import { useState } from "react";
+
 import { useUserData } from "../../../../context/UserContextProvider";
-import useReadContract from "../../../../hooks/useReadContract";
-import useWriteContract from "../../../../hooks/useWriteContract";
+import { useReadContract, useWriteContract } from "../../../../hooks";
 
 export const useStakeAction = () => {
     const { syncWeb3 } = useUserData();
@@ -62,7 +63,7 @@ export const useStakeAction = () => {
         } else {
             for (let i = 0; i < deposited.stakes.stakes.length; i++) {
                 let stake = deposited.stakes.stakes[i];
-                if (stake.unlockTime <= stake.since + stake.timeLock) {
+                if (stake.unlockTime <= Number(stake.since) + stake.timeLock) {
                     const amount = stake.amount;
                     const amountBN = utils.parseUnits(amount.toString(), 18);
                     await unstake(amountBN, stake.index);

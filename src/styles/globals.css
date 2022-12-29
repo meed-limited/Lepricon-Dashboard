@@ -16,6 +16,41 @@ a {
     text-decoration: none;
 }
 
+.content {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding-inline: 10px;
+    min-width: 390px;
+    font-size: 20px;
+    gap: 10px;
+}
+
+.box {
+    width: 712px;
+    min-width: 400px;
+    max-width: 712px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;
+    flex-grow: 0;
+    border: solid #75e287 1px;
+    border-radius: 7px;
+    background-color: white;
+    gap: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
 .modal_title {
     display: flex;
     justify-content: center;
@@ -64,4 +99,32 @@ a {
     background-position: top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
+}
+
+.ant-card {
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.3) !important;
+    box-shadow: inset 1px 1px 4px #ffffff, inset 1px 1px 2px rgb(0 0 0 / 25%), inset 1px 1px 20px rgb(0 0 0 / 25%);
+    border-radius: 10px !important;
+    padding: 8px;
+}
+
+.ant-card-body {
+    padding: 7px 0px !important;
+}
+
+.ant-card-meta-title {
+    font-style: normal;
+    color: #33363f;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.ant-card-actions {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 1px 1px 4px rgba(255, 255, 255, 0.5),
+        inset 1px 1px 7px 5px #ffffff;
+    margin-top: 0.275rem;
+    border-radius: 5px;
 }

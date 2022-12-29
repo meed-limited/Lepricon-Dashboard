@@ -1,3 +1,7 @@
+/**********************************************************
+                           CONTEXT
+***********************************************************/
+
 interface UserContext {
     address?: `0x${string}` | undefined;
     chainId?: number | undefined;
@@ -5,7 +9,7 @@ interface UserContext {
     tokenName: string;
     price: number;
     balances: UserBalances;
-    userNFTs?: Nfts | undefined;
+    userNFTs: Nfts;
     stakeSummary: LepriconStaking.StakingSummaryStructOutput;
     boostStatus?: BoostStatus | undefined;
     syncWeb3: () => void;
@@ -14,31 +18,20 @@ interface UserContext {
 interface Web3Data {
     tokenName: string;
     balances: UserBalances;
-    userNFTs: Nfts | undefined;
+    userNFTs: Nfts;
     stakeSummary: LepriconStaking.StakingSummaryStructOutput;
     boostStatus: BoostStatus | undefined;
     syncWeb3: () => void;
 }
 
-type MenuItem = Required<MenuProps>["items"][number];
-
-interface AddressProps {
-    style: CSSProperties | undefined;
-    avatar: string;
-    size: number | undefined;
-    copyable: boolean;
-    account: string;
-}
-
-type ConnectModalProps = {
-    isOpen: boolean;
-    setIsOpen: Dispatch<SetStateAction<boolean>>;
-};
-
 interface UserBalances {
     native: string;
     token: string;
 }
+
+/**********************************************************
+                           NFT
+***********************************************************/
 
 interface Nfts {
     result:
@@ -83,7 +76,7 @@ interface Nft {
 }
 
 interface NftMetadata {
-    attributes: any;
+    attributes: NftAttributes;
     description: string;
     image: string;
     name: string;
@@ -93,10 +86,78 @@ interface NftAttributes {
     display_type?: string;
     trait_type?: string;
     value?: string;
+    boost: string;
+    rarity: string;
 }
 
+type NFTinDB = {
+    amount: string;
+    block_number: string;
+    block_number_minted: string;
+    chainId?: string;
+    collectionName?: string;
+    contract_type: string;
+    createdAt?: string;
+    image: string;
+    itemId?: number | undefined;
+    last_metadata_sync: string;
+    last_token_uri_sync: string;
+    metadata: NftMetadata;
+    objectId?: string;
+    owner: string;
+    name: string;
+    owner_of: string;
+    price?: number;
+    seller?: string;
+    sold?: boolean;
+    symbol?: string;
+    synced_at: string;
+    tokenId?: string;
+    token_address: string;
+    token_hash: string;
+    token_id: string;
+    token_uri: string;
+    updatedAt: string;
+};
+
 /**********************************************************
-                        STAKING CONTRACT
+                            LAYOUT
+***********************************************************/
+
+type MenuItem = Required<MenuProps>["items"][number];
+
+interface AddressProps {
+    style: CSSProperties | undefined;
+    avatar: string;
+    size: number | undefined;
+    copyable: boolean;
+    account: string;
+}
+
+type ConnectModalProps = {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+/**********************************************************
+                            WALLET
+***********************************************************/
+
+type WalletDataProps = {
+    title: string;
+    value: number;
+    price: number;
+    tokenName: string;
+    link: string | null;
+};
+
+type LinkButtonProps = {
+    title: string;
+    link: string | null;
+};
+
+/**********************************************************
+                            STAKING 
 ***********************************************************/
 
 type StakingSummaryStruct = {
