@@ -11,7 +11,7 @@ interface UserContext {
     balances: UserBalances;
     userNFTs: Nfts;
     stakeSummary: LepriconStaking.StakingSummaryStructOutput;
-    boostStatus?: BoostStatus | undefined;
+    boostStatus: BoostStatusExtended | undefined;
     syncWeb3: () => void;
 }
 
@@ -20,7 +20,7 @@ interface Web3Data {
     balances: UserBalances;
     userNFTs: Nfts;
     stakeSummary: LepriconStaking.StakingSummaryStructOutput;
-    boostStatus: BoostStatus | undefined;
+    boostStatus: BoostStatusExtended | undefined;
     syncWeb3: () => void;
 }
 
@@ -190,6 +190,15 @@ type BoostStatus = [boolean, number, string, BigNumber, BigNumber] & {
     NftContractAddress: string;
     tokenId: BigNumber;
     since: BigNumber;
+};
+
+type BoostStatusExtended = {
+    isBoost: boolean;
+    boostValue: number;
+    NftContractAddress: string;
+    tokenId: number;
+    sinceTimeStamp: sinceDate;
+    sinceDate: Date;
 };
 
 type DetailPerUser = {

@@ -18,7 +18,7 @@ export const useWeb3Data = (): Web3Data => {
 
     const [balances, setBalances] = useState<UserBalances>({ native: "0", token: "0" });
     const [stakeSummary, setStakeSummary] = useState<LepriconStaking.StakingSummaryStructOutput>();
-    const [boostStatus, setBoostStatus] = useState<BoostStatus>();
+    const [boostStatus, setBoostStatus] = useState<BoostStatusExtended>();
     const [userNFTs, setUserNFTs] = useState<Nfts>({ result: [], total: 0 });
 
     const fetchGlobalData = useCallback(async () => {
@@ -69,9 +69,20 @@ export const useWeb3Data = (): Web3Data => {
 
     const fetchStakingData = async () => {
         const stakeData = await getStakes();
-        const boostData = await getBoost();
         setStakeSummary(stakeData);
-        setBoostStatus(boostData);
+
+        const boostData = await getBoost();
+        if (boostData) {
+            const temp: BoostStatusExtended = {
+                isBoost: boostData.isBoost,
+                NftContractAddress: boostData.NftContractAddress,
+                tokenId: Number(boostData.tokenId),
+                boostValue: Number(boostData.boostValue),
+                sinceTimeStamp: Number(boostData.since),
+                sinceDate: new Date(Number(boostData.since) * 1000),
+            };
+            setBoostStatus(temp);
+        }
     };
 
     const syncWeb3 = useCallback(() => {

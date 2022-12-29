@@ -211,6 +211,19 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
     font-size: 17px;
 }
+
+.columnFlexStart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inlineFlexCenter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .text {
     color: grey;
     font-size: 18px;

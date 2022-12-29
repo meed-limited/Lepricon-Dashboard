@@ -110,7 +110,7 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
                 alignItems: "center",
             }}
         >
-            <Modal open={open} footer={null} onCancel={handleCancel} width="600px">
+            <Modal open={open} footer={null} wrapClassName="modalStyle" onCancel={handleCancel} width="600px">
                 <div className="modal_title">{`Stakes details for the ${title(lock)} pool:`}</div>
                 <Table pagination={false} dataSource={data} columns={columns} />
             </Modal>

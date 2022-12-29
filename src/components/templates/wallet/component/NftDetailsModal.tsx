@@ -22,6 +22,7 @@ const NftsDetailsModal: React.FC<NftDetailsProps> = ({ nft, isModalOpen, setIsMo
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
                 footer={false}
+                wrapClassName="modalStyle"
                 bodyStyle={{
                     minWidth: "250px",
                     textAlign: "center",

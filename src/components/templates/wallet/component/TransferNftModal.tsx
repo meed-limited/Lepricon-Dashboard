@@ -30,14 +30,15 @@ const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsM
 
     return (
         <Modal
-            title={`Transfer <${nft.name || "NFT"} > ?`}
             open={isModalOpen}
             onCancel={handleCancel}
             onOk={() => transfer(nft, receiverToSend)}
+            wrapClassName="modalStyle"
             confirmLoading={isPending}
             okText="Send"
             bodyStyle={{ width: "95%", margin: "auto" }}
         >
+            <span className="modal_title">{`Transfer:  ${nft.name} - #${nft.token_id} ?`}</span>
             <Spin spinning={isPending} size="large">
                 <AddressInput
                     autoFocus

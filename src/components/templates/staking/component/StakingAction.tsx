@@ -14,19 +14,11 @@ type StakingActionProps = {
 const StakingAction: FC<StakingActionProps> = ({ lock, deposited }) => {
     const { balances } = useUserData();
     const { loading } = useStakeAction();
-    const [selectedNFT, setSelectedNFT] = useState([]);
 
     return (
         <Spin spinning={loading} size="large" style={{ borderRadius: "20px" }}>
             <div className={styles.actionContent}>
-                {lock === 0 && (
-                    <></>
-                    //      <NftBoostSelection
-                    //      deposited={deposited}
-                    //      selectedNFT={selectedNFT}
-                    //      setSelectedNFT={setSelectedNFT}
-                    //  />
-                )}
+                {lock === 0 && <NftBoostSelection deposited={deposited} />}
 
                 <div className={styles.dropDown}>
                     <ActionPane

@@ -73,7 +73,7 @@ const WithdrawSingleModal: FC<WithdrawSingleModalProps> = ({ open, setVisibility
               });
 
     return (
-        <Modal open={open} footer={null} onCancel={handleCancel} width={450}>
+        <Modal open={open} footer={null} wrapClassName="modalStyle" onCancel={handleCancel} width={450}>
             <span className="modal_title">Select the stake and the amount to withdraw:</span>
             <Spin spinning={loading} size="large">
                 <div className={styles.modalContainer}>
