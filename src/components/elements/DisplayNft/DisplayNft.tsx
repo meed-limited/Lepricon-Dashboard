@@ -27,7 +27,7 @@ const DisplayNft: FC = () => {
     const [isTransferModalOpen, setIsTransferModalOpen] = useState<boolean>(false);
     const { resolveLink } = useIPFS();
 
-    const handleTransfer = (nft: NFTinDB) => {
+    const handleTransfer = (nft: Nft) => {
         setNftToTransfer(nft);
         setIsTransferModalOpen(true);
     };
@@ -48,7 +48,6 @@ const DisplayNft: FC = () => {
                     userNFTs.result.length > 0 &&
                     userNFTs.result.map((nft: any, index: number) => {
                         nft = verifyMetadata(nft);
-                        console.log(nft);
 
                         if (!nft.image) {
                             const data = JSON.parse(nft.metadata);
@@ -89,7 +88,10 @@ const DisplayNft: FC = () => {
                                     </Tooltip>,
 
                                     <Tooltip title="Transfer NFT" key={index}>
-                                        <SendOutlined className={styles.nftActionIcon} onClick={handleTransfer} />
+                                        <SendOutlined
+                                            className={styles.nftActionIcon}
+                                            onClick={() => handleTransfer(nft)}
+                                        />
                                     </Tooltip>,
                                 ]}
                                 style={{
@@ -131,9 +133,9 @@ const DisplayNft: FC = () => {
             )}
             {nftToTransfer && (
                 <TransferNftModal
-                    nft={nftToTransfer}
                     isModalOpen={isTransferModalOpen}
                     setIsModalOpen={setIsTransferModalOpen}
+                    nft={nftToTransfer}
                 />
             )}
         </div>

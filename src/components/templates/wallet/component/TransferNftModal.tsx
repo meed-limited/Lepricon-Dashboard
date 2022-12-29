@@ -1,10 +1,19 @@
-import React, { useState } from "react";
-// import AddressInput from "../../../AddressInput";
-import { Modal, Spin, Input } from "antd";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Modal, Spin, Input, InputRef } from "antd";
 import { useWriteContract } from "../../../../hooks";
+import { AddressInput } from "../../../elements/AddressInput";
 
-const TransferNftModal: React.FC<any> = ({ nftToTransfer, setVisibility, visible }) => {
+type TransferNftModalProps = {
+    isModalOpen: boolean;
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+    nft: Nft;
+};
+
+const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsModalOpen, nft }) => {
     const { transferNft } = useWriteContract();
+
+    const input = useRef<InputRef>(null);
+
     const [receiverToSend, setReceiver] = useState<any>(null);
     const [isPending, setIsPending] = useState(false);
 
@@ -13,32 +22,38 @@ const TransferNftModal: React.FC<any> = ({ nftToTransfer, setVisibility, visible
         const success = await transferNft(nft, receiver);
         if (success) {
             setIsPending(false);
-            setVisibility(false);
+            setIsModalOpen(false);
         } else setIsPending(false);
     };
 
     const handleCancel = () => {
-        setVisibility(false);
+        setIsModalOpen(false);
     };
 
     return (
         <Modal
-            title={`Transfer <${nftToTransfer?.name || "NFT"} > ?`}
-            open={visible}
+            title={`Transfer <${nft.name || "NFT"} > ?`}
+            open={isModalOpen}
             onCancel={handleCancel}
-            onOk={() => transfer(nftToTransfer, receiverToSend)}
+            onOk={() => transfer(nft, receiverToSend)}
             confirmLoading={isPending}
             okText="Send"
             bodyStyle={{ width: "95%", margin: "auto" }}
         >
             <Spin spinning={isPending} size="large">
-                {/* <AddressInput
+                <AddressInput
                     autoFocus
                     placeholder="Receiver"
                     onChange={setReceiver}
                     style={{ marginBottom: "15px" }}
-                /> */}
-                <Input autoFocus placeholder="Receiver" onChange={setReceiver} style={{ marginBottom: "15px" }} />
+                />
+                <Input
+                    ref={input}
+                    autoFocus
+                    placeholder="Receiver"
+                    onChange={setReceiver}
+                    style={{ marginBottom: "15px" }}
+                />
             </Spin>
         </Modal>
     );

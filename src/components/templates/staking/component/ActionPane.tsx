@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import AmountButton from "./AmountButton";
-// import l3p from "../../../assets/l3p.png";
 import WithdrawSingleModal from "./WithdrawSingleModal";
 import { Button, InputNumber } from "antd";
 import { useUserData } from "../../../../context/UserContextProvider";

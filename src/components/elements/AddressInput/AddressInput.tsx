@@ -3,12 +3,18 @@ import { Input, InputRef } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Jazzicons from "./Jazzicons";
 import { getEllipsisTxt } from "../../../utils/format";
+import { fetchEnsAddress, FetchEnsAddressResult, fetchEnsResolver } from "@wagmi/core";
+import { utils } from "ethers";
+import { useUserData } from "../../../context/UserContextProvider";
+import { isProdEnv } from "../../../data/constant";
 
 const AddressInput: React.FC<any> = (props: any) => {
     const input = useRef<InputRef>(null);
-    const [address, setAddress] = useState("");
-    const [validatedAddress, setValidatedAddress] = useState("");
-    const [isDomain, setIsDomain] = useState(false);
+    const { chainId } = useUserData();
+    const [address, setAddress] = useState<string>("");
+    const [validatedAddress, setValidatedAddress] = useState<FetchEnsAddressResult | string>("");
+    const [isDomain, setIsDomain] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
 
     useEffect(() => {
         if (validatedAddress) props.onChange(isDomain ? validatedAddress : address);
@@ -17,40 +23,46 @@ const AddressInput: React.FC<any> = (props: any) => {
     }, [props, validatedAddress, isDomain, address]);
 
     const updateAddress = useCallback(
-        async (value: any) => {
+        async (value: string) => {
+            setError("");
             setAddress(value);
+
             if (isSupportedDomain(value)) {
-                const processPromise = function (promise: any) {
-                    promise
-                        .then((addr: any) => {
-                            setValidatedAddress(addr);
-                            setIsDomain(true);
-                        })
-                        .catch(() => {
-                            setValidatedAddress("");
-                        });
-                };
-                if (value.endsWith(".eth")) {
-                    const resolver = await web3?.getResolver(value);
-                    if (resolver) {
-                        processPromise(resolver.address);
+                if (isProdEnv) {
+                    const processPromise = function (promise: Promise<FetchEnsAddressResult> | Promise<string | null>) {
+                        promise
+                            .then((addr: FetchEnsAddressResult | string) => {
+                                if (addr !== null && isAddress(addr)) {
+                                    setValidatedAddress(addr);
+                                    setIsDomain(true);
+                                }
+                            })
+                            .catch(() => {
+                                setValidatedAddress("");
+                            });
+                    };
+                    if (value.endsWith(".eth")) {
+                        processPromise(fetchEnsAddress({ name: value }));
+                    } else {
+                        processPromise(
+                            fetchEnsResolver({ name: value }).then((resolver) =>
+                                resolver?.address ? resolver?.address : ""
+                            )
+                        );
                     }
-                } else {
-                    processPromise(
-                        resolveDomain({
-                            domain: value,
-                        }).then((r: { address: any }) => r?.address)
-                    );
-                }
+                } else setError("ENS not supported on this network. Are you connected on a testnet?");
             } else if (value.length === 42) {
-                setValidatedAddress(getEllipsisTxt(value, 10));
-                setIsDomain(false);
+                if (isAddress(value)) {
+                    setValidatedAddress(getEllipsisTxt(value, 10));
+                    setIsDomain(false);
+                }
             } else {
                 setValidatedAddress("");
                 setIsDomain(false);
+                setError("Invalid address. Please check your input.");
             }
         },
-        [resolveDomain, web3?.getResolver]
+        [fetchEnsAddress, fetchEnsResolver]
     );
 
     const Cross = () => (
@@ -65,9 +77,11 @@ const AddressInput: React.FC<any> = (props: any) => {
             strokeLinecap="round"
             strokeLinejoin="round"
             onClick={() => {
+                setAddress("");
                 setValidatedAddress("");
                 setIsDomain(false);
-                setTimeout(function () {
+                setError("");
+                setTimeout(() => {
                     if (input.current !== null) {
                         input.current.focus();
                     }
@@ -82,25 +96,30 @@ const AddressInput: React.FC<any> = (props: any) => {
     );
 
     return (
-        <Input
-            ref={input}
-            placeholder={props.placeholder ? props.placeholder : "Public address"}
-            prefix={
-                isDomain || address.length === 42 ? (
-                    <Jazzicons seed={(isDomain ? validatedAddress : address).toLowerCase()} />
-                ) : (
-                    <SearchOutlined />
-                )
-            }
-            suffix={validatedAddress && <Cross />}
-            autoFocus={props.autoFocus}
-            value={isDomain ? `${address} (${getEllipsisTxt(validatedAddress)})` : validatedAddress || address}
-            onChange={(e: { target: { value: any } }) => {
-                updateAddress(e.target.value);
-            }}
-            disabled={validatedAddress.length > 0 ? true : false}
-            style={validatedAddress ? { ...props?.style, border: "1px solid rgb(33, 191, 150)" } : { ...props?.style }}
-        />
+        <>
+            <Input
+                ref={input}
+                placeholder={props.placeholder ? props.placeholder : "Public address"}
+                prefix={
+                    isDomain || address.length === 42 ? (
+                        <Jazzicons seed={(isDomain && validatedAddress ? validatedAddress : address).toLowerCase()} />
+                    ) : (
+                        <SearchOutlined />
+                    )
+                }
+                suffix={validatedAddress && <Cross />}
+                autoFocus={props.autoFocus}
+                value={isDomain && validatedAddress ? `${address} (${getEllipsisTxt(validatedAddress)})` : address}
+                onChange={(e) => {
+                    updateAddress(e.target.value);
+                }}
+                disabled={validatedAddress !== "" ? true : false}
+                style={
+                    validatedAddress ? { ...props?.style, border: "1px solid rgb(33, 191, 150)" } : { ...props?.style }
+                }
+            />
+            {error && <p style={{ color: "red", marginBlock: "-15px 15px", fontSize: "12px" }}>{error}</p>}
+        </>
     );
 };
 
@@ -110,38 +129,15 @@ function isSupportedDomain(domain: string) {
     );
 }
 
-export default AddressInput;
+// returns the checksummed address if the address is valid, otherwise returns false
+function isAddress(value: any): string | false {
+    try {
+        // Alphabetical letters must be made lowercase for getAddress to work.
+        // See documentation here: https://docs.ethers.io/v5/api/utils/address/
+        return utils.getAddress(value.toLowerCase());
+    } catch {
+        return false;
+    }
+}
 
-// const updateAddress = useCallback(
-//   async (value: any) => {
-//     setAddress(value);
-//     if (isSupportedDomain(value)) {
-//       const processPromise = function (promise: Promise<any>) {
-//         promise
-//           .then((addr) => {
-//             setValidatedAddress(addr);
-//             setIsDomain(true);
-//           })
-//           .catch(() => {
-//             setValidatedAddress("");
-//           });
-//       };
-//       if (value.endsWith(".eth")) {
-//         processPromise(web3?.eth?.ens?.getAddress(value));
-//       } else {
-//         processPromise(
-//           resolveDomain({
-//             domain: value,
-//           }).then((r) => r?.address)
-//         );
-//       }
-//     } else if (value.length === 42) {
-//       setValidatedAddress(getEllipsisTxt(value, 10));
-//       setIsDomain(false);
-//     } else {
-//       setValidatedAddress("");
-//       setIsDomain(false);
-//     }
-//   },
-//   [resolveDomain, web3?.eth?.ens]
-// );
+export default AddressInput;
