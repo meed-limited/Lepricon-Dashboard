@@ -155,11 +155,9 @@
     justify-content: flex-end;
 }
 
-.amountButton {
+.actionButton {
     display: flex;
-    align-content: center;
-    width: 15%;
-    margin-left: 10px;
+    justify-content: flex-end;
 }
 
 /******************************************************

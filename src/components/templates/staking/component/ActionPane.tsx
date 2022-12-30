@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
-import AmountButton from "./AmountButton";
 import WithdrawSingleModal from "./WithdrawSingleModal";
-import { Button, InputNumber } from "antd";
+import { InputNumber } from "antd";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
 import { useStakeAction } from "../hooks";
 import DetailsModal from "./DetailsModal";
+import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
 
 type ActionPaneProps = {
     id: string;
@@ -34,10 +34,6 @@ const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) =>
         }
     };
 
-    const onStakeMax = () => {
-        setStakeAmount(Math.floor(Number(balances.token)));
-    };
-
     return (
         <div className={styles.items}>
             <div className={styles.actionHeader}>
@@ -62,64 +58,34 @@ const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) =>
                                 style={{ width: "73%" }}
                             />
 
-                            <div className={styles.amountButton}>
-                                <AmountButton
-                                    buttonText={"max"}
-                                    tokenBalance={balances.token}
-                                    buttonFunction={onStakeMax}
-                                />
-                            </div>
+                            <ButtonMax amount={balances.token} action={setStakeAmount} />
                         </div>
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Button
-                                type="primary"
-                                className="button-colored-green-action"
-                                onClick={() => handleStake(stakeAmount, lock)}
-                            >
-                                STAKE
-                            </Button>
+                        <div className={styles.actionButton}>
+                            <ButtonAction title="STAKE" action={() => handleStake(stakeAmount, lock)} />
                         </div>
                     </>
                 )}
                 {id === "withdraw" && (
-                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <Button
-                            type="primary"
-                            className="button-colored-green-action"
-                            onClick={() => withdrawAll(deposited, lock)}
-                        >
-                            WITHDRAW ALL
-                        </Button>
+                    <div className={styles.actionButton}>
+                        <ButtonAction title="WITHDRAW ALL" action={() => withdrawAll(deposited, lock)} />
                     </div>
                 )}
 
                 {id === "withdraw" && lock !== 0 && (
-                    <>
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Button
-                                type="primary"
-                                className="button-colored-green-action"
-                                onClick={() => setWithdrawModal(true)}
-                            >
-                                WITHDRAW FROM STAKE
-                            </Button>
-                        </div>
-
-                        <WithdrawSingleModal
-                            open={withdrawModal}
-                            setVisibility={setWithdrawModal}
-                            deposited={deposited}
-                            lock={lock}
-                        />
-                    </>
+                    <div className={styles.actionButton}>
+                        <ButtonAction title="WITHDRAW FROM STAKE" action={() => setWithdrawModal(true)} />
+                    </div>
                 )}
             </div>
-            {id === "details" && (
-                <Button type="primary" className="button-colored-green-action" onClick={() => setDetailModal(true)}>
-                    DETAILS
-                </Button>
-            )}
+            {id === "details" && <ButtonAction title="DETAILS" action={() => setDetailModal(true)} />}
+
             <DetailsModal lock={lock} deposited={deposited} open={detailModal} setVisibility={setDetailModal} />
+            <WithdrawSingleModal
+                open={withdrawModal}
+                setVisibility={setWithdrawModal}
+                deposited={deposited}
+                lock={lock}
+            />
         </div>
     );
 };

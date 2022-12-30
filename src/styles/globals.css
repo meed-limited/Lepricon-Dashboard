@@ -70,6 +70,17 @@ a {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
 }
 
+.dropdown-menu-items {
+    width: 150px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #11631f !important;
+    font-size: large;
+    font-weight: 500;
+}
+
 /*************************************************************
                        BUTTONS STYLES
 *************************************************************/
@@ -89,6 +100,20 @@ a {
 
 .button-colored-green-action:after {
     content: none !important;
+}
+
+.button-max {
+    display: flex;
+    align-content: center;
+    width: 15%;
+    margin-left: 10px;
+}
+
+.button-max-blue-small {
+    display: flex;
+    align-content: center;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 /*************************************************************

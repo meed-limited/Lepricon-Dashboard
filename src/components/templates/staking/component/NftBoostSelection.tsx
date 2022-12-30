@@ -6,6 +6,7 @@ import styles from "../../../../styles/Staking.module.css";
 import { useReadContract } from "../../../../hooks";
 import { DisplayNft } from "../../../elements";
 import { getBoostAttributes } from "../../../../utils/getNftAttributes";
+import { ButtonAction } from "../../../elements/Buttons";
 
 // import { setBoost } from "helpers/backend_call";
 // import { resetBoost } from "helpers/contractCall/writeCall";
@@ -118,17 +119,11 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                 )}
 
                 {boostStatus?.isBoost && deposited.stakes.stakes.length === 0 && (
-                    <Button type="primary" id="button-colored-red-action" onClick={() => console.log("boost removed")}>
-                        DESACTIVATE NFT BOOST
-                    </Button>
+                    <ButtonAction title="DESACTIVATE NFT BOOST" action={() => console.log("boost removed")} />
                 )}
                 {!boostStatus?.isBoost && (
                     <div>
-                        {!selectedNFT && (
-                            <Button type="primary" className="button-colored-green-action" onClick={openNftModal}>
-                                SELECT NFT BOOSTER
-                            </Button>
-                        )}
+                        {!selectedNFT && <ButtonAction title="SELECT NFT BOOSTER" action={() => openNftModal()} />}
                         {selectedNFT && (
                             <div className={styles.inlineFlexCenter}>
                                 Selected:

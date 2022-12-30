@@ -1,11 +1,11 @@
-import AmountButton from "./AmountButton";
-import { Button, Divider, InputNumber, Modal, Select, Spin } from "antd";
+import { Divider, InputNumber, Modal, Select, Spin } from "antd";
 import styles from "../../../../styles/Staking.module.css";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import { useStakeAction } from "../hooks";
 import { useUserData } from "../../../../context/UserContextProvider";
 import Image from "next/image";
 import l3p from "/public/images/l3p.png";
+import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
 
 type WithdrawSingleModalProps = {
     open: boolean;
@@ -42,12 +42,6 @@ const WithdrawSingleModal: FC<WithdrawSingleModalProps> = ({ open, setVisibility
                 }
             }
         }
-    };
-
-    const onMaxSingle = () => {
-        if (selectedStake.amount > 0) {
-            setAmountToWithdraw(selectedStake.amount);
-        } else setAmountToWithdraw(0);
     };
 
     const labelToShow = (id: number, amount: number) => {
@@ -100,19 +94,14 @@ const WithdrawSingleModal: FC<WithdrawSingleModalProps> = ({ open, setVisibility
                             style={{ width: "175px" }}
                         />
 
-                        <div className={styles.amountButton}>
-                            <AmountButton buttonText={"max"} buttonFunction={onMaxSingle} />
-                        </div>
+                        <ButtonMax amount={selectedStake.amount} action={setAmountToWithdraw} />
                     </div>
                     <Divider />
                     <div className={styles.withdrawButton}>
-                        <Button
-                            type="primary"
-                            className="button-colored-green-action"
-                            onClick={() => withdraw(selectedStake?.stakeId ?? 0, amountToWithdraw)}
-                        >
-                            WITHDRAW
-                        </Button>
+                        <ButtonAction
+                            title="WITHDRAW"
+                            action={() => withdraw(selectedStake?.stakeId ?? 0, amountToWithdraw)}
+                        />
                     </div>
                 </div>
             </Spin>
