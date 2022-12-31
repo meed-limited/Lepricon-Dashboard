@@ -9,6 +9,7 @@
     background: black;
     color: white;
     border-radius: 20px;
+    z-index: 1 !important;
 }
 
 .connectButton:hover {

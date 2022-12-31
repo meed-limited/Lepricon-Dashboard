@@ -22,7 +22,9 @@
         "react-dom": "18.2.0",
         "react-jazzicon": "^1.0.4",
         "react-particles": "^2.7.1",
+        "react-tsparticles": "^2.7.1",
         "tsparticles": "^2.7.1",
+        "tsparticles-preset-links": "^2.7.1",
         "tsparticles-preset-triangles": "^2.7.1",
         "wagmi": "^0.9.5"
     },

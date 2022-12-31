@@ -7,7 +7,7 @@ import styles from "../../../styles/Header.module.css";
 import Image from "next/image";
 import LepriconLogo_Black from "/public/images/LepriconLogo_Black.png";
 import { MenuOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import useMenuItems from "./useMenuItems";
 
 const { Header } = Layout;
@@ -16,10 +16,22 @@ const HeaderPage = () => {
     const { isMobile } = useWindowWidthAndHeight();
     const { menuItems, items } = useMenuItems();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [current, setCurrent] = useState("wallet");
+
+    const onClick = (e: { key: SetStateAction<string> }) => {
+        setCurrent(e.key);
+    };
 
     const openMenu = () => {
         setIsMenuOpen((prev) => !prev);
     };
+
+    useEffect(() => {
+        if (window.location.href.indexOf("wallet") > -1 && current !== "wallet") setCurrent("wallet");
+        else if (window.location.href.indexOf("staking") > -1 && current !== "staking") setCurrent("staking");
+        else if (window.location.href.indexOf("pool") > -1 && current !== "pool") setCurrent("pool");
+        return;
+    }, [window.location.href]);
 
     return (
         <>
@@ -34,7 +46,13 @@ const HeaderPage = () => {
                         <Link href="/">
                             <Logo />
                         </Link>
-                        <Menu items={menuItems} mode="horizontal" className={styles.menuItems} />
+                        <Menu
+                            onClick={onClick}
+                            items={menuItems}
+                            mode="horizontal"
+                            selectedKeys={[current]}
+                            className={styles.menuItems}
+                        />
                     </>
                 )}
                 <ConnectButton />
@@ -44,7 +62,11 @@ const HeaderPage = () => {
 };
 
 export const Logo = () => {
-    return <Image src={LepriconLogo_Black.src} alt="LepriconLogo_Black" width="140" height="40" />;
+    return (
+        <div className={styles.logo}>
+            <Image src={LepriconLogo_Black.src} alt="LepriconLogo_Black" width="140" height="40" />
+        </div>
+    );
 };
 
 export default HeaderPage;

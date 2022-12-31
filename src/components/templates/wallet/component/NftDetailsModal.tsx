@@ -38,7 +38,7 @@ const NftsDetailsModal: React.FC<NftDetailsProps> = ({ nft, isModalOpen, setIsMo
                         src={`${nft?.image}`}
                         alt="nft_image"
                         style={{
-                            width: "250px",
+                            width: "200px",
                             height: "250px",
                             margin: "auto",
                             borderRadius: "10px",

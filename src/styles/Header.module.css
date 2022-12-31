@@ -1,14 +1,21 @@
 .main {
-  width: 100%;
-  display: inline-flex;
-  justify-content: space-between;
-  border-bottom: 1px;
-  border-bottom-color: black;
-  padding: 10px 20px;
-  align-items: center;
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 15px;
+    z-index: 1 !important;
 }
 
 .menuItems {
-  background-color: transparent;
-  border-bottom: none;
+    background-color: transparent;
+    border-bottom: none;
+    z-index: 1 !important;
+}
+
+.logo {
+    z-index: 1 !important;
+    width: 140px;
+    height: 40px;
 }

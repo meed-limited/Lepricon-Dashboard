@@ -1,16 +1,14 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import Moralis from "moralis";
 import { Alert, Button, Divider, Modal } from "antd";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
-import { useReadContract } from "../../../../hooks";
+import { useWriteContract } from "../../../../hooks";
 import { DisplayNft } from "../../../elements";
 import { getBoostAttributes } from "../../../../utils/getNftAttributes";
 import { ButtonAction } from "../../../elements/Buttons";
 
 // import { setBoost } from "helpers/backend_call";
-// import { resetBoost } from "helpers/contractCall/writeCall";
-// import { getDate } from "helpers/formatters";
 
 type NftBoostSelectionProps = {
     deposited: StakesPerPool;
@@ -18,7 +16,7 @@ type NftBoostSelectionProps = {
 
 const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
     const { address, userNFTs, boostStatus, syncWeb3 } = useUserData();
-    const { getBoost } = useReadContract();
+    const { resetBoost } = useWriteContract();
     const [selectedNFT, setSelectedNFT] = useState<Nft>();
     const [visible, setVisibility] = useState(false);
 
@@ -38,6 +36,17 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
         setSelectedNFT(undefined);
     };
 
+    const getDate = (timestamp: number) => {
+        let datetime = new Date(timestamp * 1000);
+        let date = (
+            <>
+                {datetime.getDate()}/{datetime.getMonth() + 1}/{datetime.getFullYear()} <br></br>
+                at {datetime.getHours()}:{datetime.getMinutes()}:{datetime.getSeconds()}
+            </>
+        );
+        return date;
+    };
+
     // const applyNFTboost = async () => {
     //     if (address && selectedNFT) {
     //         await setBoost(address, selectedNFT);
@@ -55,18 +64,18 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
     //     await NFT.save();
     // };
 
-    // const resetBoostStatus = async () => {
-    //     const tokenIdToReset = boostStatus?.tokenId;
-    //     await resetBoost(address)
-    //         .then(() => {
-    //             resetIsStakedOnDB(tokenIdToReset);
-    //             setSelectedNFT(undefined);
-    //             syncWeb3();
-    //         })
-    //         .catch((err: any) => {
-    //             console.log(err);
-    //         });
-    // };
+    const resetBoostStatus = async () => {
+        const tokenIdToReset = boostStatus?.tokenId;
+        await resetBoost()
+            .then(() => {
+                // resetIsStakedOnDB(tokenIdToReset);
+                setSelectedNFT(undefined);
+                syncWeb3();
+            })
+            .catch((err: any) => {
+                console.log(err);
+            });
+    };
 
     const handleCancel = () => {
         setVisibility(false);
@@ -91,7 +100,7 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                             {boostStatus && boostStatus.isBoost && (
                                 <div>
                                     Added on:
-                                    {/* <span className={styles.text}>{getDate(boostStatus.sinceTimeStamp)}</span> */}
+                                    <span className={styles.text}>{getDate(boostStatus.sinceTimeStamp)}</span>
                                 </div>
                             )}
                         </>
@@ -119,7 +128,7 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                 )}
 
                 {boostStatus?.isBoost && deposited.stakes.stakes.length === 0 && (
-                    <ButtonAction title="DESACTIVATE NFT BOOST" action={() => console.log("boost removed")} />
+                    <ButtonAction title="DESACTIVATE NFT BOOST" action={() => resetBoostStatus()} />
                 )}
                 {!boostStatus?.isBoost && (
                     <div>

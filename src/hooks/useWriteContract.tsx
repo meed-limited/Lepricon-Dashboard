@@ -131,7 +131,24 @@ const useWriteContract = () => {
         }
     };
 
-    return { approveToken, approveNft, transferNft, stake, unstake };
+    /* Reset the Boost status of a user:
+     ************************************/
+    const resetBoost = async () => {
+        try {
+            const tx = await stakingInstance.resetNftStatus(address as string);
+            await tx.wait(2);
+            let title = "Boost status cancelled";
+            let msg = `Your boost status has been successfully removed.`;
+            openNotification("success", title, msg);
+        } catch (error: any) {
+            let title = "Unexpected error";
+            let msg = "Something went wrong while resetting your boost status. Please try again.";
+            openNotification("error", title, msg);
+            return error.reason ? error.reason : error.message ? error.message : "Unexpected error";
+        }
+    };
+
+    return { approveToken, approveNft, transferNft, stake, unstake, resetBoost };
 };
 
 export default useWriteContract;
