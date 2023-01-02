@@ -31,7 +31,7 @@ const HeaderPage = () => {
         else if (window.location.href.indexOf("staking") > -1 && current !== "staking") setCurrent("staking");
         else if (window.location.href.indexOf("pool") > -1 && current !== "pool") setCurrent("pool");
         return;
-    }, [window.location.href]);
+    }, [current]);
 
     return (
         <>

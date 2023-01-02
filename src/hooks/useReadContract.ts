@@ -4,13 +4,14 @@ import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
 import { useContract } from "./useContract";
 import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
+import { LepriTest } from "../../types/LepriTest";
 
 const useReadContract = () => {
     const { address } = useAccount();
     const { token, nft, staking } = getContractAddresses();
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
-    const nftInstance: any = useContract(nft, NFT_ABI);
+    const nftInstance: LepriTest = useContract(nft, NFT_ABI);
 
     /* Get the name of a specific TOKEN :
      ************************************/
@@ -96,6 +97,19 @@ const useReadContract = () => {
         }
     };
 
+    /* Check if existing allowance of NFT 721 :
+     ********************************************/
+    const checkNftOwnership = async (account: string, tokenId: number) => {
+        try {
+            const owner = await nftInstance.ownerOf(tokenId);
+            if (owner.toLowerCase() === account.toLowerCase()) return true;
+            return false;
+        } catch (error: any) {
+            console.log(error.reason ? error.reason : error.message);
+            return false;
+        }
+    };
+
     return {
         getTokenName,
         getTokenBalance,
@@ -104,6 +118,7 @@ const useReadContract = () => {
         getBoost,
         getVaultForTimelock,
         checkNftAllowance,
+        checkNftOwnership,
     };
 };
 

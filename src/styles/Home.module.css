@@ -11,7 +11,6 @@
     background-color: rgb(223, 255, 230);
     width: 60%;
     margin: auto;
-
     min-width: 200px;
     padding: 20px;
     border-radius: 10px;
@@ -63,4 +62,41 @@
     transform: rotate(15deg);
     top: -150px;
     right: 50px;
+}
+
+@media (width < 1000px) {
+    .main {
+        width: 80%;
+    }
+    .content {
+        width: 80%;
+    }
+    .title {
+        font-size: 30px;
+    }
+    .subtitle {
+        font-size: 15px;
+        width: 80%;
+    }
+}
+
+@media (width < 500px) {
+    .main {
+        width: 95%;
+        display: block;
+        gap: 0;
+    }
+    .content {
+        width: 90%;
+    }
+    .title {
+        font-size: 20px;
+    }
+    .subtitle {
+        font-size: 11px;
+        width: 90%;
+    }
+    .image {
+        display: none;
+    }
 }

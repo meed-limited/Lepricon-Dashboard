@@ -22,48 +22,45 @@ const AddressInput: React.FC<any> = (props: any) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props, validatedAddress, isDomain, address]);
 
-    const updateAddress = useCallback(
-        async (value: string) => {
-            setError("");
-            setAddress(value);
+    const updateAddress = useCallback(async (value: string) => {
+        setError("");
+        setAddress(value);
 
-            if (isSupportedDomain(value)) {
-                if (isProdEnv) {
-                    const processPromise = function (promise: Promise<FetchEnsAddressResult> | Promise<string | null>) {
-                        promise
-                            .then((addr: FetchEnsAddressResult | string) => {
-                                if (addr !== null && isAddress(addr)) {
-                                    setValidatedAddress(addr);
-                                    setIsDomain(true);
-                                }
-                            })
-                            .catch(() => {
-                                setValidatedAddress("");
-                            });
-                    };
-                    if (value.endsWith(".eth")) {
-                        processPromise(fetchEnsAddress({ name: value }));
-                    } else {
-                        processPromise(
-                            fetchEnsResolver({ name: value }).then((resolver) =>
-                                resolver?.address ? resolver?.address : ""
-                            )
-                        );
-                    }
-                } else setError("ENS not supported on this network. Are you connected on a testnet?");
-            } else if (value.length === 42) {
-                if (isAddress(value)) {
-                    setValidatedAddress(getEllipsisTxt(value, 10));
-                    setIsDomain(false);
+        if (isSupportedDomain(value)) {
+            if (isProdEnv) {
+                const processPromise = function (promise: Promise<FetchEnsAddressResult> | Promise<string | null>) {
+                    promise
+                        .then((addr: FetchEnsAddressResult | string) => {
+                            if (addr !== null && isAddress(addr)) {
+                                setValidatedAddress(addr);
+                                setIsDomain(true);
+                            }
+                        })
+                        .catch(() => {
+                            setValidatedAddress("");
+                        });
+                };
+                if (value.endsWith(".eth")) {
+                    processPromise(fetchEnsAddress({ name: value }));
+                } else {
+                    processPromise(
+                        fetchEnsResolver({ name: value }).then((resolver) =>
+                            resolver?.address ? resolver?.address : ""
+                        )
+                    );
                 }
-            } else {
-                setValidatedAddress("");
+            } else setError("ENS not supported on this network. Are you connected on a testnet?");
+        } else if (value.length === 42) {
+            if (isAddress(value)) {
+                setValidatedAddress(getEllipsisTxt(value, 10));
                 setIsDomain(false);
-                setError("Invalid address. Please check your input.");
             }
-        },
-        [fetchEnsAddress, fetchEnsResolver]
-    );
+        } else {
+            setValidatedAddress("");
+            setIsDomain(false);
+            setError("Invalid address. Please check your input.");
+        }
+    }, []);
 
     const Cross = () => (
         <svg

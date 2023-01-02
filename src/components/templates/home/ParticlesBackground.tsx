@@ -20,6 +20,7 @@ const ParticleBackground = () => {
             className={styles.particles}
             height="100vh"
             width="100vw"
+            style={{ marginTop: "65px" }}
         ></Particles>
     );
 };

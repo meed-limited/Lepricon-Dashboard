@@ -31,6 +31,12 @@
     gap: 30px;
 }
 
+@media (width < 550px) {
+    .content {
+        width: 97%;
+    }
+}
+
 /******************************************************
                     StakingAccordeon.tsx
 *******************************************************/
@@ -38,7 +44,7 @@
 .container {
     background-color: white;
     width: 100%;
-    min-width: 350px;
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     height: auto;

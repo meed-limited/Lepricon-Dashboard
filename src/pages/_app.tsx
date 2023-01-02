@@ -8,6 +8,7 @@ import { WagmiConfig } from "wagmi";
 import { client } from "../wagmi";
 import "../styles/globals.css";
 import { UserDataProvider } from "../context/UserContextProvider";
+import NftOwnersUpdate from "../components/elements/NftOwners/NftOwnersUpdate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ function App({ Component, pageProps }: AppProps) {
                 <NextHead>
                     <title>Lepricon App</title>
                 </NextHead>
+                <NftOwnersUpdate />
                 <div className={inter.className} style={{ fontFamily: "Sora, sans-serif" }}>
                     {mounted && <Component {...pageProps} />}
                 </div>

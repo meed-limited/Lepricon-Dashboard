@@ -19,13 +19,11 @@ const Home = () => {
                 <h1 className={styles.title}>
                     Lepricon Wallet
                     <br />
-                    <h4 className={styles.subtitle}>
-                        <ul>
-                            <li>All-In-One Dashboard</li>
-                            <li>Transfer, or Sell your NFTs</li>
-                            <li>Stake your tokens and boost your yield!</li>
-                        </ul>
-                    </h4>
+                    <ul className={styles.subtitle}>
+                        <li>All-In-One Dashboard</li>
+                        <li>Transfer, or Sell your NFTs</li>
+                        <li>Stake your tokens and boost your yield!</li>
+                    </ul>
                 </h1>
                 {isConnected ? (
                     <div style={{ width: "60%", margin: "auto" }}>
@@ -39,7 +37,7 @@ const Home = () => {
             </div>
 
             <div className={styles.imageContainer}>
-                <Image src={LuckyLepricat} alt="Lucky Lepricat" className={styles.image} />
+                <Image src={LuckyLepricat} alt="Lucky Lepricat" className={styles.image} priority={true} />
             </div>
         </div>
     );

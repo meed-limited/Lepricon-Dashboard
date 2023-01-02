@@ -1,4 +1,5 @@
 import Modal from "antd/lib/modal/Modal";
+import Image from "next/image";
 import styles from "../../../../styles/Wallet.module.css";
 
 import {
@@ -34,7 +35,7 @@ const NftsDetailsModal: React.FC<NftDetailsProps> = ({ nft, isModalOpen, setIsMo
                 width="400px"
             >
                 <div className={styles.nftModalDetails}>
-                    <img
+                    <Image
                         src={`${nft?.image}`}
                         alt="nft_image"
                         style={{

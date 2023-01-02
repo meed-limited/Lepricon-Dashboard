@@ -5,6 +5,11 @@ export const SUPPORTED_CHAIN = {
     testnet: 80001,
 };
 
+export const SUPPORTED_CHAIN_NFT = {
+    mainnet: 0x1,
+    testnet: 0x5,
+};
+
 export const DEX_URL = "https://quickswap.exchange/#/";
 
 export const URL = isProdEnv ? "https://app.lepricon.io" : "http://localhost:3000";
@@ -41,3 +46,5 @@ export const getChain = () => {
         return SUPPORTED_CHAIN.testnet;
     }
 };
+
+export const NFT_CHAIN = isProdEnv ? SUPPORTED_CHAIN_NFT.mainnet : SUPPORTED_CHAIN_NFT.testnet;

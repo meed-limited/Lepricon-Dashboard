@@ -33,6 +33,43 @@ interface UserBalances {
                            NFT
 ***********************************************************/
 
+interface EvmNft {
+    amount: number | undefined;
+    blockNumber: BigNumber | undefined;
+    blockNumberMinted: BigNumber | undefined;
+    chain: EvmChain;
+    contractType: string | undefined;
+    lastMetadataSync: Date | undefined;
+    lastTokenUriSync: Date | undefined;
+    metadata?: any;
+    name: string | undefined;
+    ownerOf: EvmAddress | undefined;
+    symbol: string | undefined;
+    tokenAddress: EvmAddress | undefined;
+    tokenHash: string | undefined;
+    tokenId: string | number;
+    tokenUri: string | undefined;
+}
+
+interface NftsOwners {
+    _id: ObjectId;
+    amount: number;
+    blockNumber: string | undefined;
+    blockNumberMinted: string | undefined;
+    chain: string | number;
+    contractType: string | undefined;
+    lastMetadataSync: string | undefined;
+    lastTokenUriSync: string | undefined;
+    name: string | undefined;
+    ownerOf: string | undefined;
+    symbol: string | undefined;
+    tokenAddress: string;
+    tokenHash: string | undefined;
+    tokenId: number;
+    tokenUri: string | undefined;
+    isStaked: boolean;
+}
+
 interface Nfts {
     result:
         | {

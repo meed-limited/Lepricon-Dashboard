@@ -1,42 +1,4 @@
 /******************************************************
-                    Wallet.tsx
-*******************************************************/
-
-.content {
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    padding-inline: 10px;
-    min-width: 390px;
-    font-size: 20px;
-    gap: 10px;
-}
-
-.box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: white;
-    width: 712px;
-    min-width: 400px;
-    max-width: 712px;
-    align-items: center;
-    flex-grow: 0;
-    border: solid #75e287 1px;
-    border-radius: 7px;
-    gap: 5px;
-    padding: 15px 30px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
-    font-size: 17px;
-}
-
-.title {
-    font-size: 22px;
-    font-weight: 600;
-}
-
-/******************************************************
                     Token.tsx
 *******************************************************/
 .subDiv {
@@ -44,13 +6,13 @@
     justify-content: space-around;
     align-items: flex-start;
     width: 70%;
-    min-width: 370px;
+    min-width: 320px;
     max-width: 550px;
 }
 
 .container {
-    padding: 20px;
     margin-bottom: 30px;
+    padding: 20px;
     border: solid #75e287 1px;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
@@ -118,7 +80,7 @@
     -webkit-box-pack: start;
     justify-content: center;
     margin: auto;
-    min-width: 350px;
+    min-width: 300px;
     max-width: 1000px;
     width: 100%;
     gap: 10px;

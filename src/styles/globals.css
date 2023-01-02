@@ -22,25 +22,25 @@ a {
     justify-content: center;
     align-items: flex-start;
     padding-inline: 10px;
-    min-width: 390px;
+    min-width: 340px;
     font-size: 20px;
     gap: 10px;
 }
 
 .box {
     width: 712px;
-    min-width: 400px;
+    min-width: 330px;
     max-width: 712px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px 30px;
     flex-grow: 0;
+    gap: 5px;
+    padding: 15px 30px;
+    background-color: white;
     border: solid #75e287 1px;
     border-radius: 7px;
-    background-color: white;
-    gap: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
     text-align: center;
     font-size: 17px;
@@ -61,15 +61,6 @@ a {
     text-align: center;
 }
 
-.container {
-    width: 95%;
-    margin-bottom: 30px;
-    padding: 20px;
-    border: solid #75e287 1px;
-    border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
-}
-
 .dropdown-menu-items {
     width: 150px;
     height: 40px;
@@ -79,6 +70,15 @@ a {
     color: #11631f !important;
     font-size: large;
     font-weight: 500;
+}
+
+@media (width < 550px) {
+    .content {
+        width: 97%;
+    }
+    .box {
+        padding: 15px 0;
+    }
 }
 
 /*************************************************************
@@ -152,4 +152,23 @@ a {
         inset 1px 1px 7px 5px #ffffff;
     margin-top: 0.275rem;
     border-radius: 5px;
+}
+
+.ant-menu-horizontal {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.ant-menu-horizontal > .ant-menu-item a {
+    color: #455a52 !important;
+}
+.ant-menu-horizontal > .ant-menu-item a:hover {
+    color: #21bf96 !important;
+}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected:after {
+    border-bottom: 2px solid #21bf96 !important;
+}
+
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item-active:after {
+    border-bottom: 2px solid #21bf96 !important;
 }
