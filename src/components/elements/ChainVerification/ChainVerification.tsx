@@ -28,9 +28,9 @@ const ChainVerification: FC = () => {
         <>
             {isConnected && !isSupportedChain && (
                 <div className={styles.content}>
-                    <text className={styles.text}>
+                    <span className={styles.text}>
                         Wrong network. Please switch to {isProdEnv ? polygon.name : mumbai.name}.
-                    </text>
+                    </span>
                     <Button type="primary" onClick={() => handleSwitch()}>
                         Switch Network
                     </Button>

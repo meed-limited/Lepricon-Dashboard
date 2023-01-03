@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Modal, Spin } from "antd";
 import { useWriteContract } from "../../../../hooks";
 import { AddressInput } from "../../../elements/AddressInput";
+import { useUserData } from "../../../../context/UserContextProvider";
 
 type TransferNftModalProps = {
     isModalOpen: boolean;
@@ -11,6 +12,7 @@ type TransferNftModalProps = {
 
 const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsModalOpen, nft }) => {
     const { transferNft } = useWriteContract();
+    const { syncWeb3 } = useUserData();
 
     const [receiverToSend, setReceiver] = useState<any>(null);
     const [isPending, setIsPending] = useState(false);
@@ -21,6 +23,7 @@ const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsM
         if (success) {
             setIsPending(false);
             setIsModalOpen(false);
+            syncWeb3();
         } else setIsPending(false);
     };
 

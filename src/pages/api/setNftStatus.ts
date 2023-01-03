@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             nftContractAddress: nftContractAddress,
             tokenId: tokenId,
             boost: boost,
-            provider: "POLYGON",
+            chain: "POLYGON",
             network: isProdEnv ? "mainnet" : "testnet",
         });
 
@@ -46,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!response.data.success) {
             res.status(400).json({
                 success: false,
-                message: "Something went wrong while setting the booster.",
+                message: "Something went wrong during the contract call to update the boost status.",
                 data: null,
             });
             return;
@@ -62,7 +62,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         console.error(error);
         res.status(400).json({
             success: false,
-            message: "An error occured while updating the DB!",
+            message: "An unexpected error occured while setting the NFT boost.",
             error,
             data: null,
         });

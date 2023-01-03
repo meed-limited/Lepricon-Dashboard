@@ -1,5 +1,6 @@
 import { useAccount } from "wagmi";
 
+import { providers, Contract } from "ethers";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
 import { useContract } from "./useContract";
@@ -11,7 +12,7 @@ const useReadContract = () => {
     const { token, nft, staking } = getContractAddresses();
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
-    const nftInstance: LepriTest = useContract(nft, NFT_ABI);
+    // const nftInstance: LepriTest = useContract(nft, NFT_ABI);
 
     /* Get the name of a specific TOKEN :
      ************************************/
@@ -87,20 +88,11 @@ const useReadContract = () => {
 
     /* Check if existing allowance of NFT 721 :
      ********************************************/
-    const checkNftAllowance = async () => {
-        try {
-            const allowance: boolean = await nftInstance.isApprovedForAll(address as string, staking);
-            return allowance;
-        } catch (error: any) {
-            console.log(error.reason ? error.reason : error.message);
-            return false;
-        }
-    };
-
-    /* Check if existing allowance of NFT 721 :
-     ********************************************/
     const checkNftOwnership = async (account: string, tokenId: number) => {
         try {
+            const provider = new providers.Web3Provider(window?.ethereum as any, "any");
+            const nftInstance = new Contract(nft, NFT_ABI, provider) as LepriTest;
+
             const owner = await nftInstance.ownerOf(tokenId);
             if (owner.toLowerCase() === account.toLowerCase()) return true;
             return false;
@@ -117,7 +109,6 @@ const useReadContract = () => {
         getStakes,
         getBoost,
         getVaultForTimelock,
-        checkNftAllowance,
         checkNftOwnership,
     };
 };

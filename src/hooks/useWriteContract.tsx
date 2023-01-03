@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { FileSearchOutlined } from "@ant-design/icons";
 
-import { BigNumber } from "ethers";
+import { BigNumber, providers, Contract } from "ethers";
 
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
@@ -17,7 +16,13 @@ const useWriteContract = () => {
     const { token, nft, staking } = getContractAddresses();
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
-    const nftInstance: LepriTest = useContract(nft, NFT_ABI);
+
+    const provider = new providers.Web3Provider(window?.ethereum as any, "any");
+    const signer = provider.getSigner();
+    const nftInstance = new Contract(nft, NFT_ABI, signer) as LepriTest;
+
+    // 0xd8b96389d20Ade29a4F05777716688c097540f9d
+    // 0xF0eEaAB7153Ff42849aCb0E817efEe09fb078C1b
 
     /* Set Token Allowance:
      ***************************/
@@ -37,25 +42,8 @@ const useWriteContract = () => {
         }
     };
 
-    /* Set Token Allowance:
-     ***************************/
-    const approveNft = async () => {
-        try {
-            const tx = await nftInstance.setApprovalForAll(staking, true);
-            await tx.wait(2);
-            const title = "NFT Approval set";
-            const msg = `Allowance succesfully set.`;
-            openNotification("success", title, msg);
-        } catch (error: any) {
-            const title = "NFT Approval denied";
-            const msg = "Something went wrong while setting the allowance. Please try again.";
-            openNotification("error", title, msg);
-            console.log(error.reason ? error.reason : error.message);
-        }
-    };
-
-    /* Set Token Allowance:
-     ***************************/
+    /* Transfer an NFT to the receiver address:
+     *******************************************/
     const transferNft = async (nft: Nft, receiver: string) => {
         try {
             const tx = await nftInstance.transferFrom(address as string, receiver, nft.token_id);
@@ -148,7 +136,7 @@ const useWriteContract = () => {
         }
     };
 
-    return { approveToken, approveNft, transferNft, stake, unstake, resetBoost };
+    return { approveToken, transferNft, stake, unstake, resetBoost };
 };
 
 export default useWriteContract;
