@@ -33,7 +33,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(`START MONGO_DB UPDATE...`);
         if (response && response.result && response.result.length !== 0) {
             saveMany(response.result);
-            // isFetched = true;
             // mongoose.disconnect();
 
             const result = await NftSchema.find();
@@ -46,11 +45,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     } catch (error) {
         console.error(error);
-        // res.status(400).json({
-        //     success: false,
-        //     message: "An error occured while updating the DB!",
-        //     data: null,
-        // });
+        res.status(400).json({
+            success: false,
+            message: "An error occured while updating the DB!",
+            data: null,
+        });
     }
 };
 

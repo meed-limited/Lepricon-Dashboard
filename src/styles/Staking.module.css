@@ -203,17 +203,18 @@
 .box {
     display: inline-flex;
     flex-grow: 0;
+    flex-wrap: wrap;
     width: 90%;
     justify-content: space-evenly;
     align-items: center;
     margin-top: 20px;
-    padding: 15px 30px;
+    padding: 15px;
     background-color: white;
     border-radius: 7px;
     border: solid #75e287 1px;
     gap: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .columnFlexStart {
@@ -230,10 +231,11 @@
 
 .text {
     color: grey;
-    font-size: 18px;
 }
 
 .removeIcon {
+    color: red !important;
+    font-size: 25px;
     margin-left: 20px;
     cursor: pointer;
 }

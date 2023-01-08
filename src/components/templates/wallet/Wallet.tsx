@@ -56,7 +56,7 @@ const Wallet: FC = () => {
                 <div className="title">Lepricon NFTs:</div>
                 <Divider />
 
-                <DisplayNft />
+                <DisplayNft selectable={false} />
             </div>
         </div>
     );

@@ -1,22 +1,24 @@
 import { FC, useState } from "react";
-import Moralis from "moralis";
 import { Alert, Button, Divider, Modal } from "antd";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
-import { useWriteContract } from "../../../../hooks";
+import { useWindowWidthAndHeight, useWriteContract } from "../../../../hooks";
 import { DisplayNft } from "../../../elements";
 import { getBoostAttributes } from "../../../../utils/getNftAttributes";
 import { ButtonAction } from "../../../elements/Buttons";
-
-// import { setBoost } from "helpers/backend_call";
+// import { updateNftStatus } from "../../../../utils/db";
+import { useBoostAPI } from "../../../../hooks/useBoostAPI";
+import { CloseOutlined } from "@ant-design/icons";
 
 type NftBoostSelectionProps = {
     deposited: StakesPerPool;
 };
 
 const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
-    const { address, userNFTs, boostStatus, syncWeb3 } = useUserData();
+    const { address, boostStatus, syncWeb3 } = useUserData();
     const { resetBoost } = useWriteContract();
+    const { setBoost, resetBoostInDb } = useBoostAPI();
+    const { isMobile } = useWindowWidthAndHeight();
     const [selectedNFT, setSelectedNFT] = useState<Nft>();
     const [visible, setVisibility] = useState(false);
 
@@ -24,12 +26,9 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
         setVisibility(true);
     };
 
-    const changeColorOnHover = (e: any) => {
-        e.target.style.color = "#75e287";
-    };
-
-    const changeColorOnLeave = (e: any) => {
-        e.target.style.color = "black";
+    const handleSelectNft = (nft: Nft) => {
+        setSelectedNFT(nft);
+        setVisibility(false);
     };
 
     const removeSelectedNft = () => {
@@ -47,47 +46,42 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
         return date;
     };
 
-    // const applyNFTboost = async () => {
-    //     if (address && selectedNFT) {
-    //         await setBoost(address, selectedNFT);
-    //     }
-    // };
-
-    // const resetIsStakedOnDB = async (tokenId: any) => {
-    //     const NFTboostOwners = Moralis.Object.extend("NFTboostOwners");
-    //     const query = new Moralis.Query(NFTboostOwners);
-    //     query.equalTo("token_id", tokenId);
-    //     const NFT = await query.first();
-
-    //     // Edit NFT owner in Moralis DB
-    //     NFT.set("isStaked", false);
-    //     await NFT.save();
-    // };
+    const applyNFTboost = async () => {
+        if (address && selectedNFT) {
+            const boost = parseInt(getBoostAttributes(selectedNFT).toString());
+            await setBoost(address, selectedNFT.token_address, Number(selectedNFT.token_id), boost).then(() => {
+                syncWeb3();
+            });
+        }
+    };
 
     const resetBoostStatus = async () => {
-        const tokenIdToReset = boostStatus?.tokenId;
-        await resetBoost()
-            .then(() => {
-                // resetIsStakedOnDB(tokenIdToReset);
-                setSelectedNFT(undefined);
-                syncWeb3();
-            })
-            .catch((err: any) => {
-                console.log(err);
-            });
+        if (boostStatus) {
+            const id = boostStatus?.tokenId;
+            const nftAddress = boostStatus?.NftContractAddress;
+            await resetBoost()
+                .then(() => {
+                    resetBoostInDb(address as string, nftAddress, id, false);
+                    setSelectedNFT(undefined);
+                    syncWeb3();
+                })
+                .catch((err: any) => {
+                    console.log(err);
+                });
+        }
     };
 
     const handleCancel = () => {
         setVisibility(false);
     };
 
-    const condition = (boostStatus && boostStatus.isBoost) || !selectedNFT;
+    const noCurrentSelection = (boostStatus && boostStatus.isBoost) || !selectedNFT;
 
     return (
         <>
             <div className={styles.box}>
                 <div className={styles.columnFlexStart}>
-                    {condition ? (
+                    {noCurrentSelection ? (
                         <>
                             <div style={{ display: "inline-flex" }}>
                                 <span style={{ marginRight: "6px" }}>Actual:</span>
@@ -99,22 +93,17 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                             </div>
                             {boostStatus && boostStatus.isBoost && (
                                 <div>
-                                    Added on:
-                                    <span className={styles.text}>{getDate(boostStatus.sinceTimeStamp)}</span>
+                                    Added on: <span className={styles.text}>{getDate(boostStatus.sinceTimeStamp)}</span>
                                 </div>
                             )}
                         </>
                     ) : (
-                        <Button
-                            type="primary"
-                            className="button-colored-green-action"
-                            onClick={() => console.log("boost added")}
-                        >
+                        <Button type="primary" className="button-colored-green-action" onClick={() => applyNFTboost()}>
                             APPLY BOOST
                         </Button>
                     )}
                 </div>
-                <Divider type="vertical" style={{ borderLeft: "1px solid #75e287" }} />
+                {!isMobile && <Divider type="vertical" style={{ borderLeft: "2px solid #75e287", height: "25px" }} />}
 
                 {boostStatus?.isBoost && deposited.stakes.stakes.length > 0 && (
                     <Alert
@@ -128,7 +117,9 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                 )}
 
                 {boostStatus?.isBoost && deposited.stakes.stakes.length === 0 && (
-                    <ButtonAction title="DESACTIVATE NFT BOOST" action={() => resetBoostStatus()} />
+                    <div style={{ maxWidth: "55%" }}>
+                        <ButtonAction title="DESACTIVATE NFT BOOST" action={() => resetBoostStatus()} />
+                    </div>
                 )}
                 {!boostStatus?.isBoost && (
                     <div>
@@ -139,22 +130,15 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                                 <div
                                     className={styles.box}
                                     style={{
-                                        minWidth: "350px",
-                                        width: "100%",
+                                        flexWrap: "nowrap",
+                                        minWidth: "150px",
                                         marginTop: "0",
                                         marginLeft: "20px",
                                     }}
                                 >
                                     <span className={styles.text} style={{ display: "inline-flex" }}>
-                                        {selectedNFT.name} Boost: {getBoostAttributes(selectedNFT)}%{" "}
-                                        <div
-                                            className={styles.removeIcon}
-                                            onClick={removeSelectedNft}
-                                            onMouseOver={changeColorOnHover}
-                                            onMouseOut={changeColorOnLeave}
-                                        >
-                                            {/* <Icon fill="red" size={26} svg="xCircle" /> */}
-                                        </div>
+                                        {selectedNFT.name} Boost: {getBoostAttributes(selectedNFT)}
+                                        <CloseOutlined className={styles.removeIcon} onClick={removeSelectedNft} />
                                     </span>
                                 </div>
                             </div>
@@ -173,7 +157,7 @@ const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
                 }}
             >
                 <div className="modal_title">Select an NFT booster:</div>
-                <DisplayNft />
+                <DisplayNft selectable={true} handleSelectNft={handleSelectNft} />
             </Modal>
         </>
     );

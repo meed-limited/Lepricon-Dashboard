@@ -1,4 +1,7 @@
+import { isProdEnv } from "../data/constant";
 import NftSchema from "../data/models/nftSchema";
+
+const collection = isProdEnv ? process.env.MONGO_DB_COLLECTION : process.env.MONGO_DB_COLLECTION_TEST;
 
 export const saveMany = (data: EvmNft[]) => {
     data.forEach(async (el: EvmNft) => {
@@ -20,4 +23,20 @@ export const saveMany = (data: EvmNft[]) => {
             isStaked: false,
         });
     });
+};
+
+export const updateNftStatus = async (owner: string, nftAddress: string, nftId: number, status: boolean) => {
+    // Get NFT object from Mongo DB
+    const query = {
+        collectionName: collection,
+        ownerOf: owner.toLowerCase(),
+        tokenId: nftId,
+        tokenAddress: nftAddress.toLowerCase(),
+    };
+    const result = await NftSchema.find(query);
+    const nft = result[0];
+
+    // Edit & save NFT status in Mongo DB
+    nft.isStaked = status;
+    await nft.save();
 };

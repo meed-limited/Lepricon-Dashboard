@@ -12,7 +12,6 @@ const useReadContract = () => {
     const { token, nft, staking } = getContractAddresses();
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
-    // const nftInstance: LepriTest = useContract(nft, NFT_ABI);
 
     /* Get the name of a specific TOKEN :
      ************************************/

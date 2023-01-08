@@ -86,7 +86,7 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
             key: "amount",
         },
         {
-            title: "Daily",
+            title: "Days",
             dataIndex: "days",
             key: "days",
         },

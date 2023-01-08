@@ -1,33 +1,51 @@
-import mongoose from "mongoose";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { isProdEnv } from "../../data/constant";
+import { isProdEnv, URL_EXTERNAL } from "../../data/constant";
 import { useReadContract } from "../../hooks";
+import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { checkNftOwnership } = useReadContract();
-
-    await mongoose.connect(process.env.MONGODB_URI!);
-    mongoose.set("strictQuery", false);
+    if (req.method !== "POST") {
+        res.status(405).send({ message: "Only POST requests allowed" });
+        return;
+    }
 
     try {
         const { account, nftContractAddress, tokenId, boost } = req.body;
         console.log(`ACCOUNT "${account}" REQUEST ${boost}% STAKING BOOST...`);
 
-        if (!account || !nftContractAddress || !tokenId || !boost) {
+        if (!account || !nftContractAddress || tokenId === undefined || boost === undefined) {
             res.status(400).json({ success: false, message: "Missing parameters" });
             return;
         }
 
         // 1. Check if account really owns NFT (in case of direct contract interaction)
-        const isOwner = await checkNftOwnership(account, tokenId);
-        if (!isOwner) {
+        const body = JSON.stringify({
+            owner: account,
+            tokenId: tokenId,
+            chain: "ETH",
+            network: isProdEnv ? "mainnet" : "testnet",
+        });
+
+        const ownership = await axios.post(`${URL_EXTERNAL}/nft/checkOwnership`, body, {
+            headers: {
+                Authorization: `Bearer ${process.env.SIGNING_KEY}`,
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (ownership.status !== 200) {
+            res.status(400).json({ success: false, message: "Something went wrong while checking the NFT ownership." });
+            return;
+        }
+
+        if (!ownership.data.isOwner) {
             res.status(400).json({ success: false, message: "This account doesn't own this NFT" });
             return;
         }
 
         // 2. Set account boost
-        const body = JSON.stringify({
+        const body2 = JSON.stringify({
             account: account,
             nftContractAddress: nftContractAddress,
             tokenId: tokenId,
@@ -36,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             network: isProdEnv ? "mainnet" : "testnet",
         });
 
-        const response = await axios.post(`${process.env.SIGNING_URL}/nft/setBoost`, body, {
+        const response = await axios.post(`${URL_EXTERNAL}/nft/setBoost`, body2, {
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
                 "Content-Type": "application/json",
@@ -51,6 +69,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
             return;
         }
+
+        updateNftStatus(account, nftContractAddress, tokenId, true);
 
         console.log(`${boost}% BOOST FOR ACCOUNT ${account} SUCCESSFULLY SET!`);
         res.status(200).json({
@@ -70,6 +90,3 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default handler;
-
-// const query =
-// const result = await NftSchema.find();

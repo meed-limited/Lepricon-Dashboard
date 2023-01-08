@@ -59,6 +59,7 @@ export const useStakeAction = () => {
                 const amountBN = utils.parseUnits(amount.toString(), 18);
                 await unstake(amountBN, deposited.stakes.stakes[i].index);
                 setLoading(false);
+                syncWeb3();
             }
         } else {
             for (let i = 0; i < deposited.stakes.stakes.length; i++) {
@@ -68,6 +69,7 @@ export const useStakeAction = () => {
                     const amountBN = utils.parseUnits(amount.toString(), 18);
                     await unstake(amountBN, stake.index);
                     setLoading(false);
+                    syncWeb3();
                 } else return "No stakes to withdraw at this time. Please, check the locking time in the detail pane.";
                 message.warning("");
                 setLoading(false);

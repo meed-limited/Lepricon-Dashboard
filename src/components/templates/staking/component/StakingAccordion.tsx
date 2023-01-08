@@ -49,7 +49,7 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
     const displayAPR = `${APR}%`;
     const totalDepot = `${deposited.stakes.total} ${tokenName}`;
     const totalReward = `${reward} ${tokenName}`;
-    const daily = `${deposited.stakes.total !== 0 && oldestStakeDate !== undefined ? oldestStakeDate : "0"}`;
+    const days = `${deposited.stakes.total !== 0 && oldestStakeDate !== undefined ? oldestStakeDate : "0"}`;
 
     return (
         <div className={styles.container}>
@@ -66,7 +66,7 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
                         <AccordionData title="APR" data={displayAPR} />
                         <AccordionData title="Deposited" data={totalDepot} />
                         <AccordionData title="Unclaimed" data={totalReward} />
-                        <AccordionData title="Daily" data={daily} />
+                        <AccordionData title="Days" data={days} />
                     </div>
                 )}
 
@@ -86,7 +86,7 @@ const StakingAccordion: FC<StakingAccordionProps> = ({ subTitle, deposited }) =>
                         <AccordionData title="APR" data={displayAPR} />
                         <AccordionData title="Deposited" data={totalDepot} />
                         <AccordionData title="Unclaimed" data={totalReward} />
-                        <AccordionData title="Daily" data={daily} />
+                        <AccordionData title="Days" data={days} />
                     </div>
                 </>
             )}
