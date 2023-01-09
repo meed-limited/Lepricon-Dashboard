@@ -1,11 +1,14 @@
-import { Divider, InputNumber, Modal, Select, Spin } from "antd";
-import styles from "../../../../styles/Staking.module.css";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { useStakeAction } from "../hooks";
-import { useUserData } from "../../../../context/UserContextProvider";
+
+import { Divider, InputNumber, Modal, Select, Spin } from "antd";
 import Image from "next/image";
-import l3p from "/public/images/l3p.png";
+
+import { useUserData } from "../../../../context/UserContextProvider";
+import styles from "../../../../styles/Staking.module.css";
 import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
+import { useStakeAction } from "../hooks";
+
+import l3p from "/public/images/l3p.png";
 
 type WithdrawSingleModalProps = {
     open: boolean;
@@ -32,7 +35,7 @@ const WithdrawSingleModal: FC<WithdrawSingleModalProps> = ({ open, setVisibility
     const onChangeWithdrawAmount = (value: number) => {
         if (lock !== 0) {
             if (selectedStake.amount > 0) {
-                let maxAmount = selectedStake.amount;
+                const maxAmount = selectedStake.amount;
                 if (value > parseFloat(maxAmount)) {
                     setAmountToWithdraw(parseFloat(maxAmount));
                 } else if (value > 0 && value <= parseFloat(maxAmount)) {

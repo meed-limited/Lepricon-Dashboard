@@ -5,10 +5,10 @@ import type { AppProps } from "next/app";
 import NextHead from "next/head";
 import { WagmiConfig } from "wagmi";
 
+import NftOwnersUpdate from "../components/elements/NftOwners/NftOwnersUpdate";
+import { UserDataProvider } from "../context/UserContextProvider";
 import { client } from "../wagmi";
 import "../styles/globals.css";
-import { UserDataProvider } from "../context/UserContextProvider";
-import NftOwnersUpdate from "../components/elements/NftOwners/NftOwnersUpdate";
 
 const inter = Inter({ subsets: ["latin"] });
 

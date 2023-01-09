@@ -363,3 +363,15 @@ interface TokenDataCMC {
     total_supply: number;
     tvl_ratio: null;
 }
+
+type DetailsModalProps = {
+    lock: number;
+    deposited: StakesPerPool;
+    open: boolean;
+    setVisibility: Dispatch<SetStateAction<boolean>>;
+};
+
+type StakingActionProps = {
+    lock: number;
+    deposited: StakesPerPool;
+};

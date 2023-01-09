@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useAccount } from "wagmi";
+
 import { useReadContract } from "../../../../hooks";
 
 export const usePoolData = (pool: string) => {
@@ -13,7 +14,7 @@ export const usePoolData = (pool: string) => {
 
     const getPoolAPR = useCallback(
         async (vaultIndex: number) => {
-            let vault = await getVaultForTimelock(vaultIndex);
+            const vault = await getVaultForTimelock(vaultIndex);
             if (vault) {
                 setAPR(vault.apr);
             }

@@ -1,12 +1,12 @@
 import { FC } from "react";
 
+import { Modal, Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { Connector, useConnect } from "wagmi";
 
-import IMAGES from "./walletIcons";
 import styles from "../../../styles/ConnectButton.module.css";
-import { Modal, Button } from "antd";
+import IMAGES from "./walletIcons";
 
 const ConnectModal: FC<ConnectModalProps> = ({ isOpen, setIsOpen }) => {
     const { connect, connectors, isLoading, pendingConnector } = useConnect();

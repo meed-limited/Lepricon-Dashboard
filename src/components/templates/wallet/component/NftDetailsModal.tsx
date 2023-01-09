@@ -1,7 +1,7 @@
 import Modal from "antd/lib/modal/Modal";
 import Image from "next/image";
-import styles from "../../../../styles/Wallet.module.css";
 
+import styles from "../../../../styles/Wallet.module.css";
 import {
     getBoostAttributes,
     getTierAttributes,

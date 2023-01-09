@@ -1,9 +1,9 @@
 import CoolLepricat from "public/nft/CoolLepricat.png";
 import LuckyLepricat from "public/nft/LuckyLepricat.png";
-import SneakyLuckleaf from "public/nft/SneakyLuckleaf.gif";
 import MerryMollyNakamoto from "public/nft/MerryMollyNakamoto.gif";
-import WittyKingPatrick from "public/nft/WittyKingPatrick.gif";
 import potOgold from "public/nft/potOgold.png";
+import SneakyLuckleaf from "public/nft/SneakyLuckleaf.gif";
+import WittyKingPatrick from "public/nft/WittyKingPatrick.gif";
 
 export const getBoostAttributes = (nft: Nft) => {
     const attributes = nft.metadata.attributes;

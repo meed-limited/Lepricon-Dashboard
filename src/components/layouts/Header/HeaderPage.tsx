@@ -1,13 +1,16 @@
+import { SetStateAction, useEffect, useState } from "react";
+
+import { MenuOutlined } from "@ant-design/icons";
 import { Dropdown, Layout, Menu } from "antd";
+import Image from "next/image";
 import Link from "next/link";
 
 import { useWindowWidthAndHeight } from "../../../hooks";
-import { ChainVerification, ConnectButton } from "../../elements";
 import styles from "../../../styles/Header.module.css";
-import Image from "next/image";
+import { ChainVerification, ConnectButton } from "../../elements";
+
 import LepriconLogo_Black from "/public/images/LepriconLogo_Black.png";
-import { MenuOutlined } from "@ant-design/icons";
-import { SetStateAction, useEffect, useState } from "react";
+
 import useMenuItems from "./useMenuItems";
 
 const { Header } = Layout;

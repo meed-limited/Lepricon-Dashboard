@@ -1,15 +1,14 @@
 import { FileSearchOutlined } from "@ant-design/icons";
-
 import { BigNumber, providers, Contract } from "ethers";
 
+import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
+import { LepriTest } from "../../types/LepriTest";
+import { useUserData } from "../context/UserContextProvider";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
 import { getExplorer } from "../utils/getExplorerByChain";
-import { useContract } from "./useContract";
-import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
 import { openNotification } from "../utils/notifications";
-import { useUserData } from "../context/UserContextProvider";
-import { LepriTest } from "../../types/LepriTest";
+import { useContract } from "./useContract";
 
 const useWriteContract = () => {
     const { address, tokenName } = useUserData();
@@ -125,12 +124,12 @@ const useWriteContract = () => {
         try {
             const tx = await stakingInstance.resetNftStatus(address as string);
             await tx.wait(2);
-            let title = "Boost status cancelled";
-            let msg = `Your boost status has been successfully removed.`;
+            const title = "Boost status cancelled";
+            const msg = `Your boost status has been successfully removed.`;
             openNotification("success", title, msg);
         } catch (error: any) {
-            let title = "Unexpected error";
-            let msg = "Something went wrong while resetting your boost status. Please try again.";
+            const title = "Unexpected error";
+            const msg = "Something went wrong while resetting your boost status. Please try again.";
             openNotification("error", title, msg);
             return error.reason ? error.reason : error.message ? error.message : "Unexpected error";
         }

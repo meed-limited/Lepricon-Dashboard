@@ -1,7 +1,7 @@
 import { FC } from "react";
-import LinkButton from "./LinkButton";
 
 import styles from "../../../../styles/Wallet.module.css";
+import LinkButton from "./LinkButton";
 
 const WalletData: FC<WalletDataProps> = ({ title, value, price, tokenName, link }) => {
     return (

@@ -1,6 +1,7 @@
+import { FC } from "react";
+
 import { Button } from "antd";
 import Link from "next/link";
-import { FC } from "react";
 
 import styles from "../../../../styles/Wallet.module.css";
 

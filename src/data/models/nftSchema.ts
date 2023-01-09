@@ -1,4 +1,5 @@
 import { Schema, model, models } from "mongoose";
+
 import { isProdEnv } from "../constant";
 
 const collection = isProdEnv ? process.env.MONGODB_DB_COLLECTION : process.env.MONGODB_DB_COLLECTION_TEST;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
+
 import { isProdEnv, URL_EXTERNAL } from "../../data/constant";
-import { useReadContract } from "../../hooks";
 import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

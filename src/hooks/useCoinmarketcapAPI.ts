@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { URL } from "../data/constant";
 
 export const useCoinmarketcapAPI = () => {

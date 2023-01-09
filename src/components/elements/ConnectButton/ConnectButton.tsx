@@ -1,12 +1,12 @@
-import { Button } from "antd";
 import { FC, useState } from "react";
 
+import { Button } from "antd";
 import { useAccount } from "wagmi";
 
+import styles from "../../../styles/ConnectButton.module.css";
 import { getEllipsisTxt } from "../../../utils/format";
 import ConnectModal from "./ConnectModal";
 import DisconnectModal from "./DisconnectModal";
-import styles from "../../../styles/ConnectButton.module.css";
 import Jazzicons from "./Jazzicons";
 
 const ConnectButton: FC = () => {

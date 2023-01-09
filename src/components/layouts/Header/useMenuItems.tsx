@@ -1,7 +1,5 @@
 import React from "react";
 
-import Link from "next/link";
-import { MenuProps } from "antd";
 import {
     AreaChartOutlined,
     CaretRightOutlined,
@@ -10,6 +8,8 @@ import {
     PieChartOutlined,
     WalletOutlined,
 } from "@ant-design/icons";
+import { MenuProps } from "antd";
+import Link from "next/link";
 
 const useMenuItems = () => {
     function getItem(

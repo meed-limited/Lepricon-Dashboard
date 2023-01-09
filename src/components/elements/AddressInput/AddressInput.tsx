@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Input, InputRef } from "antd";
+
 import { SearchOutlined } from "@ant-design/icons";
-import Jazzicons from "./Jazzicons";
-import { getEllipsisTxt } from "../../../utils/format";
 import { fetchEnsAddress, FetchEnsAddressResult, fetchEnsResolver } from "@wagmi/core";
+import { Input, InputRef } from "antd";
 import { utils } from "ethers";
+
 import { useUserData } from "../../../context/UserContextProvider";
 import { isProdEnv } from "../../../data/constant";
+import { getEllipsisTxt } from "../../../utils/format";
+import Jazzicons from "./Jazzicons";
 
 const AddressInput: React.FC<any> = (props: any) => {
     const input = useRef<InputRef>(null);
-    const { chainId } = useUserData();
     const [address, setAddress] = useState<string>("");
     const [validatedAddress, setValidatedAddress] = useState<FetchEnsAddressResult | string>("");
     const [isDomain, setIsDomain] = useState<boolean>(false);

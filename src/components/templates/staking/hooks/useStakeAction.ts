@@ -63,7 +63,7 @@ export const useStakeAction = () => {
             }
         } else {
             for (let i = 0; i < deposited.stakes.stakes.length; i++) {
-                let stake = deposited.stakes.stakes[i];
+                const stake = deposited.stakes.stakes[i];
                 if (stake.unlockTime <= Number(stake.since) + stake.timeLock) {
                     const amount = stake.amount;
                     const amountBN = utils.parseUnits(amount.toString(), 18);

@@ -1,15 +1,12 @@
-import { FC, useState } from "react";
-import NftBoostSelection from "./NftBoostSelection";
-import ActionPane from "./ActionPane";
-import styles from "../../../../styles/Staking.module.css";
-import { useUserData } from "../../../../context/UserContextProvider";
-import { useStakeAction } from "../hooks";
+import { FC } from "react";
+
 import { Spin } from "antd";
 
-type StakingActionProps = {
-    lock: number;
-    deposited: StakesPerPool;
-};
+import { useUserData } from "../../../../context/UserContextProvider";
+import styles from "../../../../styles/Staking.module.css";
+import { useStakeAction } from "../hooks";
+import ActionPane from "./ActionPane";
+import NftBoostSelection from "./NftBoostSelection";
 
 const StakingAction: FC<StakingActionProps> = ({ lock, deposited }) => {
     const { balances } = useUserData();

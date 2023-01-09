@@ -1,13 +1,8 @@
-import { Modal, Table, Tag } from "antd";
-import { Dispatch, FC, SetStateAction, useEffect } from "react";
-import { useUserData } from "../../../../context/UserContextProvider";
+import { FC } from "react";
 
-type DetailsModalProps = {
-    lock: number;
-    deposited: StakesPerPool;
-    open: boolean;
-    setVisibility: Dispatch<SetStateAction<boolean>>;
-};
+import { Modal, Table, Tag } from "antd";
+
+import { useUserData } from "../../../../context/UserContextProvider";
 
 const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibility }) => {
     const { tokenName } = useUserData();
@@ -29,7 +24,7 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
     };
 
     const getDateSince = (since: string) => {
-        var date = Number(timestamp) - parseInt(since);
+        let date = Number(timestamp) - parseInt(since);
         date = Math.floor(date / (24 * 3600));
         return date;
     };
@@ -41,9 +36,9 @@ const DetailsModal: FC<DetailsModalProps> = ({ lock, deposited, open, setVisibil
     };
 
     const daysLeft = (stake: ParsedStakeStruct) => {
-        let left = stake.dayLock - getDateSince(stake.since);
+        const left = stake.dayLock - getDateSince(stake.since);
         if (left > 0) {
-            let text = `In ${left} days`;
+            const text = `In ${left} days`;
             return <Tag color="red">{text}</Tag>;
         } else {
             return <Tag color="green">Unlocked</Tag>;

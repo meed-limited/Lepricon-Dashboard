@@ -1,11 +1,10 @@
-import Link from "next/link";
-import { useAccount } from "wagmi";
 import Image from "next/image";
-
-import { ConnectButton } from "../../elements";
-import styles from "../../../styles/Home.module.css";
-
+import Link from "next/link";
 import LuckyLepricat from "public/nft/LuckyLepricat.png";
+import { useAccount } from "wagmi";
+
+import styles from "../../../styles/Home.module.css";
+import { ConnectButton } from "../../elements";
 import { ButtonAction } from "../../elements/Buttons";
 import ParticleBackground from "./ParticlesBackground";
 

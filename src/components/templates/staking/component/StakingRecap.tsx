@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useUserData } from "../../../../context/UserContextProvider";
 
+import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
 
 type StakingRecapProps = {

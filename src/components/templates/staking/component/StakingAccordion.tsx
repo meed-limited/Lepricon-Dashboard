@@ -1,15 +1,17 @@
 import { FC, useEffect, useState } from "react";
-import StakingAction from "./StakingAction";
+
 import { CaretDownOutlined } from "@ant-design/icons";
-import Text from "antd/lib/typography/Text";
-import l3p from "public/images/l3p.png";
-import styles from "../../../../styles/Staking.module.css";
-import { useUserData } from "../../../../context/UserContextProvider";
-import { usePoolData } from "../hooks";
-import Image from "next/image";
-import { useWindowWidthAndHeight } from "../../../../hooks";
 import { Divider } from "antd";
+import Text from "antd/lib/typography/Text";
+import Image from "next/image";
+import l3p from "public/images/l3p.png";
+
+import { useUserData } from "../../../../context/UserContextProvider";
+import { useWindowWidthAndHeight } from "../../../../hooks";
+import styles from "../../../../styles/Staking.module.css";
+import { usePoolData } from "../hooks";
 import AccordionData from "./AccordionData";
+import StakingAction from "./StakingAction";
 
 type StakingAccordionProps = {
     subTitle: string;

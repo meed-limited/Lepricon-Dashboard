@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import styles from "../../../styles/Pool.module.css";
+// import styles from "../../../styles/Pool.module.css";
 
 const Pool: FC = () => {
     return (

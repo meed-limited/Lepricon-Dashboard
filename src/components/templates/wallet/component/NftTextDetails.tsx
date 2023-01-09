@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { Progress, Tooltip } from "antd";
-import { getEllipsisTxt } from "../../../../utils/format";
 import { CopyOutlined } from "@ant-design/icons";
+import { Progress, Tooltip } from "antd";
+
 import styles from "../../../../styles/Wallet.module.css";
+import { getEllipsisTxt } from "../../../../utils/format";
 
 interface TraitProps {
     title: string;

@@ -1,8 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
+
 import { Modal, Spin } from "antd";
+
+import { useUserData } from "../../../../context/UserContextProvider";
 import { useWriteContract } from "../../../../hooks";
 import { AddressInput } from "../../../elements/AddressInput";
-import { useUserData } from "../../../../context/UserContextProvider";
 
 type TransferNftModalProps = {
     isModalOpen: boolean;

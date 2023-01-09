@@ -1,14 +1,12 @@
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
+import React, { FC, useState } from "react";
 
-import { Card, Skeleton, Alert } from "antd";
+import { Skeleton, Alert } from "antd";
 
 import { useUserData } from "../../../context/UserContextProvider";
-import { useIPFS, useVerifyMetadata } from "../../../hooks";
-
 import { isProdEnv } from "../../../data/constant";
+import { useIPFS, useVerifyMetadata } from "../../../hooks";
 import styles from "../../../styles/Wallet.module.css";
 import { getNftImage } from "../../../utils/getNftAttributes";
-
 import NftsDetailsModal from "../../templates/wallet/component/NftDetailsModal";
 import TransferNftModal from "../../templates/wallet/component/TransferNftModal";
 import NftCard from "./NftCard";

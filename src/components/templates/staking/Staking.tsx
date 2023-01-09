@@ -3,7 +3,6 @@ import { FC } from "react";
 import styles from "../../../styles/Staking.module.css";
 import { Loading } from "../../elements";
 import { StakingAccordion, StakingRecap } from "./component";
-
 import { useStakes } from "./hooks";
 
 const Staking: FC = () => {

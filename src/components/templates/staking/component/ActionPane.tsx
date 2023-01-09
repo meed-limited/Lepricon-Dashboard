@@ -1,11 +1,13 @@
 import { FC, useState } from "react";
-import WithdrawSingleModal from "./WithdrawSingleModal";
+
 import { InputNumber } from "antd";
+
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
+import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
 import { useStakeAction } from "../hooks";
 import DetailsModal from "./DetailsModal";
-import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
+import WithdrawSingleModal from "./WithdrawSingleModal";
 
 type ActionPaneProps = {
     id: string;

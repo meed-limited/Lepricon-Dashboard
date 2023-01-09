@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { EvmChain } from "@moralisweb3/common-evm-utils";
+import { ethers } from "ethers";
 import Moralis from "moralis";
 import { useAccount } from "wagmi";
 
-import { useReadContract } from "../hooks";
-import { getContractAddresses, isProdEnv } from "../data/constant";
 import { LepriconStaking } from "../../hardhat/typechain-types";
-import { ethers } from "ethers";
+import { getContractAddresses, isProdEnv } from "../data/constant";
+import { useReadContract } from "../hooks";
 
 export const useWeb3Data = (): Web3Data => {
     const { address } = useAccount();

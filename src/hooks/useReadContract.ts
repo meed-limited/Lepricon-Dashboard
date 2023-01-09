@@ -1,11 +1,11 @@
+import { providers, Contract } from "ethers";
 import { useAccount } from "wagmi";
 
-import { providers, Contract } from "ethers";
+import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
+import { LepriTest } from "../../types/LepriTest";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
 import { useContract } from "./useContract";
-import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
-import { LepriTest } from "../../types/LepriTest";
 
 const useReadContract = () => {
     const { address } = useAccount();

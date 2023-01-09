@@ -73,7 +73,7 @@ export const init_detailPerUser: DetailPerUser = {
 };
 
 export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]): DetailPerUser => {
-    let detailPerUser: DetailPerUser = {
+    const detailPerUser: DetailPerUser = {
         stakes_noLock: [],
         stakes_3months: [],
         stakes_6months: [],
@@ -114,7 +114,7 @@ export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]): D
     });
 
     for (let i = 0; i < formattedStakes.length; i++) {
-        var timelock = Number(formattedStakes[i].timeLock);
+        const timelock = Number(formattedStakes[i].timeLock);
         // No-lock pool
         if (timelock === 0) {
             detailPerUser.stakes_noLock.push(sortStake(formattedStakes[i], i));
@@ -167,7 +167,7 @@ export const getDetailPerUser = (stakes: LepriconStaking.StakeStructOutput[]): D
 };
 
 const sortStake = (stake: FormattedStakeStruct, i: number): ParsedStakeStruct => {
-    let temp = {
+    const temp = {
         user: stake.user,
         index: i,
         amount: Number(stake.amount / 10 ** 18),
@@ -196,9 +196,9 @@ const getDayLock = (timelock: number) => {
 };
 
 export const validStakePerPool = (stake: DetailPerUser, lock: number) => {
-    let temp = stakePerPool(stake, lock);
-    let stakes: ParsedStakeStruct[] = [];
-    let validStake = {
+    const temp = stakePerPool(stake, lock);
+    const stakes: ParsedStakeStruct[] = [];
+    const validStake = {
         stakes: stakes,
         total: 0,
     };

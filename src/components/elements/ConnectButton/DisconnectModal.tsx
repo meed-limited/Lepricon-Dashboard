@@ -1,12 +1,12 @@
 import { FC } from "react";
 
-import { Modal, Card, Button } from "antd";
 import { SelectOutlined } from "@ant-design/icons";
+import { Modal, Card, Button } from "antd";
 import { useAccount, useDisconnect, useNetwork } from "wagmi";
 
+import styles from "../../../styles/ConnectButton.module.css";
 import { getExplorer } from "../../../utils/getExplorerByChain";
 import Address from "./Address";
-import styles from "../../../styles/ConnectButton.module.css";
 
 type DisconnectModalProps = {
     isOpen: boolean;

@@ -1,10 +1,11 @@
-import mongoose from "mongoose";
-import { NextApiRequest, NextApiResponse } from "next";
-import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/common-evm-utils";
+import mongoose from "mongoose";
+import Moralis from "moralis";
+import { NextApiRequest, NextApiResponse } from "next";
+
 import { getContractAddresses, isProdEnv } from "../../data/constant";
-import { saveMany } from "../../utils/db";
 import NftSchema from "../../data/models/nftSchema";
+import { saveMany } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await mongoose.connect(process.env.MONGODB_URI!);
