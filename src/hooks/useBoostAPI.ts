@@ -8,7 +8,7 @@ export const useBoostAPI = () => {
             tokenId: tokenId,
             boost: boost,
         });
-        await fetch(`${URL}/api/setNftStatus/`, {
+        await fetch(`${URL}api/setNftStatus/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const useBoostAPI = () => {
             status: status,
         });
 
-        await fetch(`${URL}/api/resetNftStatus/`, {
+        await fetch(`${URL}api/resetNftStatus/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

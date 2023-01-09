@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             network: isProdEnv ? "mainnet" : "testnet",
         });
 
-        const ownership = await axios.post(`${URL_EXTERNAL}/nft/checkOwnership`, body, {
+        const ownership = await axios.post(`${URL_EXTERNAL}nft/checkOwnership`, body, {
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
                 "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             network: isProdEnv ? "mainnet" : "testnet",
         });
 
-        const response = await axios.post(`${URL_EXTERNAL}/nft/setBoost`, body2, {
+        const response = await axios.post(`${URL_EXTERNAL}nft/setBoost`, body2, {
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
                 "Content-Type": "application/json",

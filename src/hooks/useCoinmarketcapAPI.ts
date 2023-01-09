@@ -6,7 +6,7 @@ export const useCoinmarketcapAPI = () => {
     const [price, setPrice] = useState<number>(0);
 
     const getPrice = async () => {
-        const res: Response = await fetch(`${URL}/api/getTokenPrice`);
+        const res: Response = await fetch(`${URL}api/getTokenPrice`);
         const data = await res.json();
         if (data.success) {
             const priceInUsd = data.data.toFixed(4);
