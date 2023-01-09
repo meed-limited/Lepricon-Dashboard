@@ -6,12 +6,6 @@ import { Progress, Tooltip } from "antd";
 import styles from "../../../../styles/Wallet.module.css";
 import { getEllipsisTxt } from "../../../../utils/format";
 
-interface TraitProps {
-    title: string;
-    value: string | number;
-    isCopyable: boolean;
-}
-
 const NftTextDetails: React.FC<TraitProps> = ({ title, value, isCopyable }) => {
     const [isClicked, setIsClicked] = useState<boolean>(false);
 

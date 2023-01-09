@@ -20,9 +20,6 @@ const useWriteContract = () => {
     const signer = provider.getSigner();
     const nftInstance = new Contract(nft, NFT_ABI, signer) as LepriTest;
 
-    // 0xd8b96389d20Ade29a4F05777716688c097540f9d
-    // 0xF0eEaAB7153Ff42849aCb0E817efEe09fb078C1b
-
     /* Set Token Allowance:
      ***************************/
     const approveToken = async (allowance: BigNumber | string) => {

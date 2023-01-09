@@ -4,8 +4,7 @@ import LuckyLepricat from "public/nft/LuckyLepricat.png";
 import { useAccount } from "wagmi";
 
 import styles from "../../../styles/Home.module.css";
-import { ConnectButton } from "../../elements";
-import { ButtonAction } from "../../elements/Buttons";
+import { ButtonAction, ConnectButton } from "../../elements";
 import ParticleBackground from "./ParticlesBackground";
 
 const Home = () => {

@@ -7,8 +7,7 @@ import { useUserData } from "../../../../context/UserContextProvider";
 import { useWindowWidthAndHeight } from "../../../../hooks";
 import styles from "../../../../styles/Staking.module.css";
 import { getBoostAttributes } from "../../../../utils/getNftAttributes";
-import { DisplayNft } from "../../../elements";
-import { ButtonAction } from "../../../elements/Buttons";
+import { DisplayNft, ButtonAction } from "../../../elements";
 import { useBoostAction } from "../hooks/useBoostAction";
 
 const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {

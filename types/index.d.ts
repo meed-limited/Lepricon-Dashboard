@@ -442,3 +442,9 @@ type NftBoostSelectionProps = {
 type StakingRecapProps = {
     totalReward: number;
 };
+
+interface TraitProps {
+    title: string;
+    value: string | number;
+    isCopyable: boolean;
+}

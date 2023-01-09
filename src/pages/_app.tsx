@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import NextHead from "next/head";
 import { WagmiConfig } from "wagmi";
 
-import NftOwnersUpdate from "../components/elements/NftOwners/NftOwnersUpdate";
+import { NftOwnersUpdate } from "../components/elements";
 import { UserDataProvider } from "../context/UserContextProvider";
 import { client } from "../wagmi";
 import "../styles/globals.css";

@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import { Footer, HeaderPage } from "..";
 import styles from "../../../styles/Default.module.css";
-import { useCurrentUrl } from "../../../hooks/useCurrentUrl";
+import { useCurrentUrl } from "../../../hooks";
 
 const Default: FC<{ children: ReactNode; pageName: string }> = ({ children, pageName }) => {
     const { isHome } = useCurrentUrl();

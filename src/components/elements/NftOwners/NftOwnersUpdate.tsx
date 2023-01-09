@@ -1,6 +1,8 @@
+import { FC } from "react";
+
 import { URL } from "../../../data/constant";
 
-const NftOwnersUpdate = () => {
+const NftOwnersUpdate: FC = () => {
     const initializeOwners = async () => {
         const owners = await getOwners();
         if (!owners || owners.length === 0 || owners === undefined) {

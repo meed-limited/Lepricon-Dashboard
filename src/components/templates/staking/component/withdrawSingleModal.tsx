@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
-import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
+import { ButtonAction, ButtonMax } from "../../../elements";
 import { useStakeAction } from "../hooks";
 
 import l3p from "/public/images/l3p.png";

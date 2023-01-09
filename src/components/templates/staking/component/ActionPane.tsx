@@ -4,7 +4,7 @@ import { InputNumber, Spin } from "antd";
 
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
-import { ButtonAction, ButtonMax } from "../../../elements/Buttons";
+import { ButtonAction, ButtonMax } from "../../../elements";
 import { useStakeAction } from "../hooks";
 import DetailsModal from "./DetailsModal";
 import WithdrawSingleModal from "./WithdrawSingleModal";
