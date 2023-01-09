@@ -12,15 +12,6 @@ import { getExplorer } from "../../../utils/getExplorerByChain";
 import { getBoostAttributes } from "../../../utils/getNftAttributes";
 const { Meta } = Card;
 
-type NftCardProps = {
-    nft: Nft;
-    index: number;
-    handleTransfer: (nft: Nft) => void;
-    handleDetail: (nft: Nft) => void;
-    handleSelectNft?: (nft: Nft) => void;
-    selectable: boolean;
-};
-
 const NftCard: FC<NftCardProps> = ({ nft, index, handleTransfer, handleDetail, handleSelectNft, selectable }) => {
     const { boostStatus } = useUserData();
     const { isMobile } = useWindowWidthAndHeight();

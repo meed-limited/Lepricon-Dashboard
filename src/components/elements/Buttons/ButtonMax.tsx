@@ -1,11 +1,6 @@
-import { FC, SetStateAction } from "react";
+import { FC } from "react";
 
 import { Button } from "antd";
-
-type ButtonMaxProps = {
-    amount: string;
-    action: (value: SetStateAction<number>) => void;
-};
 
 const ButtonMax: FC<ButtonMaxProps> = ({ amount, action }) => {
     const handleMax = () => {

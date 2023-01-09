@@ -1,11 +1,6 @@
-import { FC, MouseEventHandler } from "react";
+import { FC } from "react";
 
 import { Button } from "antd";
-
-type ButtonActionProps = {
-    title: string;
-    action: MouseEventHandler<HTMLAnchorElement> & MouseEventHandler<HTMLButtonElement>;
-};
 
 const ButtonAction: FC<ButtonActionProps> = ({ title, action }) => {
     return (

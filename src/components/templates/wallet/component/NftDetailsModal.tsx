@@ -10,12 +10,6 @@ import {
 } from "../../../../utils/getNftAttributes";
 import NftTextDetails from "./NftTextDetails";
 
-interface NftDetailsProps {
-    nft: Nft;
-    isModalOpen: boolean;
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 const NftsDetailsModal: React.FC<NftDetailsProps> = ({ nft, isModalOpen, setIsModalOpen }) => {
     return (
         <>

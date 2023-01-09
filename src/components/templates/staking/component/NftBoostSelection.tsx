@@ -11,10 +11,6 @@ import { DisplayNft } from "../../../elements";
 import { ButtonAction } from "../../../elements/Buttons";
 import { useBoostAction } from "../hooks/useBoostAction";
 
-type NftBoostSelectionProps = {
-    deposited: StakesPerPool;
-};
-
 const NftBoostSelection: FC<NftBoostSelectionProps> = ({ deposited }) => {
     const { boostStatus } = useUserData();
     const { applyNFTboost, removeNftBoost, loading } = useBoostAction();

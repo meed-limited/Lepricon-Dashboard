@@ -3,10 +3,6 @@ import { FC } from "react";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
 
-type StakingRecapProps = {
-    totalReward: number;
-};
-
 const StakingRecap: FC<StakingRecapProps> = ({ totalReward }) => {
     const { tokenName, price, stakeSummary } = useUserData();
 

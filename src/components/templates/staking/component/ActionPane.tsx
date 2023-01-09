@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { InputNumber } from "antd";
+import { InputNumber, Spin } from "antd";
 
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
@@ -19,7 +19,7 @@ type ActionPaneProps = {
 
 const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) => {
     const { balances, tokenName } = useUserData();
-    const { handleStake, withdrawAll } = useStakeAction();
+    const { handleStake, withdrawAll, loading } = useStakeAction();
     const [stakeAmount, setStakeAmount] = useState(0);
     const [withdrawModal, setWithdrawModal] = useState<boolean>(false);
     const [detailModal, setDetailModal] = useState<boolean>(false);
@@ -37,58 +37,60 @@ const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) =>
     };
 
     return (
-        <div className={styles.items}>
-            <div className={styles.actionHeader}>
-                <div style={{ justifyContent: id === "details" ? "center" : "space-evenly" }}>{title}</div>
-                {id !== "details" && (
-                    <div className={styles.amount}>
-                        {Number(max).toFixed(2)} {tokenName}
-                    </div>
-                )}
-            </div>
-
-            <div className={styles.subItems}>
-                {id === "stake" && (
-                    <>
-                        <div style={{ display: "inline-flex" }}>
-                            <InputNumber
-                                defaultValue={0}
-                                onChange={(value) => onChangeStakeAmount(value ?? 0)}
-                                max={Number(balances.token)}
-                                min={0}
-                                value={stakeAmount}
-                                style={{ width: "73%" }}
-                            />
-
-                            <ButtonMax amount={balances.token} action={setStakeAmount} />
+        <Spin spinning={loading}>
+            <div className={styles.items}>
+                <div className={styles.actionHeader}>
+                    <div style={{ justifyContent: id === "details" ? "center" : "space-evenly" }}>{title}</div>
+                    {id !== "details" && (
+                        <div className={styles.amount}>
+                            {Number(max).toFixed(2)} {tokenName}
                         </div>
+                    )}
+                </div>
+
+                <div className={styles.subItems}>
+                    {id === "stake" && (
+                        <>
+                            <div style={{ display: "inline-flex" }}>
+                                <InputNumber
+                                    defaultValue={0}
+                                    onChange={(value) => onChangeStakeAmount(value ?? 0)}
+                                    max={Number(balances.token)}
+                                    min={0}
+                                    value={stakeAmount}
+                                    style={{ width: "73%" }}
+                                />
+
+                                <ButtonMax amount={balances.token} action={setStakeAmount} />
+                            </div>
+                            <div className={styles.actionButton}>
+                                <ButtonAction title="STAKE" action={() => handleStake(stakeAmount, lock)} />
+                            </div>
+                        </>
+                    )}
+                    {id === "withdraw" && (
                         <div className={styles.actionButton}>
-                            <ButtonAction title="STAKE" action={() => handleStake(stakeAmount, lock)} />
+                            <ButtonAction title="WITHDRAW ALL" action={() => withdrawAll(deposited, lock)} />
                         </div>
-                    </>
-                )}
-                {id === "withdraw" && (
-                    <div className={styles.actionButton}>
-                        <ButtonAction title="WITHDRAW ALL" action={() => withdrawAll(deposited, lock)} />
-                    </div>
-                )}
+                    )}
 
-                {id === "withdraw" && lock !== 0 && (
-                    <div className={styles.actionButton}>
-                        <ButtonAction title="WITHDRAW FROM STAKE" action={() => setWithdrawModal(true)} />
-                    </div>
-                )}
+                    {id === "withdraw" && lock !== 0 && (
+                        <div className={styles.actionButton}>
+                            <ButtonAction title="WITHDRAW FROM STAKE" action={() => setWithdrawModal(true)} />
+                        </div>
+                    )}
+                </div>
+                {id === "details" && <ButtonAction title="DETAILS" action={() => setDetailModal(true)} />}
+
+                <DetailsModal lock={lock} deposited={deposited} open={detailModal} setVisibility={setDetailModal} />
+                <WithdrawSingleModal
+                    open={withdrawModal}
+                    setVisibility={setWithdrawModal}
+                    deposited={deposited}
+                    lock={lock}
+                />
             </div>
-            {id === "details" && <ButtonAction title="DETAILS" action={() => setDetailModal(true)} />}
-
-            <DetailsModal lock={lock} deposited={deposited} open={detailModal} setVisibility={setDetailModal} />
-            <WithdrawSingleModal
-                open={withdrawModal}
-                setVisibility={setWithdrawModal}
-                deposited={deposited}
-                lock={lock}
-            />
-        </div>
+        </Spin>
     );
 };
 

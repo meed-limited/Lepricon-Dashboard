@@ -8,11 +8,6 @@ import styles from "../../../styles/ConnectButton.module.css";
 import { getExplorer } from "../../../utils/getExplorerByChain";
 import Address from "./Address";
 
-type DisconnectModalProps = {
-    isOpen: boolean;
-    onClose: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
 const DisconnectModal: FC<DisconnectModalProps> = ({ isOpen, onClose }) => {
     const { chain } = useNetwork();
     const { address } = useAccount();

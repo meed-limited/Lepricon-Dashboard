@@ -40,7 +40,7 @@ export const useBoostAction = () => {
                 })
                 .catch((err: any) => {
                     setLoading(false);
-                    console.log(err);
+                    console.error(err);
                 });
         }
     };

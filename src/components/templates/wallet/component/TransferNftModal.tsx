@@ -1,16 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 
 import { Modal, Spin } from "antd";
 
 import { useUserData } from "../../../../context/UserContextProvider";
 import { useWriteContract } from "../../../../hooks";
 import { AddressInput } from "../../../elements/AddressInput";
-
-type TransferNftModalProps = {
-    isModalOpen: boolean;
-    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-    nft: Nft;
-};
 
 const TransferNftModal: React.FC<TransferNftModalProps> = ({ isModalOpen, setIsModalOpen, nft }) => {
     const { transferNft } = useWriteContract();

@@ -1,11 +1,5 @@
 import { URL } from "../../../data/constant";
 
-type NftOwnersResponse = {
-    success: boolean;
-    message: string;
-    data: NftsOwners[];
-};
-
 const NftOwnersUpdate = () => {
     const initializeOwners = async () => {
         const owners = await getOwners();

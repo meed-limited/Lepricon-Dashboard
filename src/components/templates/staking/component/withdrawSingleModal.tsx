@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 
 import { Divider, InputNumber, Modal, Select, Spin } from "antd";
 import Image from "next/image";
@@ -10,17 +10,9 @@ import { useStakeAction } from "../hooks";
 
 import l3p from "/public/images/l3p.png";
 
-type WithdrawSingleModalProps = {
-    open: boolean;
-    setVisibility: Dispatch<SetStateAction<boolean>>;
-    deposited: StakesPerPool;
-    lock: number;
-};
-
 const WithdrawSingleModal: FC<WithdrawSingleModalProps> = ({ open, setVisibility, deposited, lock }) => {
     const { tokenName } = useUserData();
-    const { loading } = useStakeAction();
-    const { withdraw } = useStakeAction();
+    const { withdraw, loading } = useStakeAction();
     const [selectedStake, setSelectedStake] = useState<StakeToWithdrawFrom>({ stakeId: 0, amount: 0 });
     const [amountToWithdraw, setAmountToWithdraw] = useState<number>(0);
 

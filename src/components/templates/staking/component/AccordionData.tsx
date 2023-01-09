@@ -2,11 +2,6 @@ import { FC } from "react";
 
 import styles from "../../../../styles/Staking.module.css";
 
-type AccordionDataProps = {
-    title: string;
-    data: string | number;
-};
-
 const AccordionData: FC<AccordionDataProps> = ({ title, data }) => {
     return (
         <div>

@@ -13,12 +13,10 @@ export const useStakeAction = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const checkAllowance = async (amount: string | BigNumber) => {
-        setLoading(true);
         const currentAllowance = await checkTokenAllowance();
         if (Number(currentAllowance) < Number(amount)) {
             await approveToken(amount).then(() => setLoading(false));
         }
-        setLoading(false);
     };
 
     const handleStake = async (amount: number, lock: number) => {

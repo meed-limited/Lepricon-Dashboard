@@ -36,7 +36,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse<Response>) => 
         /// TODO: edit the token symbol in the path
         res.status(200).json({ success: true, data: data.data.data.HOT[0].quote.USD.price });
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 };
 

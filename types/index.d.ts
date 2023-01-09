@@ -375,3 +375,70 @@ type StakingActionProps = {
     lock: number;
     deposited: StakesPerPool;
 };
+
+type WithdrawSingleModalProps = {
+    open: boolean;
+    setVisibility: Dispatch<SetStateAction<boolean>>;
+    deposited: StakesPerPool;
+    lock: number;
+};
+
+type ButtonMaxProps = {
+    amount: string;
+    action: (value: SetStateAction<number>) => void;
+};
+
+type DisconnectModalProps = {
+    isOpen: boolean;
+    onClose: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+interface NftDetailsProps {
+    nft: Nft;
+    isModalOpen: boolean;
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+type TransferNftModalProps = {
+    isModalOpen: boolean;
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+    nft: Nft;
+};
+
+type ButtonActionProps = {
+    title: string;
+    action: MouseEventHandler<HTMLAnchorElement> & MouseEventHandler<HTMLButtonElement>;
+};
+
+type DisplayNftProps = {
+    selectable: boolean;
+    handleSelectNft?: (nft: Nft) => void;
+};
+
+type NftCardProps = {
+    nft: Nft;
+    index: number;
+    handleTransfer: (nft: Nft) => void;
+    handleDetail: (nft: Nft) => void;
+    handleSelectNft?: (nft: Nft) => void;
+    selectable: boolean;
+};
+
+type NftOwnersResponse = {
+    success: boolean;
+    message: string;
+    data: NftsOwners[];
+};
+
+type AccordionDataProps = {
+    title: string;
+    data: string | number;
+};
+
+type NftBoostSelectionProps = {
+    deposited: StakesPerPool;
+};
+
+type StakingRecapProps = {
+    totalReward: number;
+};

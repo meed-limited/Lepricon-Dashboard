@@ -11,11 +11,6 @@ import NftsDetailsModal from "../../templates/wallet/component/NftDetailsModal";
 import TransferNftModal from "../../templates/wallet/component/TransferNftModal";
 import NftCard from "./NftCard";
 
-type DisplayNftProps = {
-    selectable: boolean;
-    handleSelectNft?: (nft: Nft) => void;
-};
-
 const DisplayNft: FC<DisplayNftProps> = ({ selectable, handleSelectNft }) => {
     const { isConnected, userNFTs } = useUserData();
 
