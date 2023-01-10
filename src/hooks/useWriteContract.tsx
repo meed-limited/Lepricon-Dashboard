@@ -1,5 +1,5 @@
 import { FileSearchOutlined } from "@ant-design/icons";
-import { BigNumber, providers, Contract } from "ethers";
+import { BigNumber, providers, Contract, utils } from "ethers";
 
 import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
 import { LepriTest } from "../../types/LepriTest";
@@ -22,15 +22,17 @@ const useWriteContract = () => {
 
     /* Set Token Allowance:
      ***************************/
-    const approveToken = async (allowance: BigNumber | string | number) => {
+    const approveToken = async (allowance: string | number | BigNumber) => {
+        const allowanceToBn = utils.parseUnits(allowance.toString(), 18);
         try {
-            const tx = await tokenInstance.approve(staking, allowance.toString());
+            const tx = await tokenInstance.approve(staking, allowanceToBn);
             await tx.wait(2);
             const value = parseInt(allowance.toString()) / 10 ** 18;
             const title = "Token Approval set";
             const msg = `Allowance succesfully set to ${value}.`;
             openNotification("success", title, msg);
         } catch (error: any) {
+            console.log(error);
             const title = "Token Approval denied";
             const msg = "Something went wrong while setting the allowance. Please try again.";
             openNotification("error", title, msg);
