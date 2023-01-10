@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import Moralis from "moralis";
 import { useAccount } from "wagmi";
 
-import { LepriconStaking } from "../../hardhat/typechain-types";
+import { LepriconStaking } from "../../types/LepriconStaking";
 import { getContractAddresses, isProdEnv } from "../data/constant";
 import { useReadContract } from "../hooks";
 

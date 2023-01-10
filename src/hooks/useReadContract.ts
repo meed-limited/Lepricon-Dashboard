@@ -1,7 +1,8 @@
 import { providers, Contract } from "ethers";
 import { useAccount } from "wagmi";
 
-import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
+import { TestToken } from "../../types/TestToken";
+import { LepriconStaking } from "../../types/LepriconStaking";
 import { LepriTest } from "../../types/LepriTest";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";

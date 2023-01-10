@@ -1,4 +1,4 @@
-import { LepriconStaking } from "../../hardhat/typechain-types";
+import { LepriconStaking } from "../../types/LepriconStaking";
 
 export const Init_stakesPerPool = {
     no_lock: {

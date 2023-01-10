@@ -1,7 +1,8 @@
 import { FileSearchOutlined } from "@ant-design/icons";
 import { BigNumber, providers, Contract, utils } from "ethers";
 
-import { LepriconStaking, TestToken } from "../../hardhat/typechain-types";
+import { TestToken } from "../../types/TestToken";
+import { LepriconStaking } from "../../types/LepriconStaking";
 import { LepriTest } from "../../types/LepriTest";
 import { useUserData } from "../context/UserContextProvider";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
