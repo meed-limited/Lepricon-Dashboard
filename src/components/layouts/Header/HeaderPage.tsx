@@ -38,7 +38,7 @@ const HeaderPage: FC<HeaderPageProps> = ({ setAdminPane }) => {
 
     useEffect(() => {
         setAdminPane(false);
-    }, [isOwner]);
+    }, [isOwner, setAdminPane]);
 
     return (
         <>

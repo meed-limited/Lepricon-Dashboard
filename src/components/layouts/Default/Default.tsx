@@ -10,7 +10,7 @@ import { AdminPane } from "../../elements";
 const Default: FC<{ children: ReactNode; pageName: string }> = ({ children, pageName }) => {
     const { isHome } = useCurrentUrl();
 
-    const [isAdminPaneOpen, setIsAdminPaneOpen] = useState<boolean>(true);
+    const [isAdminPaneOpen, setIsAdminPaneOpen] = useState<boolean>(false);
 
     return (
         <div className={styles.main}>

@@ -8,6 +8,7 @@ const defaultState: UserContext = {
     stakeSummary: undefined,
     userNFTs: { result: undefined, total: 0 },
     boostStatus: undefined,
+    // eslint-disable-next-line
     syncWeb3: () => {},
 };
 

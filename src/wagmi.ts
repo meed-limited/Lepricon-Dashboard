@@ -7,9 +7,14 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 
 import { isProdEnv } from "./data/constant";
 
+const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
+if (!alchemyApiKey) {
+    throw new Error("NEXT_PUBLIC_ALCHEMY_API_KEY is not defined");
+}
+
 const { chains, provider, webSocketProvider } = configureChains(
     [polygonMumbai, polygon, ...(isProdEnv ? [polygonMumbai] : [polygon])],
-    [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! })]
+    [alchemyProvider({ apiKey: alchemyApiKey })]
 );
 
 export const client = createClient({
@@ -28,13 +33,6 @@ export const client = createClient({
                 qrcode: true,
             },
         }),
-        // new InjectedConnector({
-        //   chains,
-        //   options: {
-        //     name: 'Injected',
-        //     shimDisconnect: true,
-        //   },
-        // }),
     ],
     provider,
     webSocketProvider,

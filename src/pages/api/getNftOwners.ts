@@ -4,7 +4,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import NftSchema from "../../data/models/nftSchema";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    await mongoose.connect(process.env.MONGODB_URI!);
+    const mongodbUri = process.env.MONGODB_URI;
+    if (!mongodbUri) {
+        throw new Error("MONGODB_URI is not defined");
+    }
+
+    await mongoose.connect(mongodbUri);
     mongoose.set("strictQuery", false);
 
     try {

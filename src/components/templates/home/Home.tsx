@@ -26,6 +26,7 @@ const Home = () => {
                 {isConnected ? (
                     <div style={{ width: "60%", margin: "auto" }}>
                         <Link href="/wallet">
+                            {/* eslint-disable-next-line */}
                             <ButtonAction title="Go To Dashboard" action={() => {}} />
                         </Link>
                     </div>

@@ -40,7 +40,15 @@ const NftCard: FC<NftCardProps> = ({ nft, index, handleTransfer, handleDetail, h
                     height: isMobile ? "129px" : "220px",
                     borderRadius: "10px",
                 }}
-                onClick={!selectable ? () => handleDetail(nft) : () => handleSelectNft!(nft)}
+                onClick={
+                    !selectable
+                        ? () => handleDetail(nft)
+                        : handleSelectNft
+                        ? () => handleSelectNft(nft)
+                        : () => {
+                              console.error("handleSelectNft is not defined");
+                          }
+                }
             />
         );
     };

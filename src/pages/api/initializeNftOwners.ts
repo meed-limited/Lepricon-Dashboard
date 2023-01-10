@@ -8,17 +8,25 @@ import NftSchema from "../../data/models/nftSchema";
 import { saveMany } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    await mongoose.connect(process.env.MONGODB_URI!);
+    const mongodbUri = process.env.MONGODB_URI;
+    if (!mongodbUri) {
+        throw new Error("MONGODB_URI is not defined");
+    }
+
+    await mongoose.connect(mongodbUri);
     mongoose.set("strictQuery", false);
     const { nft } = getContractAddresses();
 
     const MORALIS_API_KEY = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
+    if (!MORALIS_API_KEY) {
+        throw new Error("NEXT_PUBLIC_MORALIS_API_KEY is not defined");
+    }
     const moralisChain = isProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
 
     // Start Moralis
     if (!Moralis.Core.isStarted) {
         await Moralis.start({
-            apiKey: `${MORALIS_API_KEY}`,
+            apiKey: MORALIS_API_KEY,
         });
     }
 
