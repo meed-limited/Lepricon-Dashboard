@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     typescript: {
-        // NOT RECOMMANDED:
+        // NOT RECOMMENDED:
         ignoreBuildErrors: true,
     },
     eslint: {

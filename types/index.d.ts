@@ -460,3 +460,11 @@ type AdminPaneProps = {
 type HeaderPageProps = {
     setAdminPane: Dispatch<SetStateAction<boolean>>;
 };
+
+type ActionPaneProps = {
+    id: string;
+    title: string;
+    max: number | string;
+    lock: number;
+    deposited: StakesPerPool;
+};

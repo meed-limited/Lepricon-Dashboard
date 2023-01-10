@@ -9,14 +9,6 @@ import { useStakeAction } from "../hooks";
 import DetailsModal from "./DetailsModal";
 import WithdrawSingleModal from "./WithdrawSingleModal";
 
-type ActionPaneProps = {
-    id: string;
-    title: string;
-    max: number | string;
-    lock: number;
-    deposited: StakesPerPool;
-};
-
 const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) => {
     const { balances, tokenName } = useUserData();
     const { handleStake, withdrawAll, loading } = useStakeAction();
