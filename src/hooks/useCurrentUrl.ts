@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+
 import { URL } from "../data/constant";
 
 export const useCurrentUrl = () => {

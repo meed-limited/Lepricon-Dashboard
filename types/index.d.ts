@@ -364,6 +364,10 @@ interface TokenDataCMC {
     tvl_ratio: null;
 }
 
+/**********************************************************
+                    COMPONENTS PROPS
+***********************************************************/
+
 type DetailsModalProps = {
     lock: number;
     deposited: StakesPerPool;
@@ -448,3 +452,11 @@ interface TraitProps {
     value: string | number;
     isCopyable: boolean;
 }
+
+type AdminPaneProps = {
+    setAdminPane: Dispatch<SetStateAction<boolean>>;
+};
+
+type HeaderPageProps = {
+    setAdminPane: Dispatch<SetStateAction<boolean>>;
+};

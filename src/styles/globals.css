@@ -116,6 +116,20 @@ a {
     flex-wrap: wrap;
 }
 
+.admin-button {
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    margin-right: 10px;
+    border: none;
+}
+
+.admin-button:hover {
+    background-color: rgb(56, 56, 56);
+    color: white !important;
+    border: none !important;
+}
+
 /*************************************************************
                        OVERRIDE ANTD 
 *************************************************************/

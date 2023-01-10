@@ -2,6 +2,7 @@ export * from "./useAddressOrENS";
 export * from "./useBoostAPI";
 export * from "./useCoinmarketcapAPI";
 export * from "./useContract";
+export * from "./useCurrentOwner";
 export * from "./useCurrentUrl";
 export * from "./useIPFS";
 export * from "./useSignerOrProvider";

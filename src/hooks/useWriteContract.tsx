@@ -11,7 +11,7 @@ import { openNotification } from "../utils/notifications";
 import { useContract } from "./useContract";
 
 const useWriteContract = () => {
-    const { address, tokenName } = useUserData();
+    const { address, tokenName, syncWeb3 } = useUserData();
     const { token, nft, staking } = getContractAddresses();
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
@@ -22,7 +22,7 @@ const useWriteContract = () => {
 
     /* Set Token Allowance:
      ***************************/
-    const approveToken = async (allowance: BigNumber | string) => {
+    const approveToken = async (allowance: BigNumber | string | number) => {
         try {
             const tx = await tokenInstance.approve(staking, allowance.toString());
             await tx.wait(2);
@@ -132,7 +132,92 @@ const useWriteContract = () => {
         }
     };
 
-    return { approveToken, transferNft, stake, unstake, resetBoost };
+    /*/////////////////////////////////////////////////////////////////////////////////
+                                    ADMIN FUNCTIONS
+    /////////////////////////////////////////////////////////////////////////////////*/
+
+    /* Edit a vault's APR:
+     ***********************/
+    const setAPR = async (apr: number, timelock: number) => {
+        try {
+            const tx = await stakingInstance.setAPR(apr, timelock);
+            await tx.wait(2);
+            const title = "All set!";
+            const msg = `New APR successfully set to ${apr} for the ${timelock} months pool.`;
+            openNotification("success", title, msg);
+            syncWeb3();
+        } catch (error: any) {
+            const title = "Unexpected error";
+            const msg = "Something went wrong while updating the APR. Please try again.";
+            openNotification("error", title, msg);
+            return error.reason ? error.reason : error.message ? error.message : "Unexpected error";
+        }
+    };
+
+    /* Edit the admin address of the staking contract:
+     **************************************************/
+    const setNewAdmin = async (newAdmin: string) => {
+        try {
+            const tx = await stakingInstance.setAdmin(newAdmin);
+            await tx.wait(2);
+            const title = "All set!";
+            const msg = "New admin set successfully.";
+            openNotification("success", title, msg);
+        } catch (error: any) {
+            const title = "Unexpected error";
+            const msg = "Something went wrong while changing the admin address. Please try again.";
+            openNotification("error", title, msg);
+            return error.reason ? error.reason : error.message ? error.message : "Unexpected error";
+        }
+    };
+
+    /* Edit the token use in the staking contract:
+     **********************************************/
+    const setNewToken = async (newToken: string) => {
+        try {
+            const tx = await stakingInstance.setToken(newToken);
+            await tx.wait(2);
+            const title = "All set!";
+            const msg = "New token set successfully.";
+            openNotification("success", title, msg);
+            syncWeb3();
+        } catch (error: any) {
+            const title = "Unexpected error";
+            const msg = "Something went wrong while changing the token address. Please try again.";
+            openNotification("error", title, msg);
+            return error.reason ? error.reason : error.message ? error.message : "Unexpected error";
+        }
+    };
+
+    /* Edit the owner address of the staking contract:
+     **************************************************/
+    const setNewOwner = async (newOwner: string) => {
+        try {
+            const tx = await stakingInstance.transferOwnership(newOwner);
+            await tx.wait(2);
+            const title = "All set!";
+            const msg = "New contract owner set successfully.";
+            openNotification("success", title, msg);
+            syncWeb3();
+        } catch (error: any) {
+            const title = "Unexpected error";
+            const msg = "Something went wrong while changing the owner address. Please try again.";
+            openNotification("error", title, msg);
+            return error.reason ? error.reason : error.message ? error.message : "Unexpected error";
+        }
+    };
+
+    return {
+        approveToken,
+        transferNft,
+        stake,
+        unstake,
+        resetBoost,
+        setAPR,
+        setNewAdmin,
+        setNewToken,
+        setNewOwner,
+    };
 };
 
 export default useWriteContract;

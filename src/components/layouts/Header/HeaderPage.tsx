@@ -1,22 +1,22 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { FC, SetStateAction, useEffect, useState } from "react";
 
 import { MenuOutlined } from "@ant-design/icons";
-import { Dropdown, Layout, Menu } from "antd";
+import { Button, Dropdown, Layout, Menu } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useWindowWidthAndHeight } from "../../../hooks";
+import { useCurrentOwner, useWindowWidthAndHeight } from "../../../hooks";
 import styles from "../../../styles/Header.module.css";
 import { ChainVerification, ConnectButton } from "../../elements";
+import useMenuItems from "./useMenuItems";
 
 import LepriconLogo_Black from "/public/images/LepriconLogo_Black.png";
 
-import useMenuItems from "./useMenuItems";
-
 const { Header } = Layout;
 
-const HeaderPage = () => {
+const HeaderPage: FC<HeaderPageProps> = ({ setAdminPane }) => {
     const { isMobile } = useWindowWidthAndHeight();
+    const { isOwner } = useCurrentOwner();
     const { menuItems, items } = useMenuItems();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [current, setCurrent] = useState("wallet");
@@ -35,6 +35,10 @@ const HeaderPage = () => {
         else if (window.location.href.indexOf("pool") > -1 && current !== "pool") setCurrent("pool");
         return;
     }, [current]);
+
+    useEffect(() => {
+        setAdminPane(false);
+    }, [isOwner]);
 
     return (
         <>
@@ -58,7 +62,14 @@ const HeaderPage = () => {
                         />
                     </>
                 )}
-                <ConnectButton />
+                <div>
+                    {isOwner && (
+                        <Button className="admin-button" onClick={() => setAdminPane((prev: boolean) => !prev)}>
+                            Admin
+                        </Button>
+                    )}
+                    <ConnectButton />
+                </div>
             </Header>
         </>
     );

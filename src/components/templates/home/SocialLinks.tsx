@@ -1,11 +1,12 @@
 import { FC } from "react";
 
-import Text from "antd/lib/typography/Text";
 import { FacebookOutlined, LinkedinOutlined, TwitterOutlined, GithubOutlined } from "@ant-design/icons";
+import Text from "antd/lib/typography/Text";
+import Image from "next/image";
 import discord from "public/images/discord.png";
 import telegram from "public/images/telegram.png";
+
 import styles from "../../../styles/Home.module.css";
-import Image from "next/image";
 
 const SocialLinks: FC = () => {
     return (

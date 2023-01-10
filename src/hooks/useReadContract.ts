@@ -13,6 +13,18 @@ const useReadContract = () => {
     const tokenInstance: TestToken = useContract(token, TOKEN_ABI);
     const stakingInstance: LepriconStaking = useContract(staking, STAKING_ABI);
 
+    /* Get the staking's owner address :
+     ************************************/
+    const getOwnerAddress = async (): Promise<string> => {
+        try {
+            const owner = await stakingInstance.owner();
+            return owner;
+        } catch (error) {
+            console.error(error);
+            return "";
+        }
+    };
+
     /* Get the name of a specific TOKEN :
      ************************************/
     const getTokenName = async (): Promise<string> => {
@@ -20,7 +32,7 @@ const useReadContract = () => {
             const symbol = await tokenInstance.symbol();
             return symbol;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return "";
         }
     };
@@ -102,6 +114,7 @@ const useReadContract = () => {
     };
 
     return {
+        getOwnerAddress,
         getTokenName,
         getTokenBalance,
         checkTokenAllowance,

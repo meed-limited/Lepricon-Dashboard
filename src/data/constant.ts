@@ -1,5 +1,8 @@
 export const isProdEnv = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? true : false;
 
+export const MAX_INT = 2 ** 256 - 1;
+// export const MAX_INT = 115792089237316195423570985008687907853269984665640564039457584007913129639935;
+
 export const SUPPORTED_CHAIN = {
     mainnet: 137,
     testnet: 80001,

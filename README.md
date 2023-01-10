@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Welcome to the NEW LEPRICON WALLET !!!
 
-## Getting Started
+[![Stargazers](https://img.shields.io/github/stars/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/stargazers)
+[![Issues](https://img.shields.io/github/issues/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/issues)
+[![MIT License](https://img.shields.io/github/license/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/blob/main/License)
 
-First, run the development server:
+-   Access all info in one place: NFT, tokens, Balances and more!
+-   Stake your tokens in different pools, with different yields.
+-   Select an NFT from a compatible collection to gain some extra staking yield!
 
-```bash
-npm run dev
-# or
-yarn dev
+## Description
+
+Brain new All-in-One wallet for your favorite Lepricon ecosystem! Accessible on the Binance Smart-Chain, your Lepricon NFT on Ethereum are also compatible, thanks to our cross-chain wallet.
+
+-   Website: coming soon...
+-   Dapp: coming soon...
+    <br></br>
+
+![Preview](./preview.png)
+
+## Installation
+
+💿 Clone the repo and install all dependencies:
+
+```sh
+git clone https://github.com/superultra-io/Lepricon-wallet.git
+cd Lepricon-wallet
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+✏ Create a `.env` file in the main folder and provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server))
+Example:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```jsx
+REACT_APP_MORALIS_APPLICATION_ID = xxxxxxxxxxxx
+REACT_APP_MORALIS_SERVER_URL = https://xxxxxx.grandmoralis.com:2053/server
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+🔎 Locate the file constant.js in `src/constant/constant.js` and paste your smart-contracts addresses and ABI;
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```jsx
+const ASSEMBLY_NFT = "your Contract Address here";
+const ABI = "your Contract ABI here";
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+🚴‍♂️ Run your App:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```sh
+yarn start
+```
