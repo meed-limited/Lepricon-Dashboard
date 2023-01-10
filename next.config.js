@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-    typescript: {
-        // NOT RECOMMENDED:
-        ignoreBuildErrors: true,
-    },
     eslint: {
         ignoreDuringBuilds: true,
     },
