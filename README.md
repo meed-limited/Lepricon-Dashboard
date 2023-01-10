@@ -1,24 +1,23 @@
-# Welcome to the NEW LEPRICON WALLET !!!
+<div align="center">
+ <h1><strong>Welcome to the NEW LEPRICON WALLET !!!</strong></h1>
 
 [![Stargazers](https://img.shields.io/github/stars/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/stargazers)
 [![Issues](https://img.shields.io/github/issues/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/issues)
 [![MIT License](https://img.shields.io/github/license/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/blob/main/License)
 
--   Access all info in one place: NFT, tokens, Balances and more!
+</div>
+
+-   All-in-One Dashbord": Access all info in one place: NFTs, Tokens, Staking and more!
 -   Stake your tokens in different pools, with different yields.
 -   Select an NFT from a compatible collection to gain some extra staking yield!
 
 ## Description
 
-Brain new All-in-One wallet for your favorite Lepricon ecosystem! Accessible on the Binance Smart-Chain, your Lepricon NFT on Ethereum are also compatible, thanks to our cross-chain wallet.
+Brain new All-in-One wallet for your favorite Lepricon ecosystem! Accessible on the Polygon Network. Your Lepricon NFTs emitted on Ethereum are also compatible, thanks to our cross-chain wallet!
 
--   Website: coming soon...
--   Dapp: coming soon...
-    <br></br>
+![Preview](./public/images/preview.png)
 
-![Preview](./preview.png)
-
-## Installation
+## Front-end Installation
 
 💿 Clone the repo and install all dependencies:
 
@@ -28,23 +27,71 @@ cd Lepricon-wallet
 yarn install
 ```
 
-✏ Create a `.env` file in the main folder and provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server))
-Example:
+✏ Edit the `.env.example` file in the main folder with all required info. Don't forget to remove `.example` !
+
+🔎 Locate the file constant.js in `src/data/constant.ts` and paste your smart-contracts addresses;
 
 ```jsx
-REACT_APP_MORALIS_APPLICATION_ID = xxxxxxxxxxxx
-REACT_APP_MORALIS_SERVER_URL = https://xxxxxx.grandmoralis.com:2053/server
+// Production => Polygon
+export const TOKEN = "";
+export const LEPRICON_NFT = "";
+export const STAKING = "";
+
+// Development => Mumbai
+export const TOKEN_TEST = "";
+export const LEPRICON_NFT_TEST = "";
+export const STAKING_TEST = "";
 ```
 
-🔎 Locate the file constant.js in `src/constant/constant.js` and paste your smart-contracts addresses and ABI;
+🔎 Locate the file constant.js in `src/data/abis` and paste your ABIs if you've made any changes to the smart-contracts;
 
 ```jsx
-const ASSEMBLY_NFT = "your Contract Address here";
-const ABI = "your Contract ABI here";
+export const NFT_ABI = ["NFT ABI here...];
 ```
 
 🚴‍♂️ Run your App:
 
+Dev. mode:
+
+```sh
+yarn dev
+```
+
+Prod. mode:
+
 ```sh
 yarn start
+```
+
+## Smart-contract deployement
+
+💿 Move the the `hardhat` folder and install all dependencies:
+
+```sh
+cd hardhat
+yarn install
+```
+
+✏ Edit the `.env.example` file in the main folder with all required info. Don't forget to remove `.example` !
+
+✏ Edit the hardhat.config.ts as needed, if needed, then make sure to select the correct network in the package.json `script` section.
+
+```json
+"scripts": {
+        ...
+        "deploy": "hardhat run --network mumbai scripts/deploy.ts",
+        ...
+    },
+```
+
+💿 Test that everything is working as intended:
+
+```sh
+yarn test
+```
+
+💿 Deploy your contracts:
+
+```sh
+yarn deploy
 ```
