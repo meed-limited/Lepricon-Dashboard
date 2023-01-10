@@ -1,9 +1,9 @@
 <div align="center">
  <h1><strong>Welcome to the NEW LEPRICON WALLET !!!</strong></h1>
 
-[![Stargazers](https://img.shields.io/github/stars/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/stargazers)
-[![Issues](https://img.shields.io/github/issues/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/issues)
-[![MIT License](https://img.shields.io/github/license/superultra-io/Lepricon-wallet)](https://github.com/superultra-io/Lepricon-wallet/blob/main/License)
+[![Stargazers](https://img.shields.io/github/stars/superultra-io/Lepricon-Dashboard)](https://github.com/superultra-io/Lepricon-Dashboard/stargazers)
+[![Issues](https://img.shields.io/github/issues/superultra-io/Lepricon-Dashboard)](https://github.com/superultra-io/Lepricon-Dashboard/issues)
+[![MIT License](https://img.shields.io/github/license/superultra-io/Lepricon-Dashboard)](https://github.com/superultra-io/Lepricon-Dashboard/blob/main/License)
 
 </div>
 
@@ -22,8 +22,8 @@ Brain new All-in-One wallet for your favorite Lepricon ecosystem! Accessible on 
 💿 Clone the repo and install all dependencies:
 
 ```sh
-git clone https://github.com/superultra-io/Lepricon-wallet.git
-cd Lepricon-wallet
+git clone https://github.com/superultra-io/Lepricon-Dashboard.git
+cd Lepricon-Dashboard
 yarn install
 ```
 
