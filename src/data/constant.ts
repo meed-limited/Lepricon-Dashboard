@@ -16,7 +16,8 @@ export const SUPPORTED_CHAIN_NFT = {
 
 export const DEX_URL = "https://quickswap.exchange/#/";
 
-export const URL = isProdEnv ? "https://app.lepricon.io/" : "http://localhost:3000/"; // Front-end server
+// export const URL = isProdEnv ? "https://app.lepricon.io/" : "http://localhost:3000/"; // Front-end server
+export const URL = "https://app.lepricon.io/"; // Front-end server
 // export const URL_EXTERNAL = isProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
 export const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
 
