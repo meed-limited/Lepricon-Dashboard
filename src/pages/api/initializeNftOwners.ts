@@ -10,7 +10,7 @@ import { saveMany } from "../../utils/db";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const mongodbUri = process.env.MONGODB_URI;
     if (!mongodbUri) {
-        throw new Error("MONGODB_URI is not defined");
+        return res.status(400).json({ success: false, message: "MONGODB_URI is not defined" });
     }
 
     await mongoose.connect(mongodbUri);
@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const MORALIS_API_KEY = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
     if (!MORALIS_API_KEY) {
-        throw new Error("NEXT_PUBLIC_MORALIS_API_KEY is not defined");
+        return res.status(400).json({ success: false, message: "NEXT_PUBLIC_MORALIS_API_KEY is not defined" });
     }
     const moralisChain = isProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
 

@@ -6,7 +6,7 @@ import NftSchema from "../../data/models/nftSchema";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const mongodbUri = process.env.MONGODB_URI;
     if (!mongodbUri) {
-        throw new Error("MONGODB_URI is not defined");
+        return res.status(400).json({ success: false, message: "MONGODB_URI is not defined" });
     }
 
     await mongoose.connect(mongodbUri);
