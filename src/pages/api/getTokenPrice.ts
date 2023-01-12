@@ -8,8 +8,8 @@ type Response = {
 };
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse<Response>) => {
-    const CMC_API = process.env.NEXT_PUBLIC_CMC_KEY;
-    const symbol = process.env.NEXT_PUBLIC_SYMBOL;
+    const CMC_API = process.env.CMC_KEY;
+    const symbol = process.env.SYMBOL;
     console.log(`REQUEST PRICE FOR ${symbol}`);
 
     try {

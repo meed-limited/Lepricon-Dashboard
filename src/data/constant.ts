@@ -14,12 +14,9 @@ export const SUPPORTED_CHAIN_NFT = {
     testnet: 0x5,
 };
 
-export const DEX_URL = "https://quickswap.exchange/#/";
-
 // export const URL = isProdEnv ? "https://www.app.lepricon.io/" : "http://localhost:3000/"; // Front-end server
 export const URL = "https://www.app.lepricon.io/"; // Front-end server
-// export const URL_EXTERNAL = isProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
-export const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
+export const DEX_URL = "https://quickswap.exchange/#/";
 
 // Production => Polygon
 export const TOKEN = "0x91191A15E778d46255FC9AcD37D028228D97e786";

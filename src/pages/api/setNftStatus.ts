@@ -1,10 +1,13 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { isProdEnv, URL_EXTERNAL } from "../../data/constant";
+import { isProdEnv } from "../../data/constant";
 import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+    // export const URL_EXTERNAL = isProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
+    const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
+
     if (req.method !== "POST") {
         res.status(405).send({ message: "Only POST requests allowed" });
         return;
