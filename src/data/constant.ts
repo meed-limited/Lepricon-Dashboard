@@ -1,7 +1,7 @@
 import { BigNumber } from "ethers";
 
 export const isProdEnv = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? true : false;
-export const isNodeProdEnv = process.env.NODE_ENV === "production" ? true : false;
+export const isNodeProdEnv = process.env.ENV === "production" ? true : false;
 
 export const MAX_INT = BigNumber.from(Number.MAX_SAFE_INTEGER - 1);
 

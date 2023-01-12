@@ -19,8 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(`ACCOUNT "${account}" REQUEST ${boost}% STAKING BOOST...`);
 
         if (!account || !nftContractAddress || tokenId === undefined || boost === undefined) {
-            res.status(400).json({ success: false, message: "Missing parameters" });
-            return;
+            return res.status(400).json({ success: false, message: "Missing parameters" });
         }
 
         // 1. Check if account really owns NFT (in case of direct contract interaction)
@@ -39,13 +38,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         if (ownership.status !== 200) {
-            res.status(400).json({ success: false, message: "Something went wrong while checking the NFT ownership." });
-            return;
+            return res
+                .status(400)
+                .json({ success: false, message: "Something went wrong while checking the NFT ownership." });
         }
 
         if (!ownership.data.isOwner) {
-            res.status(400).json({ success: false, message: "This account doesn't own this NFT" });
-            return;
+            return res.status(400).json({ success: false, message: "This account doesn't own this NFT" });
         }
 
         // 2. Set account boost
@@ -66,25 +65,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         if (!response.data.success) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Something went wrong during the contract call to update the boost status.",
                 data: null,
             });
-            return;
         }
 
         updateNftStatus(account, nftContractAddress, tokenId, true);
 
         console.log(`${boost}% BOOST FOR ACCOUNT ${account} SUCCESSFULLY SET!`);
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "NFT status updated successfully!",
             data: response.data,
         });
     } catch (error) {
         console.error(error);
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: "An unexpected error occured while setting the NFT boost.",
             error,
