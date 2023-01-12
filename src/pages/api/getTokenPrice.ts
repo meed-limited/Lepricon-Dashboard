@@ -24,17 +24,16 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse<Response>) => 
         );
 
         if (data.status !== 200) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Something went wrong while fetching CMC data.",
                 data: null,
             });
-            return;
         }
 
         console.log(`PRICE FOR ${symbol} FETCHED SUCCESSFULLY!`);
         /// TODO: edit the token symbol in the path
-        res.status(200).json({ success: true, data: data.data.data.HOT[0].quote.USD.price });
+        return res.status(200).json({ success: true, data: data.data.data.HOT[0].quote.USD.price });
     } catch (err) {
         console.error(err);
     }

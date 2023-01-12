@@ -8,6 +8,8 @@ export const useBoostAPI = () => {
             tokenId: tokenId,
             boost: boost,
         });
+        console.log("TEST:", "https://backend.lepricon.city/" + "staking/checkOwnership");
+
         const res = await fetch(`${URL}api/setNftStatus/`, {
             method: "POST",
             headers: {
