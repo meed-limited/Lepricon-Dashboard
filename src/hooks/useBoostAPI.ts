@@ -8,13 +8,14 @@ export const useBoostAPI = () => {
             tokenId: tokenId,
             boost: boost,
         });
-        await fetch(`${URL}api/setNftStatus/`, {
+        const res = await fetch(`${URL}api/setNftStatus/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: body,
         });
+        console.log("res", res);
     };
 
     const resetBoostInDb = async (account: string, nftContractAddress: string, tokenId: number, status: boolean) => {
@@ -25,13 +26,14 @@ export const useBoostAPI = () => {
             status: status,
         });
 
-        await fetch(`${URL}api/resetNftStatus/`, {
+        const res = await fetch(`${URL}api/resetNftStatus/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: body,
         });
+        console.log("res", res);
     };
 
     return { setBoost, resetBoostInDb };
