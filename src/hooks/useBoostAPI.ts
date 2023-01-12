@@ -6,6 +6,7 @@ export const useBoostAPI = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Accept: "application/json",
             },
             body: JSON.stringify({
                 account: account,
@@ -22,6 +23,7 @@ export const useBoostAPI = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Accept: "application/json",
             },
             body: JSON.stringify({
                 account: account,

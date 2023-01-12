@@ -33,7 +33,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const ownership = await axios.post(`${URL_EXTERNAL}staking/checkOwnership`, body, {
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
-                Accepts: "application/json",
+                "Content-Type": "application/json",
+                Accept: "application/json",
             },
         });
 
@@ -60,7 +61,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const response = await axios.post(`${URL_EXTERNAL}staking/setBoost`, body2, {
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
-                Accepts: "application/json",
+                "Content-Type": "application/json",
+                Accept: "application/json",
             },
         });
 
