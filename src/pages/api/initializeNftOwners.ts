@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import Moralis from "moralis";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { getContractAddresses, isProdEnv } from "../../data/constant";
+import { getContractAddresses, isNodeProdEnv } from "../../data/constant";
 import NftSchema from "../../data/models/nftSchema";
 import { saveMany } from "../../utils/db";
 
@@ -17,11 +17,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     mongoose.set("strictQuery", false);
     const { nft } = getContractAddresses();
 
-    const MORALIS_API_KEY = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
+    const MORALIS_API_KEY = process.env.MORALIS_API_KEY;
     if (!MORALIS_API_KEY) {
-        return res.status(400).json({ success: false, message: "NEXT_PUBLIC_MORALIS_API_KEY is not defined" });
+        return res.status(400).json({ success: false, message: "MORALIS_API_KEY is not defined" });
     }
-    const moralisChain = isProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
+    const moralisChain = isNodeProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
 
     // Start Moralis
     if (!Moralis.Core.isStarted) {

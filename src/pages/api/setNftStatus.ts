@@ -1,11 +1,11 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { isProdEnv } from "../../data/constant";
+import { isNodeProdEnv } from "../../data/constant";
 import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    // export const URL_EXTERNAL = isProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
+    // export const URL_EXTERNAL = isNodeProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
     const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
 
     if (req.method !== "POST") {
@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             owner: account,
             tokenId: tokenId,
             chain: "ETH",
-            network: isProdEnv ? "mainnet" : "testnet",
+            network: isNodeProdEnv ? "mainnet" : "testnet",
         });
 
         const ownership = await axios.post(`${URL_EXTERNAL}staking/checkOwnership`, body, {
@@ -54,7 +54,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             tokenId: tokenId,
             boost: boost,
             chain: "POLYGON",
-            network: isProdEnv ? "mainnet" : "testnet",
+            network: isNodeProdEnv ? "mainnet" : "testnet",
         });
 
         const response = await axios.post(`${URL_EXTERNAL}staking/setBoost`, body2, {
