@@ -17,6 +17,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse<Response>) => 
             `https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=${symbol}`,
             {
                 headers: {
+                    "Content-Type": "application/json",
                     Accepts: "application/json",
                     "X-CMC_PRO_API_KEY": `${CMC_API}`,
                 },
