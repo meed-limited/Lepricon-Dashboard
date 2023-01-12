@@ -1,7 +1,7 @@
-import { isProdEnv } from "../data/constant";
+import { isNodeProdEnv } from "../data/constant";
 import NftSchema from "../data/models/nftSchema";
 
-const collection = isProdEnv ? process.env.MONGO_DB_COLLECTION : process.env.MONGO_DB_COLLECTION_TEST;
+const collection = isNodeProdEnv ? process.env.MONGO_DB_COLLECTION : process.env.MONGO_DB_COLLECTION_TEST;
 
 export const saveMany = (data: EvmNft[]) => {
     data.forEach(async (el: EvmNft) => {
