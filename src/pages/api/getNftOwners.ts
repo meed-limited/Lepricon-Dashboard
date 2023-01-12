@@ -15,14 +15,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const result = await NftSchema.find();
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Data inserted successfully!",
             data: result,
         });
     } catch (error) {
         console.error(error);
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: "An error occured while updating the DB!",
             error,

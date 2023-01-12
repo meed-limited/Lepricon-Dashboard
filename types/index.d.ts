@@ -468,3 +468,25 @@ type ActionPaneProps = {
     lock: number;
     deposited: StakesPerPool;
 };
+
+type State<Data, ErrorType> =
+    | {
+          data: Data;
+          loading: false;
+          success: true;
+          error: Maybe<ErrorType>;
+      }
+    | {
+          data: undefined;
+          loading: true;
+          success: false;
+          error: Maybe<ErrorType>;
+      }
+    | {
+          data: undefined;
+          loading: false;
+          success: false;
+          error: Maybe<ErrorType>;
+      };
+
+type HttpMethod = "GET" | "get" | "POST" | "post" | "PUT" | "put";

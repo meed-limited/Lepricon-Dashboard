@@ -6,7 +6,8 @@ import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // export const URL_EXTERNAL = isNodeProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
-    const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
+    // const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
+    const URL_EXTERNAL = "https://backend.lepricon.city/";
 
     if (req.method !== "POST") {
         res.status(405).send({ message: "Only POST requests allowed" });
