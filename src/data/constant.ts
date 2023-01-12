@@ -1,7 +1,7 @@
 import { BigNumber } from "ethers";
 
 export const isProdEnv = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? true : false;
-export const isNodeProdEnv = process.env.ENV === "production" ? true : false;
+export const isNodeProdEnv = process.env.NODE_ENV === "production" ? true : false;
 
 export const MAX_INT = BigNumber.from(Number.MAX_SAFE_INTEGER - 1);
 
@@ -16,8 +16,7 @@ export const SUPPORTED_CHAIN_NFT = {
 };
 
 // export const URL = isProdEnv ? "https://www.app.lepricon.io/" : "http://localhost:3000/"; // Front-end server
-// export const URL = "https://www.app.lepricon.io/"; // Front-end server
-export const URL = "https://inspiring-haupia-5e95be.netlify.app/";
+export const URL = "https://www.app.lepricon.io/"; // Front-end server
 export const DEX_URL = "https://quickswap.exchange/#/";
 
 // Production => Polygon
