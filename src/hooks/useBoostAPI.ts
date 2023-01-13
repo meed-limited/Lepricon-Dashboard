@@ -15,7 +15,7 @@ export const useBoostAPI = () => {
                 boost: boost,
             }),
         });
-        const data = res.json();
+        const data = await res.json();
         console.log("setBoost response:", data);
     };
 
@@ -33,7 +33,7 @@ export const useBoostAPI = () => {
                 status: status,
             }),
         });
-        const data = res.json();
+        const data = await res.json();
         console.log("resetBoostInDb response:", data);
     };
 
