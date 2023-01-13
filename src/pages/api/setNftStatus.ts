@@ -13,11 +13,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const { account, nftContractAddress, tokenId, boost } = req.body;
-        console.log(`ACCOUNT "${account}" REQUEST ${boost}% STAKING BOOST...`);
 
         if (!account || !nftContractAddress || tokenId === undefined || boost === undefined) {
             return res.status(400).json({ success: false, message: "Missing parameters" });
         }
+
+        console.log(`ACCOUNT "${account}" REQUEST ${boost}% STAKING BOOST...`);
 
         // 1. Check if account really owns NFT (in case of direct contract interaction)
         const body = JSON.stringify({
@@ -79,8 +80,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
 
-        updateNftStatus(account, nftContractAddress, tokenId, true);
-
+        await updateNftStatus(account, nftContractAddress, tokenId, true);
         console.log(`${boost}% BOOST FOR ACCOUNT ${account} SUCCESSFULLY SET!`);
         return res.status(200).json({
             success: true,
@@ -88,7 +88,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             data: response,
         });
     } catch (error) {
-        console.error(error);
         return res.status(400).json({
             success: false,
             message: "An unexpected error occured while setting the NFT boost.",

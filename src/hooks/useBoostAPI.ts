@@ -15,7 +15,8 @@ export const useBoostAPI = () => {
                 boost: boost,
             }),
         });
-        console.log("res", res);
+        const data = res.json();
+        console.log("setBoost response:", data);
     };
 
     const resetBoostInDb = async (account: string, nftContractAddress: string, tokenId: number, status: boolean) => {
@@ -32,7 +33,8 @@ export const useBoostAPI = () => {
                 status: status,
             }),
         });
-        console.log("res", res);
+        const data = res.json();
+        console.log("resetBoostInDb response:", data);
     };
 
     return { setBoost, resetBoostInDb };
