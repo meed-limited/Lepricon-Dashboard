@@ -2,7 +2,7 @@ import { EvmChain } from "@moralisweb3/common-evm-utils";
 import Moralis from "moralis";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { getContractAddresses, isNodeProdEnv } from "../../data/constant";
+import { getContractAddresses, isProdEnv } from "../../data/constant";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { nft } = getContractAddresses();
@@ -11,7 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!MORALIS_API_KEY) {
         return res.status(400).json({ success: false, message: "MORALIS_API_KEY is not defined" });
     }
-    const moralisChain = isNodeProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
+    const moralisChain = isProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
 
     // Start Moralis
     if (!Moralis.Core.isStarted) {
@@ -35,7 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             chain: moralisChain,
             tokenAddresses: [nft],
         });
-        const userNfts = { result: tx.raw.result, total: tx.raw.total };
+        const userNfts = { result: tx.raw.result, total: tx.raw.total, nft: nft, isProdEnv: isProdEnv };
 
         // Fetch user native's balance
         const response_Native = await Moralis.EvmApi.balance.getNativeBalance({

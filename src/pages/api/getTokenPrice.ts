@@ -22,6 +22,7 @@ const handler = async (_req: NextApiRequest, res: NextApiResponse<Response>) => 
             },
         });
 
+        console.log(response);
         if (response.status !== 200) {
             return res.status(400).json({
                 success: false,
