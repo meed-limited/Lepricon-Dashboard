@@ -15,8 +15,8 @@ export const SUPPORTED_CHAIN_NFT = {
     testnet: 0x5,
 };
 
-export const URL = isProdEnv ? "https://www.app.lepricon.io/" : "http://localhost:3000/"; // Front-end server
-// export const URL = "https://www.app.lepricon.io/"; // Front-end server
+// export const URL = isProdEnv ? "https://www.app.lepricon.io/" : "http://localhost:3000/"; // Front-end server
+export const URL = "https://www.app.lepricon.io/"; // Front-end server
 export const DEX_URL = "https://quickswap.exchange/#/";
 
 // Production => Polygon
