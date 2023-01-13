@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { isNodeProdEnv } from "../../data/constant";
+import { isProdEnv } from "../../data/constant";
 import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -24,7 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             owner: account,
             tokenId: tokenId,
             chain: "ETH",
-            network: isNodeProdEnv ? "mainnet" : "testnet",
+            network: isProdEnv ? "mainnet" : "testnet",
         });
 
         const ownership_res = await fetch(`${URL_EXTERNAL}staking/checkOwnership`, {
@@ -56,7 +56,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             tokenId: tokenId,
             boost: boost,
             chain: "POLYGON",
-            network: isNodeProdEnv ? "mainnet" : "testnet",
+            network: isProdEnv ? "mainnet" : "testnet",
         });
 
         const setBoost_res = await fetch(`${URL_EXTERNAL}staking/setBoost`, {

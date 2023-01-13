@@ -35,7 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             chain: moralisChain,
             tokenAddresses: [nft],
         });
-        const userNfts = { result: tx.raw.result, total: tx.raw.total, nft: nft, isProdEnv: isProdEnv };
+        const userNfts = { result: tx.raw.result, total: tx.raw.total };
 
         // Fetch user native's balance
         const response_Native = await Moralis.EvmApi.balance.getNativeBalance({
