@@ -79,7 +79,7 @@ const nftSchema = new Schema({
 });
 
 const NftSchema = isProdEnv
-    ? models?.Lepricon_nft_owners || model(collectionName, nftSchema)
-    : models?.Lepritest_nft_owners || model(collectionName, nftSchema);
+    ? models.Lepricon_nft_owners || model(collectionName, nftSchema)
+    : models.Lepritest_nft_owners || model(collectionName, nftSchema);
 
 export default NftSchema;

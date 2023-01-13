@@ -5,8 +5,8 @@ export const useBoostAPI = () => {
         const res = await fetch(`${URL}api/setNftStatus/`, {
             method: "POST",
             headers: {
+                accept: "application/json",
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
             body: JSON.stringify({
                 account: account,
@@ -22,8 +22,8 @@ export const useBoostAPI = () => {
         const res = await fetch(`${URL}api/resetNftStatus/`, {
             method: "POST",
             headers: {
+                accept: "application/json",
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
             body: JSON.stringify({
                 account: account,

@@ -33,11 +33,11 @@ const useWriteContract = () => {
             const msg = `Allowance succesfully set to ${value}.`;
             openNotification("success", title, msg);
         } catch (error: any) {
-            console.log(error);
+            console.error(error);
             const title = "Token Approval denied";
             const msg = "Something went wrong while setting the allowance. Please try again.";
             openNotification("error", title, msg);
-            console.log(error.reason ? error.reason : error.message);
+            console.error(error.reason ? error.reason : error.message);
         }
     };
 
@@ -55,7 +55,7 @@ const useWriteContract = () => {
             const title = "NFT Transfer Failed";
             const msg = "Something went wrong while transfering your NFT. Please try again.";
             openNotification("error", title, msg);
-            console.log(error.reason ? error.reason : error.message);
+            console.error(error.reason ? error.reason : error.message);
             return false;
         }
     };

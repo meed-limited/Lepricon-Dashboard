@@ -1,11 +1,9 @@
-import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { isNodeProdEnv } from "../../data/constant";
 import { updateNftStatus } from "../../utils/db";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    // export const URL_EXTERNAL = isNodeProdEnv ? process.env.SIGNING_URL : "http://localhost:3001/"; // RestAPI server
     const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
 
     if (req.method !== "POST") {
@@ -29,21 +27,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             network: isNodeProdEnv ? "mainnet" : "testnet",
         });
 
-        const ownership = await axios.post(`${URL_EXTERNAL}staking/checkOwnership`, body, {
+        const ownership_res = await fetch(`${URL_EXTERNAL}staking/checkOwnership`, {
+            method: "POST",
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
+                accept: "application/json",
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
+            body: body,
         });
 
-        if (ownership.status !== 200) {
+        const ownership = await ownership_res.json();
+
+        if (!ownership.success) {
             return res
                 .status(400)
                 .json({ success: false, message: "Something went wrong while checking the NFT ownership." });
         }
 
-        if (!ownership.data.isOwner) {
+        if (!ownership.isOwner) {
             return res.status(400).json({ success: false, message: "This account doesn't own this NFT" });
         }
 
@@ -57,15 +59,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             network: isNodeProdEnv ? "mainnet" : "testnet",
         });
 
-        const response = await axios.post(`${URL_EXTERNAL}staking/setBoost`, body2, {
+        const setBoost_res = await fetch(`${URL_EXTERNAL}staking/setBoost`, {
+            method: "POST",
             headers: {
                 Authorization: `Bearer ${process.env.SIGNING_KEY}`,
+                accept: "application/json",
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
+            body: body2,
         });
 
-        if (!response.data.success) {
+        const response = await setBoost_res.json();
+
+        if (!response.success) {
             return res.status(400).json({
                 success: false,
                 message: "Something went wrong during the contract call to update the boost status.",
@@ -79,7 +85,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(200).json({
             success: true,
             message: "NFT status updated successfully!",
-            data: response.data,
+            data: response,
         });
     } catch (error) {
         console.error(error);

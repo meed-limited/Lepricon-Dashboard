@@ -14,7 +14,6 @@
     "dependencies": {
         "@ant-design/icons": "^5.0.0",
         "antd": "^5.1.4",
-        "axios": "^1.2.2",
         "ethers": "^5.7.2",
         "mongodb": "^4.13.0",
         "mongoose": "^6.8.3",

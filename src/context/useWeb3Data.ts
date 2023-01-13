@@ -1,17 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { EvmChain } from "@moralisweb3/common-evm-utils";
 import { ethers } from "ethers";
-import Moralis from "moralis";
 import { useAccount } from "wagmi";
 
 import { LepriconStaking } from "../../types/LepriconStaking";
-import { getContractAddresses, isProdEnv } from "../data/constant";
+import { getContractAddresses, URL } from "../data/constant";
 import { useReadContract } from "../hooks";
 
 export const useWeb3Data = (): Web3Data => {
     const { address } = useAccount();
-    const { nft } = getContractAddresses();
     const { getTokenName, getTokenBalance, getStakes, getBoost } = useReadContract();
 
     const [tokenName, setTokenName] = useState<string>("");
@@ -31,40 +28,26 @@ export const useWeb3Data = (): Web3Data => {
     }, [fetchGlobalData]);
 
     const fetchMoralisData = async () => {
-        const MORALIS_API_KEY = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
-        const moralisChain = isProdEnv ? EvmChain.ETHEREUM : EvmChain.GOERLI;
+        const res: Response = await fetch(`${URL}api/getMoralisData`, {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                account: address,
+            }),
+        });
+        const data = await res.json();
+        setUserNFTs(data.data.userNfts);
 
-        // Start Moralis
-        if (!Moralis.Core.isStarted) {
-            await Moralis.start({
-                apiKey: `${MORALIS_API_KEY}`,
-            });
-        }
+        // Fetch user token's balance
+        const tokenBalance = await getTokenBalance();
 
-        if (address) {
-            // Fetch user NFTs
-            const tx = await Moralis.EvmApi.nft.getWalletNFTs({
-                address: address,
-                chain: moralisChain,
-                tokenAddresses: [nft],
-            });
-            const userNfts = { result: tx.raw.result, total: tx.raw.total };
-            setUserNFTs(userNfts);
-
-            // Fetch user native's balance
-            const response_Native = await Moralis.EvmApi.balance.getNativeBalance({
-                address: address,
-                chain: moralisChain,
-            });
-
-            // Fetch user token's balance
-            const tokenBalance = await getTokenBalance();
-
-            setBalances({
-                native: response_Native.raw.balance,
-                token: ethers.utils.formatEther(tokenBalance),
-            });
-        }
+        setBalances({
+            native: data.data.nativeBalance,
+            token: ethers.utils.formatEther(tokenBalance),
+        });
     };
 
     const fetchStakingData = async () => {
