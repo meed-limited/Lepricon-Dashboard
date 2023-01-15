@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { isProdEnv } from "../../data/constant";
 import NftSchema from "../../data/models/nftSchema";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,19 +15,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, message: "Missing parameters" });
     }
 
-    const collection = isProdEnv ? process.env.MONGODB_COLLECTION : process.env.MONGODB_COLLECTION_TEST;
     const mongodbUri = process.env.MONGODB_URI;
     if (!mongodbUri) {
         return res.status(400).json({ success: false, message: "MONGODB_URI is not defined" });
     }
 
-    await mongoose.connect(mongodbUri);
-    mongoose.set("strictQuery", false);
+
 
     try {
+        await mongoose.connect(mongodbUri);
+
         // Get NFT object from Mongo DB
         const query = {
-            collectionName: collection,
             ownerOf: owner.toLowerCase(),
             tokenId: nftId,
             tokenAddress: nftAddress.toLowerCase(),
@@ -39,6 +37,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         // Edit & save NFT status in Mongo DB
         nft.isStaked = status;
         await nft.save();
+
+        mongoose.disconnect();
 
         return res.status(200).json({
             success: true,

@@ -76,6 +76,9 @@ const nftSchema = new Schema({
         required: true,
         default: false,
     },
+}, {
+    strict: true,
+    strictQuery: false // Turn off strict mode for query filters
 });
 
 const NftSchema = isProdEnv
