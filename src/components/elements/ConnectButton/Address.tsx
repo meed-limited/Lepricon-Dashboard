@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 import { Skeleton } from "antd";
 
-import { getEllipsisTxt } from "../../../utils/format";
 import Jazzicons from "./Jazzicons";
+import { getEllipsisTxt } from "../../../utils/format";
 
 const styles = {
     address: {

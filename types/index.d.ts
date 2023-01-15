@@ -428,12 +428,6 @@ type NftCardProps = {
     selectable: boolean;
 };
 
-type NftOwnersResponse = {
-    success: boolean;
-    message: string;
-    data: NftsOwners[];
-};
-
 type AccordionDataProps = {
     title: string;
     data: string | number;

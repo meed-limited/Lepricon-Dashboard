@@ -3,11 +3,11 @@ import { FC, useState } from "react";
 import { Button } from "antd";
 import { useAccount } from "wagmi";
 
-import styles from "../../../styles/ConnectButton.module.css";
-import { getEllipsisTxt } from "../../../utils/format";
 import ConnectModal from "./ConnectModal";
 import DisconnectModal from "./DisconnectModal";
 import Jazzicons from "./Jazzicons";
+import styles from "../../../styles/ConnectButton.module.css";
+import { getEllipsisTxt } from "../../../utils/format";
 
 const ConnectButton: FC = () => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);

@@ -5,4 +5,3 @@ export { AdminPane } from "./Admin";
 export { ConnectButton } from "./ConnectButton";
 export { DisplayNft } from "./DisplayNft";
 export { Loading } from "./Loading";
-export { NftOwnersUpdate } from "./NftOwners";

@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 
 import { Skeleton, Alert } from "antd";
 
+import NftCard from "./NftCard";
 import { useUserData } from "../../../context/UserContextProvider";
 import { isProdEnv } from "../../../data/constant";
 import { useIPFS, useVerifyMetadata } from "../../../hooks";
@@ -9,7 +10,6 @@ import styles from "../../../styles/Wallet.module.css";
 import { getNftImage } from "../../../utils/getNftAttributes";
 import NftsDetailsModal from "../../templates/wallet/component/NftDetailsModal";
 import TransferNftModal from "../../templates/wallet/component/TransferNftModal";
-import NftCard from "./NftCard";
 
 const DisplayNft: FC<DisplayNftProps> = ({ selectable, handleSelectNft }) => {
     const { isConnected, userNFTs } = useUserData();

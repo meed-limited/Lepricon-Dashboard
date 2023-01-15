@@ -5,7 +5,6 @@ import type { AppProps } from "next/app";
 import NextHead from "next/head";
 import { WagmiConfig } from "wagmi";
 
-import { NftOwnersUpdate } from "../components/elements";
 import { UserDataProvider } from "../context/UserContextProvider";
 import { client } from "../wagmi";
 import "../styles/globals.css";
@@ -22,7 +21,6 @@ function App({ Component, pageProps }: AppProps) {
                 <NextHead>
                     <title>Lepricon App</title>
                 </NextHead>
-                <NftOwnersUpdate />
                 <div className={inter.className} style={{ fontFamily: "Sora, sans-serif" }}>
                     {mounted && <Component {...pageProps} />}
                 </div>

@@ -3,9 +3,9 @@ import Link from "next/link";
 import LuckyLepricat from "public/nft/LuckyLepricat.png";
 import { useAccount } from "wagmi";
 
+import ParticleBackground from "./ParticlesBackground";
 import styles from "../../../styles/Home.module.css";
 import { ButtonAction, ConnectButton } from "../../elements";
-import ParticleBackground from "./ParticlesBackground";
 
 const Home = () => {
     const { isConnected } = useAccount();

@@ -2,9 +2,9 @@ import React, { FC, ReactNode, useContext } from "react";
 
 import { useAccount, useNetwork } from "wagmi";
 
-import { useCoinmarketcapAPI } from "../hooks";
 import UserContext from "./context";
 import { useWeb3Data } from "./useWeb3Data";
+import { useCoinmarketcapAPI } from "../hooks";
 
 type Props = {
     children: ReactNode;

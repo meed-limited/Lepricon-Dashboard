@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { updateNftStatus } from "../../utils/db";
+import { URL } from "../../data/constant";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== "POST") {
@@ -13,12 +13,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, message: "Missing parameters" });
     }
     try {
-        await updateNftStatus(account, nftContractAddress, tokenId, status);
+        const body = JSON.stringify({
+            owner: account,
+            nftAddress: nftContractAddress,
+            nftId: tokenId,
+            status: status,
+        });
+
+        const updateDB_res = await fetch(`${URL}api/updateNft`, {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: body,
+        });
+        const DB_response = await updateDB_res.json();
+
         console.log(`BOOST FOR ACCOUNT ${account} REMOVED SUCCESSFULLY!`);
 
         return res.status(200).json({
             success: true,
-            message: "NFT status removed successfully!",
+            message: DB_response.message,
         });
     } catch (error: any) {
         console.error(error);

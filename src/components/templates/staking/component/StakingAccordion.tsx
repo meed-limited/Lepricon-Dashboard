@@ -6,12 +6,12 @@ import Text from "antd/lib/typography/Text";
 import Image from "next/image";
 import l3p from "public/images/l3p.png";
 
+import AccordionData from "./AccordionData";
+import StakingAction from "./StakingAction";
 import { useUserData } from "../../../../context/UserContextProvider";
 import { useWindowWidthAndHeight } from "../../../../hooks";
 import styles from "../../../../styles/Staking.module.css";
 import { usePoolData } from "../hooks";
-import AccordionData from "./AccordionData";
-import StakingAction from "./StakingAction";
 
 type StakingAccordionProps = {
     subTitle: string;

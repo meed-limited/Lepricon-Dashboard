@@ -7,7 +7,7 @@
 
 </div>
 
--   All-in-One Dashbord": Access all info in one place: NFTs, Tokens, Staking and more!
+-   All-in-One Dashbord: Access all info in one place: NFTs, Tokens, Staking and more!
 -   Stake your tokens in different pools, with different yields.
 -   Select an NFT from a compatible collection to gain some extra staking yield!
 

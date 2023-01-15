@@ -1,6 +1,7 @@
 import Modal from "antd/lib/modal/Modal";
 import Image from "next/image";
 
+import NftTextDetails from "./NftTextDetails";
 import styles from "../../../../styles/Wallet.module.css";
 import {
     getBoostAttributes,
@@ -8,7 +9,6 @@ import {
     getSeriesAttributes,
     getEditionAttributes,
 } from "../../../../utils/getNftAttributes";
-import NftTextDetails from "./NftTextDetails";
 
 const NftsDetailsModal: React.FC<NftDetailsProps> = ({ nft, isModalOpen, setIsModalOpen }) => {
     return (

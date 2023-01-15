@@ -5,11 +5,11 @@ import Image from "next/image";
 
 import polygon_img from "/public/images/polygon_img.png";
 
+import { WalletData } from "./component";
 import { useUserData } from "../../../context/UserContextProvider";
 import { DEX_URL } from "../../../data/constant";
 import styles from "../../../styles/Wallet.module.css";
 import { DisplayNft } from "../../elements";
-import { WalletData } from "./component";
 
 const Wallet: FC = () => {
     const { tokenName, balances, price, stakeSummary } = useUserData();

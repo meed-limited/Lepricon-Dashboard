@@ -2,12 +2,12 @@ import { FC, useState } from "react";
 
 import { InputNumber, Spin } from "antd";
 
+import DetailsModal from "./DetailsModal";
+import WithdrawSingleModal from "./WithdrawSingleModal";
 import { useUserData } from "../../../../context/UserContextProvider";
 import styles from "../../../../styles/Staking.module.css";
 import { ButtonAction, ButtonMax } from "../../../elements";
 import { useStakeAction } from "../hooks";
-import DetailsModal from "./DetailsModal";
-import WithdrawSingleModal from "./WithdrawSingleModal";
 
 const ActionPane: FC<ActionPaneProps> = ({ id, lock, title, deposited, max }) => {
     const { balances, tokenName } = useUserData();

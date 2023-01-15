@@ -5,9 +5,9 @@ import { fetchEnsAddress, FetchEnsAddressResult, fetchEnsResolver } from "@wagmi
 import { Input, InputRef } from "antd";
 import { utils } from "ethers";
 
+import Jazzicons from "./Jazzicons";
 import { isProdEnv } from "../../../data/constant";
 import { getEllipsisTxt } from "../../../utils/format";
-import Jazzicons from "./Jazzicons";
 
 const AddressInput: React.FC<any> = (props: any) => {
     const input = useRef<InputRef>(null);

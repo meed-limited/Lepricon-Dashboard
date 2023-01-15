@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { useUserData } from "../context/UserContextProvider";
 import useReadContract from "./useReadContract";
+import { useUserData } from "../context/UserContextProvider";
 
 export const useCurrentOwner = () => {
     const { address } = useUserData();

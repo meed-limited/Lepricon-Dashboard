@@ -2,10 +2,10 @@ import { Schema, model, models } from "mongoose";
 
 import { isProdEnv } from "../constant";
 
-const collectionName = isProdEnv ? process.env.MONGODB_DB_COLLECTION : process.env.MONGODB_DB_COLLECTION_TEST;
+const collectionName = isProdEnv ? process.env.MONGODB_COLLECTION : process.env.MONGODB_COLLECTION_TEST;
 
 if (!collectionName) {
-    throw new Error("MONGODB_DB_COLLECTION or MONGODB_DB_COLLECTION_TEST is not defined");
+    throw new Error("MONGODB_COLLECTION or MONGODB_COLLECTION_TEST is not defined");
 }
 
 const nftSchema = new Schema({
@@ -79,7 +79,7 @@ const nftSchema = new Schema({
 });
 
 const NftSchema = isProdEnv
-    ? models.Lepricon_nft_owners || model(collectionName, nftSchema)
-    : models.Lepritest_nft_owners || model(collectionName, nftSchema);
+    ? models.lepricon_nft_owners || model(collectionName, nftSchema)
+    : models.lepritest_nft_owners || model(collectionName, nftSchema);
 
 export default NftSchema;

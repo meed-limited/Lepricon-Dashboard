@@ -1,15 +1,15 @@
 import { FileSearchOutlined } from "@ant-design/icons";
 import { BigNumber, providers, Contract, utils } from "ethers";
 
-import { TestToken } from "../../types/TestToken";
+import { useContract } from "./useContract";
 import { LepriconStaking } from "../../types/LepriconStaking";
 import { LepriTest } from "../../types/LepriTest";
+import { TestToken } from "../../types/TestToken";
 import { useUserData } from "../context/UserContextProvider";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
 import { getExplorer } from "../utils/getExplorerByChain";
 import { openNotification } from "../utils/notifications";
-import { useContract } from "./useContract";
 
 const useWriteContract = () => {
     const { address, tokenName, syncWeb3 } = useUserData();

@@ -1,12 +1,12 @@
 import { providers, Contract } from "ethers";
 import { useAccount } from "wagmi";
 
-import { TestToken } from "../../types/TestToken";
+import { useContract } from "./useContract";
 import { LepriconStaking } from "../../types/LepriconStaking";
 import { LepriTest } from "../../types/LepriTest";
+import { TestToken } from "../../types/TestToken";
 import { TOKEN_ABI, NFT_ABI, STAKING_ABI } from "../data/abis";
 import { getContractAddresses } from "../data/constant";
-import { useContract } from "./useContract";
 
 const useReadContract = () => {
     const { address } = useAccount();
