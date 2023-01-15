@@ -30,6 +30,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             tokenAddress: nftAddress.toLowerCase(),
         };
         const result = await NftSchema.find(query);
+
+        if (!result || result.length === 0) {
+            return res.status(400).json({ success: false, message: "No Nft matches this quety in MongoDB" });
+        }
+
         const nft = result[0];
 
         // Edit & save NFT status in Mongo DB
