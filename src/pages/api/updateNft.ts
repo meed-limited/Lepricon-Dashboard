@@ -20,15 +20,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ success: false, message: "MONGODB_URI is not defined" });
     }
 
-
-
     try {
         await mongoose.connect(mongodbUri);
 
         // Get NFT object from Mongo DB
         const query = {
             ownerOf: owner.toLowerCase(),
-            tokenId: nftId,
+            tokenId: Number(nftId),
             tokenAddress: nftAddress.toLowerCase(),
         };
         const result = await NftSchema.find(query);
