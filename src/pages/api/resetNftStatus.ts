@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-
-import { URL } from "../../data/constant";
+import { isProdEnv } from "../../data/constant";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+    const URL_EXTERNAL = process.env.SIGNING_URL;
+
     if (req.method !== "POST") {
         return res.status(405).send({ message: "Only POST requests allowed" });
     }
@@ -12,29 +13,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!account || !nftContractAddress || tokenId === undefined || status === undefined) {
         return res.status(400).json({ success: false, message: "Missing parameters" });
     }
+
     try {
         const body = JSON.stringify({
-            owner: account,
-            nftAddress: nftContractAddress,
-            nftId: tokenId,
+            account: account,
+            nftContractAddress: nftContractAddress,
+            tokenId: tokenId,
             status: status,
+            chain: "POLYGON",
+            network: isProdEnv ? "mainnet" : "testnet",
         });
 
-        const updateDB_res = await fetch(`${URL}api/updateNft`, {
+        const response = await fetch(`${URL_EXTERNAL}staking/resetBoost`, {
             method: "POST",
             headers: {
+                Authorization: `Bearer ${process.env.SIGNING_KEY}`,
                 accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: body,
         });
-        const DB_response = await updateDB_res.json();
+        const data = await response.json();
 
         console.log(`BOOST FOR ACCOUNT ${account} REMOVED SUCCESSFULLY!`);
 
         return res.status(200).json({
             success: true,
-            message: DB_response.message,
+            message: data.message,
         });
     } catch (error: any) {
         console.error(error);

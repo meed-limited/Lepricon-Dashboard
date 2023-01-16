@@ -1,15 +1,13 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
 import { useUserData } from "../../../../context/UserContextProvider";
-import { useWriteContract } from "../../../../hooks";
 import { useBoostAPI } from "../../../../hooks/useBoostAPI";
 import { getBoostAttributes } from "../../../../utils/getNftAttributes";
 import { openNotification } from "../../../../utils/notifications";
 
 export const useBoostAction = () => {
     const { address, boostStatus, syncWeb3 } = useUserData();
-    const { setBoost, resetBoostInDb } = useBoostAPI();
-    const { resetBoost } = useWriteContract();
+    const { setBoost, resetBoost } = useBoostAPI();
     const [loading, setLoading] = useState<boolean>(false);
 
     const applyNFTboost = async (nft: Nft) => {
@@ -31,9 +29,8 @@ export const useBoostAction = () => {
         if (boostStatus) {
             const id = boostStatus?.tokenId;
             const nftAddress = boostStatus?.NftContractAddress;
-            await resetBoost()
+            await resetBoost(address as string, nftAddress, id, false)
                 .then(() => {
-                    resetBoostInDb(address as string, nftAddress, id, false);
                     setSelectedNFT(undefined);
                     syncWeb3();
                     setLoading(false);

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { isProdEnv, URL } from "../../data/constant";
+import { isProdEnv } from "../../data/constant";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const URL_EXTERNAL = process.env.SIGNING_URL; // RestAPI server
@@ -79,29 +79,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
 
-        // 3. Update nft status in MongoDb
-        const body3 = JSON.stringify({
-            owner: account,
-            nftAddress: nftContractAddress,
-            nftId: tokenId,
-            status: true,
-        });
-
-        const updateDB_res = await fetch(`${URL}api/updateNft`, {
-            method: "POST",
-            headers: {
-                accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: body3,
-        });
-        const DB_response = await updateDB_res.json();
-
         console.log(`${boost}% BOOST FOR ACCOUNT ${account} SUCCESSFULLY SET!`);
         return res.status(200).json({
             success: true,
-            message: DB_response.message,
-            data: DB_response,
+            message: response.message,
+            data: response.data,
         });
     } catch (error) {
         return res.status(400).json({
