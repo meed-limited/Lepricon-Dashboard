@@ -19,7 +19,7 @@ export const URL = "https://www.app.lepricon.io/"; // Front-end server
 export const DEX_URL = "https://quickswap.exchange/#/";
 
 // Production => Polygon
-export const TOKEN = "0x91191A15E778d46255FC9AcD37D028228D97e786";
+export const TOKEN = "0x76Bba8c6D70690514e642cb68C93AF9a2ac826A4"; // LEP token
 export const LEPRICON_NFT = "0x777777b9d283ed394e89d11fa853b1e4f885b3e6"; //ETH
 export const STAKING = "";
 
