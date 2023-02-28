@@ -1,18 +1,23 @@
+import { lazy, Suspense } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import LuckyLepricat from "public/nft/LuckyLepricat.png";
 import { useAccount } from "wagmi";
 
-import ParticleBackground from "./ParticlesBackground";
 import styles from "../../../styles/Home.module.css";
 import { ButtonAction, ConnectButton } from "../../elements";
+
+const ParticleBackground = lazy(() => import("./ParticlesBackground"));
 
 const Home = () => {
     const { isConnected } = useAccount();
 
     return (
         <div className={styles.main}>
-            <ParticleBackground />
+            <Suspense>
+                <ParticleBackground />
+            </Suspense>
             <div className={styles.content}>
                 <h1 className={styles.title}>
                     Lepricon Wallet
